@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.LinkedList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,18 +45,15 @@ public class Signin extends HttpServlet {
 		String password = request.getParameter("InputPass");
 		
 		//Valida email y password
-		usr.setId(Id);
 		usr.setContraseña(password);
 		usr.setEmail(email);
 		
 		usr=usrLogic.getOne(usr);
+		LinkedList<Usuario> usrs=usrLogic.getAll();
+		request.getSession().setAttribute("usuario", usr);
+		request.setAttribute("listaUsuarios", usrs); 
 		
-
-		response.getWriter()
-		.append("bienvenido ")
-		.append(usr.getNickname())
-		.append(" ")
-		.append(usr.getNombreUsuario());
+		request.getRequestDispatcher("WEB-INF/UserManagment.jsp");
 		
 		
 	}

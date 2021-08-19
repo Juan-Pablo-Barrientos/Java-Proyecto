@@ -55,12 +55,12 @@ public class DataUsuario {
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select id,nombre_usuario,email,contraseña,nickname,fecha_nacimiento,telefono"
-					+ " from usuario where contraseña=? AND (email=? OR nickname=?)"
+					+ " from usuario where contraseña=? AND (email=? OR nombre_usuario=?)"
 					);
 			
 			stmt.setString(1, us.getContraseña());
 			stmt.setString(2, us.getEmail());	
-			stmt.setString(3, us.getNickname());	
+			stmt.setString(3, us.getNombreUsuario());	
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				u=new Usuario();				
