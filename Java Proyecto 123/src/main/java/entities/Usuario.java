@@ -11,6 +11,7 @@ public class Usuario {
 	private String nickname;
 	private LocalDateTime fechaNacimiento;
 	private String telefono;
+	private String tipo;
 	
 	public int getId() {
 		return id;
@@ -53,6 +54,12 @@ public class Usuario {
 	}
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	
 	

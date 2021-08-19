@@ -15,7 +15,7 @@ public class DataUsuario {
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono"
+					"select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo"
 					+ " from usuario where id=?"
 					);
 			
@@ -29,6 +29,7 @@ public class DataUsuario {
 				u.setNickname(rs.getString("nickname"));
 				u.setFechaNacimiento(rs.getObject("fecha_nacimiento",LocalDateTime.class));
 				u.setTelefono(rs.getString("telefono"));
+				u.setTipo(rs.getString("tipo"));
 							
 			}
 		} catch (SQLException e) {
@@ -53,7 +54,7 @@ public class DataUsuario {
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono"
+					"select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo"
 					+ " from usuario where contraseña=? AND (email=? OR nombre_usuario=?)"
 					);
 			
@@ -69,6 +70,7 @@ public class DataUsuario {
 				u.setNickname(rs.getString("nickname"));
 				u.setFechaNacimiento(rs.getObject("fecha_nacimiento",LocalDateTime.class));
 				u.setTelefono(rs.getString("telefono"));
+				u.setTipo(rs.getString("tipo"));
 							
 			}
 		} catch (SQLException e) {
@@ -93,7 +95,7 @@ public class DataUsuario {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono from usuario");			
+			rs= stmt.executeQuery("select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo from usuario");			
 			if(rs!=null) {
 				while(rs.next()) {
 					Usuario u=new Usuario();
@@ -102,7 +104,8 @@ public class DataUsuario {
 					u.setEmail(rs.getString("email"));					
 					u.setNickname(rs.getString("nickname"));
 					u.setFechaNacimiento(rs.getObject("fecha_nacimiento",LocalDateTime.class));
-					u.setTelefono(rs.getString("telefono"));								
+					u.setTelefono(rs.getString("telefono"));
+					u.setTipo(rs.getString("tipo"));
 					usrs.add(u);
 				}
 			}
@@ -132,8 +135,8 @@ public class DataUsuario {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into usuario(nombre_usuario,email,contraseña,nickname,fecha_nacimiento,telefono) "
-							+ "values(?,?,?,?,?,?)",
+							"insert into usuario(nombre_usuario,email,contraseña,nickname,fecha_nacimiento,telefono,tipo) "
+							+ "values(?,?,?,?,?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			
@@ -143,6 +146,7 @@ public class DataUsuario {
 			stmt.setString(4, u.getNickname());
 			stmt.setObject(5,u.getFechaNacimiento());
 			stmt.setString(6, u.getTelefono());
+			stmt.setString(7, u.getTipo());
 				
 			stmt.executeUpdate();
 			
@@ -172,7 +176,7 @@ public class DataUsuario {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
 							"update usuario set nombre_usuario=?,email=?,contraseña=?,"
-							+ "nickname=?,fecha_nacimiento=?,telefono=? where id=?");
+							+ "nickname=?,fecha_nacimiento=?,telefono=?,tipo=? where id=?");
 			
 			stmt.setString(1, u.getNombreUsuario());
 			stmt.setString(2,u.getEmail());
@@ -180,7 +184,8 @@ public class DataUsuario {
 			stmt.setString(4, u.getNickname());
 			stmt.setObject(5,u.getFechaNacimiento());
 			stmt.setString(6, u.getTelefono());			
-			stmt.setInt(7, u.getId());		
+			stmt.setInt(7, u.getId());
+			stmt.setString(8, u.getTipo());
 			
 			stmt.executeUpdate();
 			
