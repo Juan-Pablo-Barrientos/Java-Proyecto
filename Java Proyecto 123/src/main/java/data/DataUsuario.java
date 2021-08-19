@@ -47,6 +47,47 @@ public class DataUsuario {
 		return u;
 	}
 	
+	public Usuario getOneByUserName(Usuario us) {
+		
+		Usuario u=null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"select id,nombre_usuario,email,contraseña,nickname,fecha_nacimiento,telefono"
+					+ " from usuario where contraseña=? AND (email=? OR nickname=?)"
+					);
+			
+			stmt.setString(1, us.getContraseña());
+			stmt.setString(2, us.getEmail());	
+			stmt.setString(3, us.getNickname());	
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) {
+				u=new Usuario();				
+				u.setId(rs.getInt("id"));
+				u.setNombreUsuario(rs.getString("nombre_usuario"));
+				u.setEmail(rs.getString("email"));
+				u.setContraseña(rs.getString("contraseña"));
+				u.setNickname(rs.getString("nickname"));
+				u.setFechaNacimiento(rs.getObject("fecha_nacimiento",LocalDateTime.class));
+				u.setTelefono(rs.getString("telefono"));
+							
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return u;
+	}
+	
 	public LinkedList<Usuario> getAll(){		
 		Statement stmt=null;
 		ResultSet rs=null;
