@@ -17,6 +17,11 @@ private DataUsuario db= new DataUsuario();
 		return db.getOne(obj);
 		
 	} 
+	
+	public Usuario getOneByUserName(Usuario obj) {
+		return db.getOneByUserName(obj);
+		
+	} 
 		
 	public Usuario add(Usuario obj) {
 			return db.add(obj);
