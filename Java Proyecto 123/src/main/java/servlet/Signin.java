@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import logic.UsuarioLogic;
+import entities.Usuario;
 
 /**
  * Servlet implementation class Signin
@@ -34,14 +36,27 @@ public class Signin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		Usuario usr= new Usuario();
+		UsuarioLogic usrLogic = new UsuarioLogic();
+		int Id = Integer.parseInt(request.getParameter("InputId"));
 		String email = request.getParameter("InputEmail");
 		String password = request.getParameter("InputPass");
+		
+		//Valida email y password
+		usr.setId(Id);
+		usr.setContraseña(password);
+		usr.setEmail(email);
+		
+		usr=usrLogic.getOne(usr);
+		
+
 		response.getWriter()
-		.append("Email: ")
-		.append(email)
-		.append("Pass: ")
-		.append(password)
-		.append(" post at: ").append(request.getContextPath());
+		.append("bienvenido ")
+		.append(usr.getNickname())
+		.append(" ")
+		.append(usr.getNombreUsuario());
+		
+		
 	}
 
 }
