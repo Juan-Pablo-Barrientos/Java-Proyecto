@@ -62,7 +62,7 @@ public class DataUsuario {
 					u.setNombreUsuario(rs.getString("nombre_usuario"));
 					u.setEmail(rs.getString("email"));
 					u.setContraseña(rs.getString("contraseña"));
-					u.setContraseña(rs.getString("nickname"));
+					u.setNickname(rs.getString("nickname"));
 					u.setFechaNacimiento(rs.getObject("fecha_nacimiento",LocalDateTime.class));
 					u.setTelefono(rs.getString("telefono"));								
 					usrs.add(u);
