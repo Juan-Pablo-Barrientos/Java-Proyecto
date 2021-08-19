@@ -60,7 +60,7 @@ public class DataUsuario {
 			
 			stmt.setString(1, us.getContraseña());
 			stmt.setString(2, us.getEmail());	
-			stmt.setString(3, us.getEmail());	
+			stmt.setString(3, us.getNombreUsuario());	
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				u=new Usuario();				

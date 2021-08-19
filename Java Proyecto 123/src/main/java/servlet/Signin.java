@@ -40,20 +40,22 @@ public class Signin extends HttpServlet {
 		// TODO Auto-generated method stub
 		Usuario usr= new Usuario();
 		UsuarioLogic usrLogic = new UsuarioLogic();
-		int Id = Integer.parseInt(request.getParameter("InputId"));
 		String email = request.getParameter("InputEmail");
 		String password = request.getParameter("InputPass");
 		
 		//Valida email y password
 		usr.setContraseña(password);
 		usr.setEmail(email);
+		usr.setNombreUsuario(email);
 		
-		usr=usrLogic.getOne(usr);
+		usr=usrLogic.getOneByUserName(usr);
 		LinkedList<Usuario> usrs=usrLogic.getAll();
 		request.getSession().setAttribute("usuario", usr);
 		request.setAttribute("listaUsuarios", usrs); 
 		
-		request.getRequestDispatcher("WEB-INF/UserManagment.jsp");
+		response.getWriter().append(usr.getNickname());
+		
+		//request.getRequestDispatcher("WEB-INF/UserManagement.jsp").forward(request, response);
 		
 		
 	}
