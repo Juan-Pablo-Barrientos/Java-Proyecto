@@ -11,7 +11,7 @@ public class DbConnector {
 	private String port="3306";
 	private String user="java";
 	private String password="himitsu";
-	private String db="java";
+	private String db="market_tp";
 	private int conectados=0;
 	private Connection conn=null;
 	
