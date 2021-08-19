@@ -15,7 +15,7 @@ public class DataUsuario {
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select id,nombre_usuario,email,contraseña,nickname,fecha_nacimiento,telefono"
+					"select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono"
 					+ " from usuario where id=?"
 					);
 			
@@ -25,8 +25,7 @@ public class DataUsuario {
 				u=new Usuario();				
 				u.setId(rs.getInt("id"));
 				u.setNombreUsuario(rs.getString("nombre_usuario"));
-				u.setEmail(rs.getString("email"));
-				u.setContraseña(rs.getString("contraseña"));
+				u.setEmail(rs.getString("email"));				
 				u.setNickname(rs.getString("nickname"));
 				u.setFechaNacimiento(rs.getObject("fecha_nacimiento",LocalDateTime.class));
 				u.setTelefono(rs.getString("telefono"));
@@ -54,7 +53,7 @@ public class DataUsuario {
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select id,nombre_usuario,email,contraseña,nickname,fecha_nacimiento,telefono"
+					"select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono"
 					+ " from usuario where contraseña=? AND (email=? OR nombre_usuario=?)"
 					);
 			
@@ -66,8 +65,7 @@ public class DataUsuario {
 				u=new Usuario();				
 				u.setId(rs.getInt("id"));
 				u.setNombreUsuario(rs.getString("nombre_usuario"));
-				u.setEmail(rs.getString("email"));
-				u.setContraseña(rs.getString("contraseña"));
+				u.setEmail(rs.getString("email"));		
 				u.setNickname(rs.getString("nickname"));
 				u.setFechaNacimiento(rs.getObject("fecha_nacimiento",LocalDateTime.class));
 				u.setTelefono(rs.getString("telefono"));
@@ -95,14 +93,13 @@ public class DataUsuario {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select id,nombre_usuario,email,contraseña,nickname,fecha_nacimiento,telefono from usuario");			
+			rs= stmt.executeQuery("select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono from usuario");			
 			if(rs!=null) {
 				while(rs.next()) {
 					Usuario u=new Usuario();
 					u.setId(rs.getInt("id"));
 					u.setNombreUsuario(rs.getString("nombre_usuario"));
-					u.setEmail(rs.getString("email"));
-					u.setContraseña(rs.getString("contraseña"));
+					u.setEmail(rs.getString("email"));					
 					u.setNickname(rs.getString("nickname"));
 					u.setFechaNacimiento(rs.getObject("fecha_nacimiento",LocalDateTime.class));
 					u.setTelefono(rs.getString("telefono"));								
