@@ -18,7 +18,7 @@
 
 <%
 Usuario usr = (Usuario) session.getAttribute("usuario");
-LinkedList<Usuario> lu = (LinkedList<Usuario>) request.getAttribute("listaPersonas");
+LinkedList<Usuario> lu = (LinkedList<Usuario>) request.getAttribute("listaUsuarios");
 %>
 
 </head>
@@ -28,43 +28,44 @@ LinkedList<Usuario> lu = (LinkedList<Usuario>) request.getAttribute("listaPerson
 			<h4>Usuarios</h4>
 			<div class="col-12 col-sm-12 col-lg-12">
 				<div class="table-responsive">
-					<table class="table"></table>
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>Nombre usuario</th>
-							<th>Email</th>
-							<th>Nickname</th>
-							<th>Fecha de nacimiento</th>
-							<th>Telefono</th>
-							<th>Tipo Usuario</th>
-							<th></th>
-							<!-- editar -->
-							<th></th>
-							<!-- borrar -->
-						</tr>
-					</thead>
-					<tbody>
-						<%
-						for (Usuario u : lu) {
-						%>
-						<tr>
-							<td><%=usr.getId()%></td>
-							<td><%=usr.getNombreUsuario()%></td>
-							<td><%=usr.getEmail()%></td>
-							<td><%=usr.getNickname()%></td>
-							<td><%=usr.getFechaNacimiento()%></td>
-							<td><%=usr.getTelefono()%></td>
-							<td><%=usr.getTipo()%></td>
-							<td></td>
-							<!-- editar -->
-							<td></td>
-							<!-- borrar -->
-						</tr>
-						<%
-						}
-						%>
-					</tbody>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Nombre usuario</th>
+								<th>Email</th>
+								<th>Nickname</th>
+								<th>Fecha de nacimiento</th>
+								<th>Telefono</th>
+								<th>Tipo Usuario</th>
+								<th></th>
+								<!-- editar -->
+								<th></th>
+								<!-- borrar -->
+							</tr>
+						</thead>
+						<tbody>
+							<%
+							for (Usuario u : lu) {
+							%>
+							<tr>
+								<td><%=u.getId()%></td>
+								<td><%=u.getNombreUsuario()%></td>
+								<td><%=u.getEmail()%></td>
+								<td><%=u.getNickname()%></td>
+								<td><%=u.getFechaNacimiento()%></td>
+								<td><%=u.getTelefono()%></td>
+								<td><%=u.getTipo()%></td>
+								<td></td>
+								<!-- editar -->
+								<td></td>
+								<!-- borrar -->
+							</tr>
+							<%
+							}
+							%>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>

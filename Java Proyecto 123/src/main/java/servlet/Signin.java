@@ -53,9 +53,7 @@ public class Signin extends HttpServlet {
 		request.getSession().setAttribute("usuario", usr);
 		request.setAttribute("listaUsuarios", usrs); 
 		
-		response.getWriter().append(usr.getNickname());
-		
-		//request.getRequestDispatcher("WEB-INF/UserManagement.jsp").forward(request, response);
+		request.getRequestDispatcher("Homepage.jsp").forward(request, response);
 		
 		
 	}
