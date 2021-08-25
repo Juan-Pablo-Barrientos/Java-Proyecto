@@ -66,11 +66,9 @@
 					required>
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail1">Fecha de nacimiento</label>
+				<label for="InputFechaNacimiento">Fecha de nacimiento</label> <input type="date" id="idFechaNacimiento" name="InputFechaNacimiento" required> 
 			</div>
-			Año <select class="year" id="yearId" name="yearDdl"></select> Mes <select
-				class="month" id="monthId"name="monthDdl"></select> Dia <select class="day"
-				id="dayId"name="dayDdl"></select>
+			
 			<p></p>
 			<button type="submit" name="submit" class="btn btn-lg btn-primary">Ingresar</button>
 		</form>
