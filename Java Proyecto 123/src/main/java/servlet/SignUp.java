@@ -49,10 +49,6 @@ public class SignUp extends HttpServlet {
 		usr.setNombreUsuario(request.getParameter("InputUsuario"));
 		usr.setTipo("usuario");
 		usr.setEmail(request.getParameter("InputEmail"));
-		//int year=Integer.valueOf(request.getParameter("yearDdl"));
-		//int month=Integer.valueOf(request.getParameter("monthDdl"))+1;
-		//int day=Integer.valueOf(request.getParameter("dayDdl"));
-		//LocalDate date = LocalDate.of(year,month,day);
 		LocalDate date = LocalDate.parse(request.getParameter("InputFechaNacimiento"));
 		usr.setFechaNacimiento(date);
 		
