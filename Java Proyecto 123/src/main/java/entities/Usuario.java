@@ -1,6 +1,7 @@
 package entities;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Usuario {
 	
@@ -9,7 +10,7 @@ public class Usuario {
 	private String email;
 	private String contraseña;
 	private String nickname;
-	private LocalDateTime fechaNacimiento;
+	private LocalDate fechaNacimiento;
 	private String telefono;
 	private String tipo;
 	
@@ -43,10 +44,10 @@ public class Usuario {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	public LocalDateTime getFechaNacimiento() {
+	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	public String getTelefono() {

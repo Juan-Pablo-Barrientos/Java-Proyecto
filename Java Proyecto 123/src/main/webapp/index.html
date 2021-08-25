@@ -6,10 +6,10 @@
 <meta charset="ISO-8859-1">
 <title>Java</title>
 </head>
-<body>
+<body style="background-color:black">
 	<div class="container"
-		style="border: 2px solid black; border-radius: 20px; background-color: gold; margin-top:20%">
-		<form role="form" style="margin: 20px" action="signin" method="post" >
+		style="border: 2px solid black; border-radius: 20px; background-color: gold; margin-top:20%;">
+		<form role="form" style="margin: 20px;" action="signin" method="post" >
 			<div class="form-group">
 				<label for="exampleInputEmail1">Usuario o Email</label> <input
 					type="text" class="form-control" id="exampleInputEmail1"
@@ -27,6 +27,12 @@
 			</div>
 			<button type="submit" class="btn btn-lg btn-primary">Ingresar</button>
 		</form>
+		<form method="post" action="signUp.jsp">
+    <button type="submit" style="margin-bottom:5px; margin-left:20px" class="btn btn-link btn-sm">Registarse</button>
+</form>
+		<form method="post" action="">
+    <button type="submit" style="margin-bottom:5px; margin-left:20px" class="btn btn-link btn-sm">Olvide mi contraseña</button>
+</form>
 	</div>
 </body>
 </html>

@@ -5,6 +5,7 @@ import entities.*;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
+import java.time.LocalDate;
 
 public class DataUsuario {
 	
@@ -27,7 +28,7 @@ public class DataUsuario {
 				u.setNombreUsuario(rs.getString("nombre_usuario"));
 				u.setEmail(rs.getString("email"));				
 				u.setNickname(rs.getString("nickname"));
-				u.setFechaNacimiento(rs.getObject("fecha_nacimiento",LocalDateTime.class));
+				u.setFechaNacimiento(rs.getObject("fecha_nacimiento",LocalDate.class));
 				u.setTelefono(rs.getString("telefono"));
 				u.setTipo(rs.getString("tipo"));
 							
@@ -68,7 +69,7 @@ public class DataUsuario {
 				u.setNombreUsuario(rs.getString("nombre_usuario"));
 				u.setEmail(rs.getString("email"));		
 				u.setNickname(rs.getString("nickname"));
-				u.setFechaNacimiento(rs.getObject("fecha_nacimiento",LocalDateTime.class));
+				u.setFechaNacimiento(rs.getObject("fecha_nacimiento",LocalDate.class));
 				u.setTelefono(rs.getString("telefono"));
 				u.setTipo(rs.getString("tipo"));
 							
@@ -103,7 +104,7 @@ public class DataUsuario {
 					u.setNombreUsuario(rs.getString("nombre_usuario"));
 					u.setEmail(rs.getString("email"));					
 					u.setNickname(rs.getString("nickname"));
-					u.setFechaNacimiento(rs.getObject("fecha_nacimiento",LocalDateTime.class));
+					u.setFechaNacimiento(rs.getObject("fecha_nacimiento",LocalDate.class));
 					u.setTelefono(rs.getString("telefono"));
 					u.setTipo(rs.getString("tipo"));
 					usrs.add(u);

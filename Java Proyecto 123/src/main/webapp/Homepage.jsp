@@ -12,7 +12,6 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="http://getbootstrap.com/favicon.ico">
-<meta charset="ISO-8859-1">
 <link href="Styles/Style.css" rel="stylesheet" type="text/css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
