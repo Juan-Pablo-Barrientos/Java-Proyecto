@@ -86,7 +86,7 @@ public class DataReembolso {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select id,razon,estado,comentario_evaluador from reembolso WHERE estado=Pendiente");			
+			rs= stmt.executeQuery("select id,razon,estado,comentario_evaluador from reembolso WHERE estado='Pendiente' ");			
 			if(rs!=null) {
 				while(rs.next()) {
 					Reembolso r=new Reembolso();

@@ -49,7 +49,11 @@ LinkedList<Reembolso> rems = (LinkedList<Reembolso>) request.getAttribute("lista
 							%>
 							<tr>
 								<td><%=r.getId()%></td>
-								<td><%=com.getNroSerie()%></td>						
+								<td><%=com.getNroSerie()%></td>
+								<td><%=com.getNroSerie()%></td>	
+								<td><%=com.getNroSerie()%></td>	
+								<td><%=com.getNroSerie()%></td>	
+								<td><%=com.getNroSerie()%></td>							
 								<td></td>
 								<td></td>
 							</tr>
