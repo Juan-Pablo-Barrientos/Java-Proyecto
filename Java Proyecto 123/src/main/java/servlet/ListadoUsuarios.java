@@ -43,7 +43,7 @@ public class ListadoUsuarios extends HttpServlet {
 		UsuarioLogic usrLogic = new UsuarioLogic();
 		LinkedList<Usuario> usrs=usrLogic.getAll();
 		request.setAttribute("listaUsuarios", usrs); 
-		request.getRequestDispatcher("ListadoUsuarios.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/UserManagement.jsp").forward(request, response);
 		
 
 	}
