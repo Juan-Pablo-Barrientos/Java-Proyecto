@@ -1,7 +1,7 @@
 <%@page import="java.util.LinkedList"%>
 <%@page import="entities.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,12 +26,14 @@ LinkedList<Usuario> lu = (LinkedList<Usuario>) request.getAttribute("listaUsuari
 
 </head>
 <body style="background-color: black"">
-	<div class="center" style="background-color: gold; text-align:center;">
-		<div class="center2" >
-<h3>Bienvenido <%=usr.getNickname() %></h3>
-		<h1>Juegos</h1>
-			<div id="carouselExampleInterval" class="carousel slide" style="border:5px solid black"
-				data-bs-ride="carousel">
+	<div class="center" style="background-color: gold; text-align: center;">
+		<div class="center2">
+			<h3>
+				Bienvenido
+				<%=usr.getNickname()%></h3>
+			<h1>Juegos</h1>
+			<div id="carouselExampleInterval" class="carousel slide"
+				style="border: 5px solid black" data-bs-ride="carousel">
 				<div class="carousel-inner">
 					<div class="carousel-item active">
 						<img src="img/1.jpg" class="d-block w-100" alt="...">
@@ -56,10 +58,15 @@ LinkedList<Usuario> lu = (LinkedList<Usuario>) request.getAttribute("listaUsuari
 					<span class="carousel-control-next-icon" aria-hidden="true"></span>
 					<span class="visually-hidden">Next</span>
 				</button>
-				<form  action="ListadoUsuarios" method="post">
-				<button type="submit">Listado Usuarios</button>
+				<form action="ListadoUsuarios" method="post">
+					<button type="submit">Listado Usuarios</button>
 				</form>
 			</div>
+		</div>
+		<div class="container" align="right">
+			<form action="SignOut" method="post">
+				<button type="submit">Cerrar Sesión</button>
+			</form>
 		</div>
 	</div>
 	<script
