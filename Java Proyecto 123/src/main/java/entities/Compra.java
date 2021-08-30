@@ -1,9 +1,6 @@
 package entities;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.time.*;
 
 public class Compra {
 	
@@ -14,26 +11,12 @@ public class Compra {
 	private int id_reseña;
 	private int horas_jugadas;
 	private LocalDateTime dateFechaHora;
-	private LocalDate dateFecha;
-	private LocalTime dateHora;
 	
 	public LocalDateTime getDateFechaHora() {
 		return dateFechaHora;
 	}
 	public void setDateFechaHora(LocalDateTime dateFechaHora) {
 		this.dateFechaHora = dateFechaHora;
-	}
-	public LocalDate getDateFecha() {
-		return dateFecha;
-	}
-	public void setDateFecha(LocalDate dateFecha) {
-		this.dateFecha = dateFecha;
-	}
-	public LocalTime getDateHora() {
-		return dateHora;
-	}
-	public void setDateHora(LocalTime dateHora) {
-		this.dateHora = dateHora;
 	}
 	public int getNroSerie() {
 		return nroSerie;
