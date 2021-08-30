@@ -59,6 +59,9 @@ LinkedList<Usuario> lu = (LinkedList<Usuario>) request.getAttribute("listaUsuari
 				<form  action="ListadoUsuarios" method="post">
 				<button type="submit">Listado Usuarios</button>
 				</form>
+				<form  action="ListadoReembolsoPendiente" method="post">
+				<button type="submit">Listado Reembolso</button>
+				</form>
 			</div>
 		</div>
 	</div>
