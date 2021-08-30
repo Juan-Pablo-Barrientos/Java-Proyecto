@@ -52,8 +52,8 @@ public class Signin extends HttpServlet {
 		LinkedList<Usuario> usrs=usrLogic.getAll();
 		request.getSession().setAttribute("usuario", usr);
 		request.setAttribute("listaUsuarios", usrs); 
-		
-		request.getRequestDispatcher("Homepage.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+		//request.getRequestDispatcher("Homepage.jsp").forward(request, response);
 		
 		
 	}
