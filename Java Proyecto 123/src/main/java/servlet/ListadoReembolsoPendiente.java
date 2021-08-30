@@ -11,9 +11,9 @@ import entities.Reembolso;
 import java.util.*;
 
 /**
- * Servlet implementation class ListadoUsuarios
+ * Servlet implementation class ListadoReembolsoPendiente
  */
-@WebServlet("/ListadoUsuarios")
+@WebServlet("/ListadoReembolsoPendiente")
 public class ListadoReembolsoPendiente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -43,7 +43,6 @@ public class ListadoReembolsoPendiente extends HttpServlet {
 		request.setAttribute("listaReembolso", rems); 
 		request.getRequestDispatcher("/WEB-INF/Reembolso.jsp").forward(request, response);
 		
-
 	}
 
 }

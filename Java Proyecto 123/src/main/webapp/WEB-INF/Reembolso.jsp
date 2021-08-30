@@ -23,6 +23,7 @@ LinkedList<Reembolso> rems = (LinkedList<Reembolso>) request.getAttribute("lista
 
 </head>
 <body>
+
 	<div class="container">
 		<div class="row">
 			<h4>Reembolsos</h4>
@@ -38,9 +39,7 @@ LinkedList<Reembolso> rems = (LinkedList<Reembolso>) request.getAttribute("lista
 								<th>HS Jugadas</th>
 								<th>Estado</th>								
 								<th></th>
-								<!-- editar -->
 								<th></th>
-								<!-- borrar -->
 							</tr>
 						</thead>
 						<tbody>
@@ -52,9 +51,7 @@ LinkedList<Reembolso> rems = (LinkedList<Reembolso>) request.getAttribute("lista
 								<td><%=r.getId()%></td>
 								<td><%=com.getNroSerie()%></td>						
 								<td></td>
-								<!-- editar -->
 								<td></td>
-								<!-- borrar -->
 							</tr>
 							<%
 							}
@@ -65,5 +62,6 @@ LinkedList<Reembolso> rems = (LinkedList<Reembolso>) request.getAttribute("lista
 			</div>
 		</div>
 	</div>
+	
 </body>
 </html>
