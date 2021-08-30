@@ -17,6 +17,11 @@ public class JuegoLogic {
 		return db.getOne(obj);
 		
 	}
+	
+	public Juego getOne(int i) {
+		return db.getOne(i);
+		
+	}
 		
 	public Juego add(Juego obj) {
 			return db.add(obj);

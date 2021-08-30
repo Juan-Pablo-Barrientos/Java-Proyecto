@@ -49,6 +49,48 @@ public class DataJuego {
 		return j;
 	}
 	
+public Juego getOne(int jue) {
+		
+		Juego j=null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad"
+					+ " from juego where id=?"
+					);
+			
+			stmt.setInt(1, jue);			
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) {
+				j=new Juego();		
+				j.setId(rs.getInt("id"));
+				j.setIdPublicador(rs.getInt("id_publicador"));
+				j.setIdDesarrollador(rs.getInt("id_desarrollador"));
+				j.setNombre(rs.getString("nombre"));
+				j.setDescripcion(rs.getString("descripcion"));
+				j.setPrecioBase(rs.getDouble("precio_base"));
+				j.setDescuento(rs.getDouble("descuento"));
+				j.setGenero(rs.getString("genero"));
+				j.setFecha_publicacion(rs.getDate("fecha_publicacion"));
+				j.setReestriccionPorEdad(rs.getInt("restriccion_por_edad"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return j;
+	}
+	
 	public LinkedList<Juego> getAll(){		
 		Statement stmt=null;
 		ResultSet rs=null;

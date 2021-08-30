@@ -32,7 +32,7 @@ LinkedList<Reembolso> rems = (LinkedList<Reembolso>) request.getAttribute("lista
 					<table class="table">
 						<thead>
 							<tr>
-								<th>Id</th>
+								<th>Id Reembolso</th>
 								<th>Nombre usuario</th>
 								<th>IdUsuario</th>
 								<th>Nombre del Juego</th>
@@ -45,15 +45,17 @@ LinkedList<Reembolso> rems = (LinkedList<Reembolso>) request.getAttribute("lista
 						<tbody>
 							<%
 							for (Reembolso r : rems) {
-							   Compra com = new CompraLogic().getOneByReembolso(r);						   
+							   Compra com = new CompraLogic().getOneByReembolso(r);
+							   Juego j = new JuegoLogic().getOne(com.getId_juego());
+							   Usuario u = new UsuarioLogic().getOne(com.getId_usuario());
 							%>
 							<tr>
 								<td><%=r.getId()%></td>
-								<td><%=com.getNroSerie()%></td>
-								<td><%=com.getNroSerie()%></td>	
-								<td><%=com.getNroSerie()%></td>	
-								<td><%=com.getNroSerie()%></td>	
-								<td><%=com.getNroSerie()%></td>							
+								<td><%=u.getNombreUsuario()%></td>
+								<td><%=u.getId()%></td>	
+								<td><%=j.getNombre()%></td>	
+								<td><%=com.getHoras_jugadas()%></td>	
+								<td><%=r.getEstado()%></td>							
 								<td></td>
 								<td></td>
 							</tr>

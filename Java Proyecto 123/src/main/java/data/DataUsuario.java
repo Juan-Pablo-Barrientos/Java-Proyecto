@@ -48,6 +48,45 @@ public class DataUsuario {
 		return u;
 	}
 	
+public Usuario getOne(int us) {
+		
+		Usuario u=null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo"
+					+ " from usuario where id=?"
+					);
+			
+			stmt.setInt(1, us);			
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) {
+				u=new Usuario();				
+				u.setId(rs.getInt("id"));
+				u.setNombreUsuario(rs.getString("nombre_usuario"));
+				u.setEmail(rs.getString("email"));				
+				u.setNickname(rs.getString("nickname"));
+				u.setFechaNacimiento(rs.getObject("fecha_nacimiento",LocalDate.class));
+				u.setTelefono(rs.getString("telefono"));
+				u.setTipo(rs.getString("tipo"));
+							
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return u;
+	}
+	
 	public Usuario getOneByUserName(Usuario us) {
 		
 		Usuario u=null;
