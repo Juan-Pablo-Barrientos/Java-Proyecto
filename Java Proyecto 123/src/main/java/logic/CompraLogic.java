@@ -18,6 +18,11 @@ private DataCompra db= new DataCompra();
 		return db.getOne(obj);
 		
 	} 
+	
+	public Compra getOneByReembolso(Reembolso obj) {
+		return db.getOneByReembolso(obj);
+		
+	}
 		
 	public Compra add(Compra obj) {
 			return db.add(obj);

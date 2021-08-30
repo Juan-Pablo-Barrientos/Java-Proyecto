@@ -47,6 +47,45 @@ public class DataCompra {
 		return c;
 	}
 	
+	public Compra getOneByReembolso(Reembolso com) {
+		
+		Compra c=null;;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"select nroSerie,id_juego,id_usuario,id_reembolso,id_reseña,horas_jugadas,fecha_compra"
+					+ " from compra where id_reembolso=?"
+					);
+			
+			stmt.setInt(1, com.getId());			
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) {
+				c=new Compra();		
+				c.setNroSerie(rs.getInt("nroSerie"));
+				c.setId_juego(rs.getInt("id_juego"));
+				c.setId_usuario(rs.getInt("id_usuario"));
+				c.setId_reembolso(rs.getInt("id_reembolso"));
+				c.setId_reseña(rs.getInt("id_reseña"));
+				c.setHoras_jugadas(rs.getInt("horas_jugadas"));
+				c.setDateFechaHora(rs.getObject("fecha_compra",LocalDateTime.class));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return c;
+	}
+	
 	public LinkedList<Compra> getAll(){		
 		Statement stmt=null;
 		ResultSet rs=null;

@@ -78,6 +78,41 @@ public class DataReembolso {
 			
 		return rems;
 	}
+	
+	public LinkedList<Reembolso> getAllPendientes(){		
+		Statement stmt=null;
+		ResultSet rs=null;
+		LinkedList<Reembolso> rems= new LinkedList<>();
+		
+		try {
+			stmt= DbConnector.getInstancia().getConn().createStatement();
+			rs= stmt.executeQuery("select id,razon,estado,comentario_evaluador from reembolso WHERE estado=Pendiente");			
+			if(rs!=null) {
+				while(rs.next()) {
+					Reembolso r=new Reembolso();
+					r.setId(rs.getInt("id"));
+					r.setRazon(rs.getString("razon"));
+					r.setEstado(rs.getString("estado"));
+					r.setComentario(rs.getString("comentario_evaluador"));							
+					rems.add(r);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+			
+		return rems;
+	}
 
 	public Reembolso add(Reembolso r) {
 
@@ -144,7 +179,7 @@ public class DataReembolso {
 		}
 	}
 
-	public void Reembolso(Reembolso r) {
+	public void delete(Reembolso r) {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().

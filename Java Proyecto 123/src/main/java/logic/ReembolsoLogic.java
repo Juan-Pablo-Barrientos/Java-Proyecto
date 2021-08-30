@@ -5,12 +5,16 @@ import java.util.LinkedList;
 import data.*;
 import entities.*;
 
-public class DataReembolso {
+public class ReembolsoLogic {
 	
 private DataReembolso db= new DataReembolso();
 	
 	public LinkedList<Reembolso> getAll(){
 		return db.getAll();
+	}
+	
+	public LinkedList<Reembolso> getAllPendientes(){
+		return db.getAllPendientes();
 	}
 	
 	public Reembolso getOne(Reembolso obj) {
