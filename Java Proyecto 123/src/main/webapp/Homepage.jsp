@@ -56,6 +56,9 @@ LinkedList<Usuario> lu = (LinkedList<Usuario>) request.getAttribute("listaUsuari
 					<span class="carousel-control-next-icon" aria-hidden="true"></span>
 					<span class="visually-hidden">Next</span>
 				</button>
+				<form  action="ListadoUsuarios" method="post">
+				<button type="submit">Listado Usuarios</button>
+				</form>
 			</div>
 		</div>
 	</div>
