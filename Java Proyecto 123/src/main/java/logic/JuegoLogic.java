@@ -14,27 +14,23 @@ public class JuegoLogic {
 	}
 	
 	public Juego getOne(Juego obj) {
-		return db.getOne(obj);
-		
+		return this.getOne(obj.getId());	
 	}
 	
 	public Juego getOne(int i) {
-		return db.getOne(i);
-		
+		return db.getOne(i);		
 	}
 		
 	public Juego add(Juego obj) {
-			return db.add(obj);
-		
+			return db.add(obj);	
 	}
 	
 	public void update(Juego obj) {
-		 db.update(obj);
-		
+		 db.update(obj);	
 	}
+	
 	public void delete(Juego obj) {
-		 db.delete(obj);
-		
+		 db.delete(obj);	
 	}
 	
 }

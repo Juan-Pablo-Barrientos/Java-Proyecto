@@ -14,23 +14,19 @@ private DataUsuario db= new DataUsuario();
 	}
 	
 	public Usuario getOne(Usuario obj) {
-		return db.getOne(obj);
-		
+		return this.getOne(obj.getId());	
 	} 
 	
 	public Usuario getOne(int i) {
-		return db.getOne(i);
-		
+		return db.getOne(i);		
 	} 
 	
 	public Usuario getOneByUserName(Usuario obj) {
-		return db.getOneByUserName(obj);
-		
+		return db.getOneByUserName(obj);	
 	} 
 		
 	public Usuario add(Usuario obj) {
-			return db.add(obj);
-		
+			return db.add(obj);	
 	}
 	
 	public void update(Usuario obj) {
@@ -38,8 +34,7 @@ private DataUsuario db= new DataUsuario();
 		
 	}
 	public void delete(Usuario obj) {
-		 db.delete(obj);
-		
+		 db.delete(obj);		
 	}
 
 }
