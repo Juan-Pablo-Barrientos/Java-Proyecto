@@ -1,6 +1,6 @@
 package entities;
 
-public class Publicador {
+public class Publicador implements java.io.Serializable{
 	
 	private int id;
 	private String nombre;

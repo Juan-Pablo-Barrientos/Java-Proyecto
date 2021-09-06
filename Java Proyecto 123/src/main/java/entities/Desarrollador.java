@@ -1,6 +1,6 @@
 package entities;
 
-public class Desarrollador {
+public class Desarrollador implements java.io.Serializable{
 
 	private int id;
 	private String nombre;

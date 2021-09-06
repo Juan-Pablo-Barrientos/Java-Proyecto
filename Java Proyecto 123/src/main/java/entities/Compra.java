@@ -2,7 +2,7 @@ package entities;
 
 import java.time.LocalDateTime;
 
-public class Compra {
+public class Compra implements java.io.Serializable{
 	
 	private int nroSerie;
 	private int id_juego;

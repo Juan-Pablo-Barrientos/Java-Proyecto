@@ -3,7 +3,7 @@ package entities;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 
-public class Usuario {
+public class Usuario implements java.io.Serializable {
 	
 	private int id;
 	private String nombreUsuario;

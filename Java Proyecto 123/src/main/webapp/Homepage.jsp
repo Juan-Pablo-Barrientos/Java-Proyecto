@@ -1,7 +1,6 @@
-<%@page import="java.util.LinkedList"%>
-<%@page import="entities.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,26 +13,18 @@
 <meta name="author" content="">
 <link rel="icon" href="http://getbootstrap.com/favicon.ico">
 <link href="Styles/Style.css" rel="stylesheet" type="text/css" />
-<link href="Styles/sticky-footer.css" rel="stylesheet">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
-	crossorigin="anonymous">
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
 <title>Homepage</title>
-<%
-Usuario usr = (Usuario) session.getAttribute("usuario");
-LinkedList<Usuario> lu = (LinkedList<Usuario>) request.getAttribute("listaUsuarios");
-%>
 <style>
 </style>
 
 </head>
 <body style="background-color: black">
+
 	<div id="wrapper">
 		<nav class="navbar navbar-expand-lg"
 			style="color: black; background-color: gold;">
-			<a class="navbar-brand" style="padding: 5px; color: grey" href="#">Juego
+			<a class="navbar-brand" style="padding: 5px; color: grey" href="Homepage.jsp">Juego
 				Mundo</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarNav" aria-controls="navbarNav"
@@ -47,8 +38,14 @@ LinkedList<Usuario> lu = (LinkedList<Usuario>) request.getAttribute("listaUsuari
 					</a></li>
 					<li class="nav-item"><a class="nav-link" style="color: black"
 						href="#">Placeholder</a></li>
-					<li class="nav-item"><a class="nav-link" style="color: black"
-						href="#">Placeholder</a></li>
+					
+					<li><a class="nav-link" style="color: black" href="#">Placeholder</a>
+					</li><li class="nav-item">
+					<c:if test="${usuario.tipo==('admin')}">
+							<form action="PanelAdministracion" method="post">
+								<button class="btn btn-success" type="submit">Panel de administracion</button>
+							</form>
+						</c:if></li>
 				</ul>
 				<ul class="navbar-nav ms-auto" style="margin-right: 10px">
 					<li class="nav-item"><form action="SignOut" method="post"
@@ -66,7 +63,8 @@ LinkedList<Usuario> lu = (LinkedList<Usuario>) request.getAttribute("listaUsuari
 				<div class="col ">
 					<h3>
 						Bienvenido
-						<%=usr.getNickname()%></h3>
+						${usuario.nickname}</h3>
+						
 				</div>
 				<div class="col ">3 of 3</div>
 			</div>
@@ -110,20 +108,12 @@ LinkedList<Usuario> lu = (LinkedList<Usuario>) request.getAttribute("listaUsuari
 			</div>
 			<div class="row  " style="height: 50vh">
 				<div class="col" style="padding: 5px;">
-					<form action="ListadoUsuarios" method="post">
-						<button class="btn btn-success" type="submit">Listado
-							Usuarios</button>
-					</form>
+					fdjfj
 				</div>
 				<div class="col" style="padding: 5px;">
-					<form action="ListadoReembolsoPendiente" method="post">
-						<button class="btn btn-success" type="submit">Listado
-							Reembolso</button>
-					</form>
+					fyj
 				</div>
-				<div class="col" style="padding: 5px;">
-					3 of 3
-				</div>
+				<div class="col" style="padding: 5px;">3 of 3</div>
 			</div>
 		</main>
 		<footer class="nav-footer" style="background: orange; padding: 10px">

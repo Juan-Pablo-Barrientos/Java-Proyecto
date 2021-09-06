@@ -1,6 +1,6 @@
 package entities;
 
-public class Reembolso {
+public class Reembolso implements java.io.Serializable{
 
 	private int id;
 	private String comentario;

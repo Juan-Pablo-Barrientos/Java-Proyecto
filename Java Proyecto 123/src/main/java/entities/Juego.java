@@ -2,7 +2,7 @@ package entities;
 
 
 import java.util.Date;
-public class Juego
+public class Juego implements java.io.Serializable
 {
 	private int id;
 	private int idPublicador;
