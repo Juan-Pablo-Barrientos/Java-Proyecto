@@ -1,6 +1,5 @@
 package entities;
 
-import java.time.LocalDateTime;
 import java.time.LocalDate;
 
 public class Usuario implements java.io.Serializable {

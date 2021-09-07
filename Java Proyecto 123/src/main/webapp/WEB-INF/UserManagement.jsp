@@ -1,10 +1,11 @@
-<%@page import="entities.Usuario"%>
-<%@page import="java.util.LinkedList"%>
+<%@ page import="entities.Usuario"%>
+<%@ page import="java.util.LinkedList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-	
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,14 +16,9 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="http://getbootstrap.com/favicon.ico">
-<title>User Management</title>
+<title>Listado de Usuarios</title>
 <link href="Styles/Style.css" rel="stylesheet" type="text/css" />
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-
-<%
-Usuario usr = (Usuario) session.getAttribute("usuario");
-LinkedList<Usuario> lu = (LinkedList<Usuario>) request.getAttribute("listaUsuarios");
-%>
 
 </head>
 <body>
@@ -48,25 +44,21 @@ LinkedList<Usuario> lu = (LinkedList<Usuario>) request.getAttribute("listaUsuari
 							</tr>
 						</thead>
 						<tbody>
-							<%
-							for (Usuario u : lu) {
-							%>
-							<tr>
-								<td><%=u.getId()%></td>
-								<td><%=u.getNombreUsuario()%></td>
-								<td><%=u.getEmail()%></td>
-								<td><%=u.getNickname()%></td>
-								<td><%=u.getFechaNacimiento()%></td>
-								<td><%=u.getTelefono()%></td>
-								<td><%=u.getTipo()%></td>
-								<td></td>
-								<!-- editar -->
-								<td></td>
-								<!-- borrar -->
-							</tr>
-							<%
-							}
-							%>
+							<c:forEach items="${listaUsuarios}" var="u">
+								<tr>
+									<td><c:out value="${u.id}"></c:out></td>
+									<td><c:out value="${u.nombreUsuario}"></c:out></td>
+									<td><c:out value="${u.email}"></c:out></td>
+									<td><c:out value="${u.nickname}"></c:out></td>
+									<td><c:out value="${u.fechaNacimiento}"></c:out></td>
+									<td><c:out value="${u.telefono}"></c:out></td>
+									<td><c:out value="${u.tipo}"></c:out></td>
+									<td></td>
+									<!-- editar -->
+									<td></td>
+									<!-- borrar -->
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
