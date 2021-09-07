@@ -22,6 +22,7 @@
 
 </head>
 <body>
+	<jsp:include page="/Navbar.jsp" />
 	<div class="container">
 		<div class="row">
 			<h4>Usuarios</h4>
@@ -65,5 +66,7 @@
 			</div>
 		</div>
 	</div>
+	</main>
+	<jsp:include page="/Footer.jsp" />
 </body>
 </html>

@@ -17,83 +17,42 @@
 <title>Panel de Administracion</title>
 </head>
 <body style="background-color: black">
+	<jsp:include page="/Navbar.jsp"/>
+		<div class="row ">
+			<div class="col ">1 of 3</div>
+			<div class="col "></div>
+			<div class="col ">3 of 3</div>
+		</div>
+		<div class="row">
+			<div class="col ">1 of 3</div>
+			<div class="col" style="justify-content: center">
 
-	<div id="wrapper">
-		<nav class="navbar navbar-expand-lg"
-			style="color: black; background-color: gold;">
-			<a class="navbar-brand" style="padding: 10px; color: grey" href="Homepage.jsp">Juego
-				Mundo</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarNav" aria-controls="navbarNav"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav">
-					<li class="nav-item active"><a class="nav-link"
-						style="color: black" href="#">Home <span class="sr-only">(current)</span>
-					</a></li>
-					<li class="nav-item"><a class="nav-link" style="color: black"
-						href="#">Placeholder</a></li>
+				<div class="col " style="">3 of 3</div>
+			</div>
+		</div>
+		<div class="row  " style="height: 50vh">
+			<div class="col" style="padding: 5px;">
+				<form action="ListadoUsuarios" method="post">
+					<button class="btn btn-success" type="submit">Listado
+						Usuarios</button>
+				</form>
+			</div>
+			<div class="col" style="padding: 5px;">
+				<form action="ListadoReembolsoPendiente" method="post">
+					<button class="btn btn-success" type="submit">Listado
+						Reembolso</button>
 
-					<li><a class="nav-link" style="color: black" href="#">Placeholder</a>
-					</li>
-					<li class="nav-item"><c:if test="${usuario.tipo==('admin')}">
-							<form action="PanelAdministracion" method="post">
-								<button class="btn btn-success" type="submit">Panel de
-									administracion</button>
-							</form>
-						</c:if></li>
-				</ul>
-				<ul class="navbar-nav ms-auto" style="margin-right: 10px">
-					<li class="nav-item"><form action="SignOut" method="post"
-							style="text-align: right;">
-							<button class="btn btn-danger" "type="submit">Cerrar
-								Sesión</button>
-						</form></li>
-				</ul>
+				</form>
 			</div>
-		</nav>
-		<main role="main" class="container"
-			style="background-color: gold; text-align: center">
-			<div class="row ">
-				<div class="col ">1 of 3</div>
-				<div class="col "></div>
-				<div class="col ">3 of 3</div>
-			</div>
-			<div class="row">
-				<div class="col ">1 of 3</div>
-				<div class="col" style="justify-content: center">
+			<div class="col" style="padding: 5px;">3 of 3</div>
+		</div>
+	</main>
 
-					<div class="col " style="">3 of 3</div>
-				</div>
-			</div>
-			<div class="row  " style="height: 50vh">
-				<div class="col" style="padding: 5px;">
-					<form action="ListadoUsuarios" method="post">
-						<button class="btn btn-success" type="submit">Listado
-							Usuarios</button>
-					</form>
-				</div>
-				<div class="col" style="padding: 5px;">
-					<form action="ListadoReembolsoPendiente" method="post">
-						<button class="btn btn-success" type="submit">Listado
-							Reembolso</button>
-
-					</form>
-				</div>
-				<div class="col" style="padding: 5px;">3 of 3</div>
-			</div>
-		</main>
-		<footer class="nav-footer" style="background: orange; padding: 10px">
-			<div class="container">
-				<span>Place sticky footer content here.</span>
-			</div>
-		</footer>
-	</div>
+	<jsp:include page="/Footer.jsp" />
 	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+		 src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" 
 		integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
 		crossorigin="anonymous"></script>
 </body>
 </html>
+

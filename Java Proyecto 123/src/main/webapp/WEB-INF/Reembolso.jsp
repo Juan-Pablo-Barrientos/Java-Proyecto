@@ -23,7 +23,7 @@ LinkedList<Reembolso> rems = (LinkedList<Reembolso>) request.getAttribute("lista
 
 </head>
 <body>
-
+<jsp:include page="/Navbar.jsp"/>
 	<div class="container">
 		<div class="row">
 			<h4>Reembolsos</h4>
@@ -68,6 +68,7 @@ LinkedList<Reembolso> rems = (LinkedList<Reembolso>) request.getAttribute("lista
 			</div>
 		</div>
 	</div>
-	
+	</main>
+<jsp:include page="/Footer.jsp"/>
 </body>
 </html>
