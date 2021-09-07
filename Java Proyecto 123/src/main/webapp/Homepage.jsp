@@ -22,9 +22,10 @@
 <body style="background-color: black">
 
 	<div id="wrapper">
+	<jsp:include page="WEB-INF/PanelAdministracion.jsp">
 		<nav class="navbar navbar-expand-lg"
 			style="color: black; background-color: gold;">
-			<a class="navbar-brand" style="padding: 5px; color: grey" href="Homepage.jsp">Juego
+			<a class="navbar-brand" style="padding: 10px; color: grey" href="Homepage.jsp">Juego
 				Mundo</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarNav" aria-controls="navbarNav"
@@ -121,6 +122,7 @@
 				<span>Place sticky footer content here.</span>
 			</div>
 		</footer>
+		</jsp:include>
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"

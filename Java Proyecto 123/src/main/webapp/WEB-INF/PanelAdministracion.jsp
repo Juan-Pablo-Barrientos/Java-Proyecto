@@ -21,7 +21,7 @@
 	<div id="wrapper">
 		<nav class="navbar navbar-expand-lg"
 			style="color: black; background-color: gold;">
-			<a class="navbar-brand" style="padding: 5px; color: grey" href="Homepage.jsp">Juego
+			<a class="navbar-brand" style="padding: 10px; color: grey" href="Homepage.jsp">Juego
 				Mundo</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarNav" aria-controls="navbarNav"
