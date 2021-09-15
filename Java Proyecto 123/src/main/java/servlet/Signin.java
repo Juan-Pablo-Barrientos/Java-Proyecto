@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.LinkedList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,7 +48,6 @@ public class Signin extends HttpServlet {
 		usr.setNombreUsuario(email);
 		
 		usr=usrLogic.getOneByUserName(usr);
-		LinkedList<Usuario> usrs=usrLogic.getAll();
 		request.getSession().setAttribute("usuario", usr);
 		response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 		//request.getRequestDispatcher("Homepage.jsp").forward(request, response);

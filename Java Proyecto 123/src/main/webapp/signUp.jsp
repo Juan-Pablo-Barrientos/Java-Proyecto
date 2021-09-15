@@ -6,7 +6,7 @@
 <link href="Styles/Style.css" rel="stylesheet" type="text/css" />
 
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Java</title>
 
 
@@ -42,8 +42,8 @@
 					class="form-control" id="idContraseña"
 					placeholder="Ingrese Contraseña" name="InputPassword" required>
 				<label style="font-style: italic;">La contraseña debe tener
-					entre 8 y 16 caracteres al menos un digito, una minuscula y una
-					mayuscula </label>
+					entre 8 y 16 caracteres al menos un digito, una minúscula y una
+					mayúscula </label>
 			</div>
 			<div class="form-group">
 				<label for="exampleInputEmail1">Confirmar contraseña</label> <input
