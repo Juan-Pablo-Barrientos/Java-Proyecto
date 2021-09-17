@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+  </head>
+  <body>
+    <table
+  id="table"
+  data-toggle="table">
+  <thead>
+    <tr>
+      <th data-field="id">ID</th>
+      <th data-field="name">Item Name</th>
+      <th data-field="price">Item Price</th>
+      <th data-field="operate" data-formatter="operateFormatter" data-events="operateEvents">Operator</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Bold Item</td>
+      <td>$0</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    
+	<script src="bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+	
+<script>
+  var $table = $('#table')
+
+  function operateFormatter(value, row, index) {
+    return [
+      '<a class="like" href="javascript:void(0)" title="Like">',
+      '<i class="fas fa-heart"></i>',
+      '</a>  ',
+      '<a class="remove" href="javascript:void(0)" title="Remove">',
+      '<i class="fas fa-trash"></i>',
+      '</a>'
+    ].join('')
+  }
+
+  window.operateEvents = {
+    'click .like': function (e, value, row, index) {
+      alert([row.id])
+    },
+    'click .remove': function (e, value, row, index) {
+      $table.bootstrapTable('remove', {
+        field: 'id',
+        values: [row.id]
+      })
+    }
+  }
+</script>
+  </body>
+</html>
