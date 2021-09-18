@@ -36,8 +36,7 @@ public class ListadoReembolsoPendiente extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		CompraViewLogic compraViewLogic = new CompraViewLogic();
 		LinkedList<CompraView> rems= compraViewLogic.getAll();
 		request.setAttribute("listaCompraView", rems); 
