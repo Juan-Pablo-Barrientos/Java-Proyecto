@@ -6,8 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import logic.ReembolsoLogic;
-import entities.Reembolso;
+import logic.*;
+import entities.*;
 import java.util.*;
 
 /**
@@ -38,11 +38,10 @@ public class ListadoReembolsoPendiente extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ReembolsoLogic remLogic = new ReembolsoLogic();
-		LinkedList<Reembolso> rems= remLogic.getAllPendientes();
-		request.setAttribute("listaReembolso", rems); 
-		request.getRequestDispatcher("/WEB-INF/Reembolso.jsp").forward(request, response);
-		
+		CompraViewLogic compraViewLogic = new CompraViewLogic();
+		LinkedList<CompraView> rems= compraViewLogic.getAll();
+		request.setAttribute("listaCompraView", rems); 
+		request.getRequestDispatcher("/WEB-INF/Reembolso.jsp").forward(request, response);		
 	}
 
 }

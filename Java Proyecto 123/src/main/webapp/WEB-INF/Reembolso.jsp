@@ -3,6 +3,10 @@
 <%@page import="java.util.LinkedList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%@ page isELIgnored="false"%>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,10 +21,6 @@
 <link href="Styles/Style.css" rel="stylesheet" type="text/css" />
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
-<%
-LinkedList<Reembolso> rems = (LinkedList<Reembolso>) request.getAttribute("listaReembolso");
-%>
-
 </head>
 <body>
 <jsp:include page="/Navbar.jsp"/>
@@ -32,36 +32,28 @@ LinkedList<Reembolso> rems = (LinkedList<Reembolso>) request.getAttribute("lista
 					<table class="table">
 						<thead>
 							<tr>
-								<th>Id Reembolso</th>
-								<th>Nombre usuario</th>
-								<th>IdUsuario</th>
-								<th>Nombre del Juego</th>
-								<th>HS Jugadas</th>
-								<th>Estado</th>								
-								<th></th>
-								<th></th>
+								<th data-field="idReembolso">Id Reembolso</th>
+								<th data-field="nombreUsuario">Nombre del usuario</th>
+								<th data-field="idUsuario">Id Usuario</th>
+								<th data-field="nombreJuego">Nombre del juego</th>
+								<th data-field="horasJugadas">Horas jugadas</th>
+								<th data-field="estado">Estado</th>						
+								<th data-field="operate" data-formatter="operateFormatter"
+									data-events="operateEvents"></th>
 							</tr>
 						</thead>
 						<tbody>
-							<%
-							for (Reembolso r : rems) {
-							   Compra com = new CompraLogic().getOneByReembolso(r);
-							   Juego j = new JuegoLogic().getOne(com.getId_juego());
-							   Usuario u = new UsuarioLogic().getOne(com.getId_usuario());
-							%>
-							<tr>
-								<td><%=r.getId()%></td>
-								<td><%=u.getNombreUsuario()%></td>
-								<td><%=u.getId()%></td>	
-								<td><%=j.getNombre()%></td>	
-								<td><%=com.getHoras_jugadas()%></td>	
-								<td><%=r.getEstado()%></td>							
-								<td></td>
-								<td></td>
-							</tr>
-							<%
-							}
-							%>
+						<c:forEach items="${listaCompraView}" var="c">
+								<tr>
+									<td><c:out value="${c.reembolso.id}"></c:out></td>
+									<td><c:out value="${c.usuario.nombreUsuario}"></c:out></td>
+									<td><c:out value="${c.usuario.id}"></c:out></td>
+									<td><c:out value="${c.juego.nombre}"></c:out></td>			
+									<td><c:out value="${c.compra.horas_jugadas}"></c:out></td>
+									<td><c:out value="${c.reembolso.estado}"></c:out></td>														
+									<td></td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
