@@ -68,7 +68,7 @@
 			</div>
 			
 			<p></p>
-			<button type="submit" name="submit" class="btn btn-lg btn-primary">Ingresar</button>
+			<button type="submit" name="submit" class="btn btn-lg btn-primary">Confirmar registro</button>
 		</form>
 	</div>
 	<script type="text/javascript">
