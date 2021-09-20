@@ -17,7 +17,7 @@ public class DataUsuario {
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo"
-					+ " from usuario where id=?"
+					+ " from usuario where id=? and habilitado=1"
 					);
 			
 			stmt.setInt(1, us);			
@@ -56,7 +56,7 @@ public class DataUsuario {
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo"
-					+ " from usuario where contraseña=? AND (email=? OR nombre_usuario=?)"
+					+ " from usuario where contraseña=? AND (email=? OR nombre_usuario=?) AND habilitado=1"
 					);
 			
 			stmt.setString(1, us.getContraseña());
@@ -96,7 +96,7 @@ public class DataUsuario {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo from usuario");			
+			rs= stmt.executeQuery("select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo from usuario where habilitado=1");			
 			if(rs!=null) {
 				while(rs.next()) {
 					Usuario u=new Usuario();
@@ -207,8 +207,9 @@ public class DataUsuario {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"delete from usuario where id=?");
-			stmt.setInt(1, u.getId());
+							"update usuario set habilitado=? where id=?");
+			stmt.setInt(1, 0);
+			stmt.setInt(2, u.getId());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
             e.printStackTrace();
