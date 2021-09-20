@@ -36,28 +36,6 @@ public class Signin extends HttpServlet
 	// TODO Auto-generated method stub
 	response.getWriter().append("get at: ").append(request.getContextPath());
     }
-
-<<<<<<< HEAD
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		Usuario usr= new Usuario();
-		UsuarioLogic usrLogic = new UsuarioLogic();
-		String email = request.getParameter("InputEmail");
-		String password = request.getParameter("InputPass");
-			
-		//Valida email y password
-		usr.setContraseña(password);
-		usr.setEmail(email);
-		usr.setNombreUsuario(email);
-		usr=usrLogic.getOneByUserName(usr);
-		request.getSession().setAttribute("usuario", usr);
-		response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
-		
-		
-=======
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
      *      response)
@@ -78,7 +56,6 @@ public class Signin extends HttpServlet
 	try
 	{
 	    usr = usrLogic.getOneByUserName(usr);
->>>>>>> branch 'main' of git@github.com:Juan-Pablo-Barrientos/Java-Proyecto.git
 	}
 	catch (SQLException e)
 	{

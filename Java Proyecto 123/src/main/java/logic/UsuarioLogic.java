@@ -16,33 +16,16 @@ public class UsuarioLogic
 	return db.getAll();
     }
 
+    
     public Usuario getOne(Usuario obj) throws SQLException
     {
 	try
 	{
 	    return this.getOne(obj.getId());
 	}
-<<<<<<< HEAD
-	
-	public Usuario getOne(Usuario obj) {
-		return this.getOne(obj.getId());	
-	} 
-	
-	public Usuario getOne(int i) {
-		return db.getOne(i);		
-	} 
-	
-	public Usuario getOneByUserName(Usuario obj) {
-		return db.getOneByUserName(obj);	
-	} 
-		
-	public Usuario add(Usuario obj) {
-		return db.add(obj);	
-=======
 	catch (SQLException e)
 	{
 	    throw e;
->>>>>>> branch 'main' of git@github.com:Juan-Pablo-Barrientos/Java-Proyecto.git
 	}
     }
 
@@ -56,12 +39,6 @@ public class UsuarioLogic
 	{
 	    throw e;
 	}
-<<<<<<< HEAD
-	public void delete(int id) {
-		 db.delete(this.getOne(id));
-		 
-	}
-=======
     }
 
     public Usuario getOneByUserName(Usuario obj) throws SQLException
@@ -75,11 +52,14 @@ public class UsuarioLogic
 	    throw e;
 	}
     }
-
-    public Usuario add(Usuario obj)
-    {
-	return db.add(obj);
+	
+	
+		
+	public Usuario add(Usuario obj) {
+		return db.add(obj);	
+	
     }
+    
 
     public void update(Usuario obj)
     {
@@ -91,6 +71,13 @@ public class UsuarioLogic
     {
 	db.delete(obj);
     }
->>>>>>> branch 'main' of git@github.com:Juan-Pablo-Barrientos/Java-Proyecto.git
 
+	public void delete(int id)  throws SQLException {
+		 try {
+			db.delete(this.getOne(id));
+		} catch (SQLException e) {
+			throw e;
+		}
+		 
+	}
 }

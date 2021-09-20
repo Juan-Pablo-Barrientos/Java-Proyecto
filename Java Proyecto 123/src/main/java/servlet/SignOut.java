@@ -39,7 +39,7 @@ public class SignOut extends HttpServlet {
 		
 		//request.getSession(false);
 		request.getSession().invalidate();
-		response.sendRedirect(request.getContextPath() + "/index.html");
+		response.sendRedirect(request.getContextPath() + "/index.jsp");
 		//request.getRequestDispatcher("index.html").forward(request, response);
 	}
 
