@@ -24,6 +24,7 @@
 	crossorigin="anonymous" />
 <link rel="stylesheet"
 	href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+<title>Listado usuarios</title>
 </head>
 
 
@@ -31,10 +32,28 @@
 	<jsp:include page="/Navbar.jsp" />
 	<div class="container">
 		<div class="row">
+			<c:if test="${not empty result}">
+				<div class="modal fade" id="modalExito" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Usuario borrado</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">El usuario ha sido borrado con exito!</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendido!</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</c:if>
 			<h4>Usuarios</h4>
 			<div class="col-12 col-sm-12 col-lg-12">
 				<div class="table-responsive">
-					<table class="table-dark" id="table" data-toggle="table">
+					<table class="table" id="table" data-toggle="table">
 						<thead>
 							<tr>
 								<th data-field="id">Id</th>
@@ -67,6 +86,30 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="modalBorrar" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Borrar usuario</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<label id="modalBorrarlbl"> </label>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Regresar</button>
+					<form method="post" action="ListadoUsuarios">
+						<input type="hidden" name="action" value="delete" /> <input
+							type="hidden" id="hiddenId" name="hiddenId" />
+						<button type="submit" class="btn btn-primary">Borrar</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 	</main>
 	<jsp:include page="/Footer.jsp" />
 	<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
@@ -78,30 +121,32 @@
 		src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 
 	<script>
-  var $table = $('#table')
+		var $table = $('#table')
 
-  function operateFormatter(value, row, index) {
-    return [
-      '<a class="like" href="javascript:void(0)" title="Like">',
-      '<i class="fas fa-heart"></i>',
-      '</a>  ',
-      '<a class="remove" href="javascript:void(0)" title="Remove">',
-      '<i class="fas fa-trash"></i>',
-      '</a>'
-    ].join('')
-  }
+		function operateFormatter(value, row, index) {
+			return [
+					'<a class="like" href="javascript:void(0)" title="Like">',
+					'<i class="fas fa-pencil"></i>',
+					'</a>  ',
+					'<a class="remove" href="javascript:void(0)" title="Remove">',
+					'<i class="fas fa-trash"></i>', '</a>' ].join('')
+		}
 
-  window.operateEvents = {
-    'click .like': function (e, value, row, index) {
-      alert([row.id])
-    },
-    'click .remove': function (e, value, row, index) {
-      $table.bootstrapTable('remove', {
-        field: 'id',
-        values: [row.id]
-      })
-    }
-  }
-</script>
+		window.operateEvents = {
+			'click .like' : function(e, value, row, index) {
+				alert([ row.id ])
+			},
+			'click .remove' : function(e, value, row, index) {
+				$("#modalBorrarlbl")
+						.text(
+								("Esta seguro de que quiere borrar el usuario " + row.nickname));
+				$("#modalBorrar").modal('show');
+				$("#hiddenId").val([ row.id ]);
+			}
+		};
+		$(window).on('load', function() {
+			$('#modalExito').modal('show');
+		});
+	</script>
 </body>
 </html>

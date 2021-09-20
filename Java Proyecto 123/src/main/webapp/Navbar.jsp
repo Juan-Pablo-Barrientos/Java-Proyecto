@@ -39,7 +39,7 @@
 					<li><a class="nav-link" style="color: black" href="#">Placeholder</a>
 					</li><li class="nav-item">
 					<c:if test="${usuario.tipo==('admin')}">
-							<form action="PanelAdministracion" method="post">
+							<form action="PanelAdministracion" method=get>
 								<button class="btn btn-success" type="submit">Panel de administracion</button>
 							</form>
 						</c:if></li>

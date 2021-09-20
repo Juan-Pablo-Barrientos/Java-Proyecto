@@ -21,8 +21,6 @@
 </head>
 <body style="background-color: black">
 <jsp:include page="Navbar.jsp"/>
-		<main role="main" class="container"
-			style="background-color: gold; text-align: center">
 			<div class="row ">
 				<div class="col ">1 of 3</div>
 				<div class="col ">

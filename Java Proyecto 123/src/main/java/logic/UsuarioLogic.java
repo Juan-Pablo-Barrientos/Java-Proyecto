@@ -26,7 +26,7 @@ private DataUsuario db= new DataUsuario();
 	} 
 		
 	public Usuario add(Usuario obj) {
-			return db.add(obj);	
+		return db.add(obj);	
 	}
 	
 	public void update(Usuario obj) {
@@ -35,6 +35,10 @@ private DataUsuario db= new DataUsuario();
 	}
 	public void delete(Usuario obj) {
 		 db.delete(obj);		
+	}
+	public void delete(int id) {
+		 db.delete(this.getOne(id));
+		 
 	}
 
 }

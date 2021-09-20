@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,21 +9,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import logic.UsuarioLogic;
+
 import entities.Usuario;
-import java.util.*;
+import logic.UsuarioLogic;
 
 /**
- * Servlet implementation class ListadoUsuarios
+ * Servlet implementation class ListadoUsuariosDisplay
  */
-@WebServlet("/ListadoUsuarios")
-public class ListadoUsuarios extends HttpServlet {
+@WebServlet("/ListadoUsuariosDisplay")
+public class ListadoUsuariosDisplay extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ListadoUsuarios() {
+	public ListadoUsuariosDisplay() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -37,6 +38,19 @@ public class ListadoUsuarios extends HttpServlet {
 		// Verifica que el usuario sea admin
 		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
 		if (usr.getTipo().equals("admin")) {
+
+			int success = Integer.parseInt(request.getParameter("s"));
+			switch (success) {
+			case 0:
+				request.setAttribute("result", "El usuario no ha podido ser borrado: " + request.getAttribute("error"));
+				break;
+			case 1:
+				request.setAttribute("result", "Usuario borrado con exito");
+				break;
+			case 2:
+				request.setAttribute("result", "Usuario se ha editado con exito");
+				break;
+			}
 			UsuarioLogic usrLogic = new UsuarioLogic();
 			LinkedList<Usuario> usrs = usrLogic.getAll();
 			request.setAttribute("listaUsuarios", usrs);
@@ -44,7 +58,6 @@ public class ListadoUsuarios extends HttpServlet {
 		} else {
 			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 		}
-
 	}
 
 	/**
@@ -54,35 +67,7 @@ public class ListadoUsuarios extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// Verifica que el usuario sea admin
-		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
-		int success = 0;
-		if (usr.getTipo().equals("admin")) {
-		if ("delete".equals(request.getParameter("action"))) {
-			try {
-				UsuarioLogic usrLogic = new UsuarioLogic();
-				int idUsuario = Integer.parseInt(request.getParameter("hiddenId"));
-				usrLogic.delete(idUsuario);
-				success = 1;
-			} catch (Exception e) {
-				request.setAttribute("error", e.getMessage());
-				success = 0;
-			}
-		}
-		response.sendRedirect("ListadoUsuariosDisplay.do?s=" + success);
-		}
-		else  {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
-			
-		}
-	}
-
-	/**
-	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
-	 */
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

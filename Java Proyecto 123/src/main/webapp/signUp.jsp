@@ -52,9 +52,9 @@
 					name="InputConfirmaPassword" required>
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail1">Nombre de pila</label> <input
+				<label for="exampleInputEmail1">Nickname</label> <input
 					type="text" class="form-control" id="idNickname"
-					placeholder="Ingrese nombre de pila" name="InputNickname" required>
+					placeholder="Ingrese nickname" name="InputNickname" required>
 			</div>
 			<div class="form-group">
 				<label for="exampleInputEmail1">Telefono</label> <input type="text"

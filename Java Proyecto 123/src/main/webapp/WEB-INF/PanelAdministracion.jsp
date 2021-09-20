@@ -32,7 +32,7 @@
 		</div>
 		<div class="row  " style="height: 50vh">
 			<div class="col" style="padding: 5px;">
-				<form action="ListadoUsuarios" method="post">
+				<form action="ListadoUsuarios" method="get">
 					<button class="btn btn-success" type="submit">Listado
 						Usuarios</button>
 				</form>

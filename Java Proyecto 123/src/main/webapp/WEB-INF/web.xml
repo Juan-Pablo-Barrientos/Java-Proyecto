@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+
+   <servlet>
+    <servlet-name>ListadoUsuarios</servlet-name>
+    <servlet-class>
+        servlet.ListadoUsuarios
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoUsuarios</servlet-name>
+    <url-pattern>/ListadoUsuarios.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ListadoUsuariosDisplay</servlet-name>
+    <servlet-class>
+        servlet.ListadoUsuariosDisplay
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoUsuariosDisplay</servlet-name>
+    <url-pattern>/ListadoUsuariosDisplay.do</url-pattern>
+  </servlet-mapping>
+</web-app>

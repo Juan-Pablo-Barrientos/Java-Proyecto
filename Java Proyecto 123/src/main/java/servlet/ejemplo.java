@@ -1,26 +1,24 @@
 package servlet;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import logic.UsuarioLogic;
-import entities.Usuario;
 
 /**
- * Servlet implementation class Signin
+ * Servlet implementation class ejemplo
  */
-@WebServlet({ "/Signin", "/signin", "/SIGNIN" })
-public class Signin extends HttpServlet {
+@WebServlet("/ejemplo")
+public class ejemplo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public Signin() {
+    public ejemplo() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -29,7 +27,7 @@ public class Signin extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("get at: ").append(request.getContextPath());
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -37,20 +35,14 @@ public class Signin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Usuario usr= new Usuario();
-		UsuarioLogic usrLogic = new UsuarioLogic();
-		String email = request.getParameter("InputEmail");
-		String password = request.getParameter("InputPass");
-			
-		//Valida email y password
-		usr.setContraseña(password);
-		usr.setEmail(email);
-		usr.setNombreUsuario(email);
-		usr=usrLogic.getOneByUserName(usr);
-		request.getSession().setAttribute("usuario", usr);
-		response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
-		
-		
+		doGet(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
+	 */
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 	}
 
 }

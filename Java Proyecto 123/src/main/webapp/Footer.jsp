@@ -19,7 +19,7 @@
 <body>
 <footer class="nav-footer" style="background: orange; padding: 10px">
 			<div class="container">
-				<span>Place sticky footer content here.</span>
+				<span>Trabajo Practico UTN FRRO Java.</span>
 			</div>
 		</footer>
 </body>

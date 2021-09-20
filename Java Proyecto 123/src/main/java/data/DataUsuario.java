@@ -55,7 +55,7 @@ public class DataUsuario {
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo"
+					"select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo,contraseña"
 					+ " from usuario where contraseña=? AND (email=? OR nombre_usuario=?) AND habilitado=1"
 					);
 			
@@ -72,7 +72,7 @@ public class DataUsuario {
 				u.setFechaNacimiento(rs.getObject("fecha_nacimiento",LocalDate.class));
 				u.setTelefono(rs.getString("telefono"));
 				u.setTipo(rs.getString("tipo"));
-							
+				u.setContraseña(rs.getString("contraseña"));			
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

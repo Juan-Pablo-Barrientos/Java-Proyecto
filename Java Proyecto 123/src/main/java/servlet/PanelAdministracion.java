@@ -1,11 +1,16 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.LinkedList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import entities.Usuario;
+import logic.UsuarioLogic;
 
 /**
  * Servlet implementation class PanelAdministracion
@@ -27,7 +32,16 @@ public class PanelAdministracion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("Homepage.jsp").forward(request, response);
+		//Verifica que el usuario sea admin
+				Usuario usr= (Usuario)request.getSession().getAttribute("usuario");
+				if (usr.getTipo().equals("admin"))
+				{
+					request.getRequestDispatcher("/WEB-INF/PanelAdministracion.jsp").forward(request, response);
+				}else {
+
+					response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+				}
+
 	}
 
 	/**
@@ -35,7 +49,6 @@ public class PanelAdministracion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/PanelAdministracion.jsp").forward(request, response);
 	}
 
 }
