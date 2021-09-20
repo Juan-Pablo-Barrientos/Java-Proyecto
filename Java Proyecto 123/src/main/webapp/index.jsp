@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +42,7 @@
 		</form>
 		<form method="post" action="">
 			<button type="submit" style="margin-bottom: 5px; margin-left: 20px"
-				class="btn btn-link btn-sm">Olvide mi contraseña</button>
+				class="btn btn-link btn-sm">Olvidé mi contraseña</button>
 		</form>
 	</div>
 </body>
