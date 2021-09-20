@@ -52,6 +52,7 @@ public class Signin extends HttpServlet
 	usr.setContraseña(password);
 	usr.setEmail(email);
 	usr.setNombreUsuario(email);
+	
 
 	try
 	{
@@ -59,12 +60,20 @@ public class Signin extends HttpServlet
 	}
 	catch (SQLException e)
 	{
+		request.setAttribute("result", "Lo servidores estan caidos.");
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
 	    throw new ServletException(e);
 	}
+	
+	if (usr!=null) { 
 	request.getSession().setAttribute("usuario", usr);
 	response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 	// request.getRequestDispatcher("Homepage.jsp").forward(request, response);
-
+				}
+	else {
+		request.setAttribute("result", "La clave no coincide o el usuario no existe");
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
+	}
     }
 
 }
