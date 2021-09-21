@@ -38,18 +38,83 @@
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Usuario borrado</h5>
+								<h5 class="modal-title" id="exampleModalLabel">Usuario
+									borrado</h5>
 								<button type="button" class="btn-close" data-bs-dismiss="modal"
 									aria-label="Close"></button>
 							</div>
-							<div class="modal-body">El usuario ha sido borrado con exito!</div>
+							<div class="modal-body">El usuario ha sido borrado con
+								exito!</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendido!</button>
+								<button type="button" class="btn btn-primary"
+									data-bs-dismiss="modal">Entendido!</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</c:if>
+			<div class="modal fade" id="modalEditar" tabindex="-1"
+				data-bs-backdrop="static" data-bs-keyboard="false"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="EditarUsuarioNombrelbl">Editar
+								usuario</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<form action="ListadoUsuarios" method="post"
+							onSubmit="return ValidateEmail()">
+							<div class="modal-body">
+								<div class="form-group">
+									<input type="text" class="form-control" id="usuarioId"
+										placeholder="Ingrese nombre de usuario" name="usuarioId"
+										hidden="true">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Usuario</label> <input
+										type="text" class="form-control" id="InputUsuarioId"
+										placeholder="Ingrese nombre de usuario" name="InputUsuario"
+										required>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Email</label> <input
+										type="email" class="form-control" id="InputEmail1Id"
+										placeholder="Ingrese email" name="InputEmail" required>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Confimar Email</label> <input
+										type="email" class="form-control" id="InputEmail2Id"
+										placeholder="Ingrese email nuevamente"
+										name="InputConfirmEmail" required>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Nickname</label> <input
+										type="text" class="form-control" id="InputNicknameId"
+										placeholder="Ingrese nickname" name="InputNickname" required>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Telefono</label> <input
+										type="text" pattern="^[0-9]+$" class="form-control"
+										id="InputTelefonoId" placeholder="Ingrese numero de telefono"
+										name="InputTelefono" required>
+								</div>
+								<div class="form-group">
+									<label for="InputFechaNacimiento">Fecha de nacimiento</label> <input
+										type="date" id="inputFechaNacimientoId"
+										name="InputFechaNacimiento" required>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-primary">Guardar!</button>
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">Regresar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 			<h4>Usuarios</h4>
 			<div class="col-12 col-sm-12 col-lg-12">
 				<div class="table-responsive">
@@ -125,7 +190,7 @@
 
 		function operateFormatter(value, row, index) {
 			return [
-					'<a class="like" href="javascript:void(0)" title="Like">',
+					'<a class="like" href="javascript:void(0)" title="like">',
 					'<i class="fas fa-pencil"></i>',
 					'</a>  ',
 					'<a class="remove" href="javascript:void(0)" title="Remove">',
@@ -134,12 +199,21 @@
 
 		window.operateEvents = {
 			'click .like' : function(e, value, row, index) {
-				alert([ row.id ])
+				$('#modalEditar').modal('show');
+				$('#EditarUsuarioNombrelbl').text(
+						"Editar usuario " + row.nickname);
+				$('#usuarioId').text([ row.id ]);
+				$('#InputUsuarioId').val([ row.nombreUsuario ]);
+				$('#usuarioId').val([ row.id ]);
+				$('#usuarioId').val([ row.id ]);
+				$('#usuarioId').val([ row.id ]);
+				$('#usuarioId').val([ row.id ]);
+				$('#usuarioId').val([ row.id ]);
 			},
 			'click .remove' : function(e, value, row, index) {
-				$("#modalBorrarlbl")
-						.text(
-								("Esta seguro de que quiere borrar el usuario " + row.nickname));
+				$("#modalBorrarlbl").text(
+						"Esta seguro de que quiere borrar el usuario "
+								+ row.nickname);
 				$("#modalBorrar").modal('show');
 				$("#hiddenId").val([ row.id ]);
 			}
@@ -147,6 +221,22 @@
 		$(window).on('load', function() {
 			$('#modalExito').modal('show');
 		});
+	</script>
+	<script type="text/javascript">
+		function ValidateEmail() {
+			if (document.getElementById('idEmail1').value === document
+					.getElementById('idEmail2').value) {
+				if (document.frmSignUp.InputConfirmaPassword.value === document.frmSignUp.InputPassword.value) {
+					return true
+				} else {
+					alert("Contraseña no coincide")
+					return false
+
+				}
+			}
+			alert("Email no coincide");
+			return false
+		}
 	</script>
 </body>
 </html>
