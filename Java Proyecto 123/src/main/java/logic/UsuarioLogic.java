@@ -53,7 +53,10 @@ public class UsuarioLogic
 	}
     }
 	
-	
+	public void updatePassword(Usuario obj)
+	{
+		db.updatePassword(obj);
+	}
 		
 	public Usuario add(Usuario obj) {
 		return db.add(obj);	

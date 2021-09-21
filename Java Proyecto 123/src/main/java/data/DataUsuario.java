@@ -260,19 +260,48 @@ public class DataUsuario
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "update usuario set nombre_usuario=?,email=?,contraseña=?," + "nickname=?,fecha_nacimiento=?,telefono=?,tipo=? where id=?");
+		    "update usuario set nombre_usuario=?,email=?," + "nickname=?,fecha_nacimiento=?,telefono=?,tipo=? where id=?");
 
 	    stmt.setString(1, u.getNombreUsuario());
-	    stmt.setString(2, u.getEmail());
-	    stmt.setString(3, u.getContraseña());
-	    stmt.setString(4, u.getNickname());
-	    stmt.setObject(5, u.getFechaNacimiento());
-	    stmt.setString(6, u.getTelefono());
+	    stmt.setString(2, u.getEmail());	    
+	    stmt.setString(3, u.getNickname());
+	    stmt.setObject(4, u.getFechaNacimiento());
+	    stmt.setString(5, u.getTelefono());
+	    stmt.setString(6, u.getTipo());
 	    stmt.setInt(7, u.getId());
-	    stmt.setString(8, u.getTipo());
-
 	    stmt.executeUpdate();
 
+	}
+	catch (SQLException e)
+	{
+	    e.printStackTrace();
+	}
+	finally
+	{
+	    try
+	    {
+		if (stmt != null)
+		    stmt.close();
+		DbConnector.getInstancia().releaseConn();
+	    }
+	    catch (SQLException e)
+	    {
+		e.printStackTrace();
+	    }
+	}
+    }
+    
+    public void updatePassword(Usuario u)
+    {
+	PreparedStatement stmt = null;
+	try
+	{
+	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
+		    "update usuario set contraseña=? where id=?");
+
+	    stmt.setString(1, u.getContraseña());	  
+	    stmt.setInt(2, u.getId());	
+	    stmt.executeUpdate();
 	}
 	catch (SQLException e)
 	{
