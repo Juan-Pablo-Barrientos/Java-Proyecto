@@ -31,7 +31,7 @@
 <body>
 
 <jsp:include page="/Navbar.jsp"/>
-	<div class="container">
+
 		<div class="row">
 			<h4>Juegos</h4>
 			<div class="col-12 col-sm-12 col-lg-12">
@@ -72,7 +72,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+</main>
 	<jsp:include page="/Footer.jsp"/>
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 	<script

@@ -17,46 +17,56 @@
 <title>Panel de Administracion</title>
 </head>
 <body style="background-color: black">
-	<jsp:include page="/Navbar.jsp"/>
-		<div class="row ">
-			<div class="col ">1 of 3</div>
-			<div class="col "></div>
-			<div class="col ">3 of 3</div>
-		</div>
-		<div class="row">
-			<div class="col ">1 of 3</div>
-			<div class="col" style="justify-content: center">
+	<jsp:include page="/Navbar.jsp" />
+	<div class="row ">
+		<div class="col ">1 of 3</div>
+		<div class="col "></div>
+		<div class="col ">3 of 3</div>
+	</div>
+	<div class="row">
+		<div class="col ">1 of 3</div>
+		<div class="col" style="justify-content: center">
 
-				<div class="col " style="">3 of 3</div>
-			</div>
+			<div class="col " style="">3 of 3</div>
 		</div>
-		<div class="row  " style="height: 50vh">
-			<div class="col" style="padding: 5px;">
-				<form action="ListadoUsuarios" method="get">
-					<button class="btn btn-success" type="submit">Listado
-						Usuarios</button>
-				</form>
-			</div>
-			<div class="col" style="padding: 5px;">
-				<form action="ListadoReembolsoPendiente" method="post">
-					<button class="btn btn-success" type="submit">Listado
-						Reembolso</button>
-
-				</form>
-			</div>
-			<div class="col" style="padding: 5px;">3 of 3</div>
-			<div class="col" style="padding: 5px;">
-				<form action="ListadoJuegos" method="post">
-					<button class="btn btn-success" type="submit">Listado
-						de juegos</button>
+	</div>
+	<div class="row  " style="height: 50vh">
+		<div class="col" style="padding: 5px;">
+			<form action="ListadoUsuarios" method="get">
+				<button class="btn btn-success" type="submit">Listado
+					Usuarios</button>
+			</form>
 		</div>
-	</main>
+		<div class="col" style="padding: 5px;">
+			<form action="ListadoReembolsoPendiente" method="post">
+				<button class="btn btn-success" type="submit">Listado
+					Reembolso</button>
 
-	<jsp:include page="/Footer.jsp" />
-	<script
-		 src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" 
-		integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-		crossorigin="anonymous"></script>
+			</form>
+		</div>
+		<div class="col" style="padding: 5px;">3 of 3</div>
+		<div class="col" style="padding: 5px;">
+			<form action="ListadoJuegos" method="post">
+				<button class="btn btn-success" type="submit">Listado de
+					juegos</button>
+					</form>
+		</div>
+				
+
+		<div class="col" style="padding: 5px;">
+			<form action="ListadoDesarrolladores" method="post">
+				<button class="btn btn-success" type="submit">Listado de
+					Desarrolladores</button>
+					</form>
+		</div>
+				
+		</main>
+
+		<jsp:include page="/Footer.jsp" />
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+			crossorigin="anonymous"></script>
 </body>
 </html>
 
