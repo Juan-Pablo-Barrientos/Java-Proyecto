@@ -1,7 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
+import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -64,6 +66,27 @@ public class ListadoUsuarios extends HttpServlet {
 				int idUsuario = Integer.parseInt(request.getParameter("hiddenId"));
 				usrLogic.delete(idUsuario);
 				success = 1;
+			} catch (Exception e) {
+				request.setAttribute("error", e.getMessage());
+				success = 0;
+			}
+		}
+		if ("edit".equals(request.getParameter("action2"))) {
+			try {
+				UsuarioLogic usrLogic = new UsuarioLogic();
+				Usuario usrEdit = new Usuario();
+				
+				usrEdit.setId(Integer.parseInt(request.getParameter("usuarioId")));
+				usrEdit.setEmail(request.getParameter("InputEmail"));
+				usrEdit.setNickname(request.getParameter("InputNickname"));
+				usrEdit.setTelefono(request.getParameter("InputTelefono"));
+				usrEdit.setNombreUsuario(request.getParameter("InputUsuario"));
+				usrEdit.setTipo(request.getParameter("InputUsuarioTipo"));
+				LocalDate date = LocalDate.parse(request.getParameter("InputFechaNacimiento"));
+				usrEdit.setFechaNacimiento(date);
+				
+				usrLogic.update(usrEdit);
+				success = 2;
 			} catch (Exception e) {
 				request.setAttribute("error", e.getMessage());
 				success = 0;

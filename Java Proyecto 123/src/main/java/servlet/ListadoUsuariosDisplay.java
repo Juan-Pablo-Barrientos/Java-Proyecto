@@ -42,13 +42,13 @@ public class ListadoUsuariosDisplay extends HttpServlet {
 			int success = Integer.parseInt(request.getParameter("s"));
 			switch (success) {
 			case 0:
-				request.setAttribute("result", "El usuario no ha podido ser borrado: " + request.getAttribute("error"));
+				request.setAttribute("result", "Ha ocurrido un error: " + request.getAttribute("error"));
 				break;
 			case 1:
-				request.setAttribute("result", "Usuario borrado con exito");
+				request.setAttribute("result", "Usuario borrado con exito!");
 				break;
 			case 2:
-				request.setAttribute("result", "Usuario se ha editado con exito");
+				request.setAttribute("result", "Usuario se ha editado con exito!");
 				break;
 			}
 			UsuarioLogic usrLogic = new UsuarioLogic();

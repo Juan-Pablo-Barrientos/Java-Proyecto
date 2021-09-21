@@ -38,13 +38,13 @@
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Usuario
-									borrado</h5>
+								<h5 class="modal-title" id="exampleModalLabel">Lista de usuarios actualizada!</h5>
 								<button type="button" class="btn-close" data-bs-dismiss="modal"
 									aria-label="Close"></button>
 							</div>
-							<div class="modal-body">El usuario ha sido borrado con
-								exito!</div>
+							<div class="modal-body">
+								<c:out value="${result}"></c:out>
+							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-primary"
 									data-bs-dismiss="modal">Entendido!</button>
@@ -66,6 +66,7 @@
 						</div>
 						<form action="ListadoUsuarios" method="post"
 							onSubmit="return ValidateEmail()">
+							<input type="hidden" name="action2" value="edit" />
 							<div class="modal-body">
 								<div class="form-group">
 									<input type="text" class="form-control" id="usuarioId"
@@ -100,9 +101,17 @@
 										id="InputTelefonoId" placeholder="Ingrese numero de telefono"
 										name="InputTelefono" required>
 								</div>
+								<p></p>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Tipo</label> <select id="InputUsuarioTipoId" name="InputUsuarioTipo">
+										<option value="admin">admin</option>
+										<option value="usuario">usuario</option>
+									</select>
+								</div>
+								<p></p>
 								<div class="form-group">
 									<label for="InputFechaNacimiento">Fecha de nacimiento</label> <input
-										type="date" id="inputFechaNacimientoId"
+										type="date" id="InputFechaNacimientoId"
 										name="InputFechaNacimiento" required>
 								</div>
 							</div>
@@ -201,19 +210,20 @@
 			'click .like' : function(e, value, row, index) {
 				$('#modalEditar').modal('show');
 				$('#EditarUsuarioNombrelbl').text(
-						"Editar usuario " + row.nickname);
-				$('#usuarioId').text([ row.id ]);
+						"Editar usuario: " + row.nombreUsuario);
+				$('#usuarioId').val([ row.id ]);
 				$('#InputUsuarioId').val([ row.nombreUsuario ]);
-				$('#usuarioId').val([ row.id ]);
-				$('#usuarioId').val([ row.id ]);
-				$('#usuarioId').val([ row.id ]);
-				$('#usuarioId').val([ row.id ]);
-				$('#usuarioId').val([ row.id ]);
+				$('#InputEmail1Id').val([ row.email ]);
+				$('#InputEmail2Id').val([ row.email ]);
+				$('#InputNicknameId').val([ row.nickname ]);
+				$('#InputTelefonoId').val([ row.telefono ]);
+				$('#InputFechaNacimientoId').val([ row.fechaNacimiento ]);
+				$('#InputUsuarioTipoId').val([ row.tipo ]);
 			},
 			'click .remove' : function(e, value, row, index) {
 				$("#modalBorrarlbl").text(
 						"Esta seguro de que quiere borrar el usuario "
-								+ row.nickname);
+								+ row.nombreUsuario);
 				$("#modalBorrar").modal('show');
 				$("#hiddenId").val([ row.id ]);
 			}

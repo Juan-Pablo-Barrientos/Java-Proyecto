@@ -20,7 +20,7 @@
 
 	<div id="wrapper">
 		<nav class="navbar navbar-expand-lg"
-			style="color: black; background-color: gold;">
+			style="color: black; background-color: gold; border-color:black; border-width:thin; border-style: solid;">
 			<a class="navbar-brand" style="padding: 10px; color: grey" href="Homepage.jsp">Juego
 				Mundo</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -60,4 +60,4 @@
 </html>
 
 	<main role="main" class="container"
-		style="background-color: gold; text-align: center">
+		style="background-color: gold; text-align: center; padding: 20px">
