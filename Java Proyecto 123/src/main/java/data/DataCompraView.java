@@ -20,7 +20,7 @@ public class DataCompraView {
 			rs= stmt.executeQuery("SELECT * from compra as c "
 					+ "join juego as j on j.id = c.id_juego "
 					+ "join usuario as u  on u.id = c.id_usuario "
-					+ "join reembolso as r on r.id = c.id_reembolso");			
+					+ "left join reembolso as r on r.id = c.id_reembolso");			
 			if(rs!=null) {
 				while(rs.next()) {					
 					CompraView compraView = new CompraView();										

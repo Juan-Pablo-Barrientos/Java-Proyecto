@@ -59,6 +59,13 @@
 					Desarrolladores</button>
 					</form>
 		</div>
+		
+		<div class="col" style="padding: 5px;">
+			<form action="ListadoCompras" method="post">
+				<button class="btn btn-success" type="submit">Listado de
+					Compras</button>
+					</form>
+		</div>
 				
 		</main>
 

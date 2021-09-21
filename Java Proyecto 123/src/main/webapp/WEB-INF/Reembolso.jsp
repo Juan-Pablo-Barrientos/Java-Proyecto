@@ -54,6 +54,7 @@
 						</thead>
 						<tbody>
 						<c:forEach items="${listaCompraView}" var="c">
+						<c:if test="${c.reembolso.id !=0}">
 								<tr>
 									<td><c:out value="${c.reembolso.id}"></c:out></td>
 									<td><c:out value="${c.usuario.nombreUsuario}"></c:out></td>
@@ -63,6 +64,7 @@
 									<td><c:out value="${c.reembolso.estado}"></c:out></td>														
 									<td></td>
 								</tr>
+						</c:if>
 							</c:forEach>
 						</tbody>
 					</table>
