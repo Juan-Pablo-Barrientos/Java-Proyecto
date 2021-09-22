@@ -66,6 +66,13 @@
 					Compras</button>
 					</form>
 		</div>
+		
+		<div class="col" style="padding: 5px;">
+			<form action="ListadoPublicadores" method="post">
+				<button class="btn btn-success" type="submit">Listado de
+					Publicadores</button>
+					</form>
+		</div>
 				
 		</main>
 
