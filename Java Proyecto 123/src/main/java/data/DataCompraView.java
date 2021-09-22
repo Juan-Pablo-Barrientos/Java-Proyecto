@@ -17,10 +17,11 @@ public class DataCompraView {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("SELECT * from compra as c "
-					+ "join juego as j on j.id = c.id_juego "
+			rs= stmt.executeQuery("SELECT c.*,j.*,u.*,r.id,r.razon, ifnull(estado,\"No solicitado\") as \"estado\",r.comentario_evaluador "
+					+ "from compra as c "
+					+ "join juego as j on j.id = c.id_juego  "
 					+ "join usuario as u  on u.id = c.id_usuario "
-					+ "left join reembolso as r on r.id = c.id_reembolso");			
+					+ "left join reembolso as r on r.id = c.id_reembolso;");			
 			if(rs!=null) {
 				while(rs.next()) {					
 					CompraView compraView = new CompraView();										

@@ -64,15 +64,8 @@
 										<td><c:out value="${c.juego.nombre}"></c:out></td>	
 										<td><c:out value="${c.juego.id}"></c:out></td>
 										<td><c:out value="${c.juego.precioBase}"></c:out></td>			
-										<td><c:out value="${c.compra.dateFechaHora}"></c:out></td>						
-										<td><c:choose>
-												<c:when test="${c.reembolso.estado!=null}">
-												<c:out value="${c.reembolso.estado}"></c:out>
-												</c:when> 											
-												<c:otherwise>
-												<c:out value="Reembolso no solicitado"></c:out>
-												</c:otherwise>
-											</c:choose></td>																					
+										<td><c:out value="${c.compra.dateFechaHora}"></c:out></td>	
+										<td><c:out value="${c.reembolso.estado}"></c:out></td>																																	
 										<td></td>
 									</tr>						
 							</c:forEach>
