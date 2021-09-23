@@ -33,4 +33,8 @@ public class JuegoLogic {
 		 db.delete(obj);	
 	}
 	
+	public void delete(int id) {
+		 db.delete(this.getOne(id));	
+	}
+	
 }

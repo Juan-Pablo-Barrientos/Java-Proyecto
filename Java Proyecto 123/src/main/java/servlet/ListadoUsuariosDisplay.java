@@ -48,7 +48,7 @@ public class ListadoUsuariosDisplay extends HttpServlet {
 				request.setAttribute("result", "Usuario borrado con exito!");
 				break;
 			case 2:
-				request.setAttribute("result", "Usuario se ha editado con exito!");
+				request.setAttribute("result", "Usuario editado con exito!");
 				break;
 			}
 			UsuarioLogic usrLogic = new UsuarioLogic();

@@ -22,4 +22,26 @@
     <servlet-name>ListadoUsuariosDisplay</servlet-name>
     <url-pattern>/ListadoUsuariosDisplay.do</url-pattern>
   </servlet-mapping>
+
+   <servlet>
+    <servlet-name>ListadoDesarrolladores</servlet-name>
+    <servlet-class>
+        servlet.ListadoDesarrrolladores
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoDesarrolladores</servlet-name>
+    <url-pattern>/ListadoDesarrolladores.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ListadoDesarrolladoresDisplay</servlet-name>
+    <servlet-class>
+        servlet.ListadoDesarrolladoresDisplay
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoDesarrolladoresDisplay</servlet-name>
+    <url-pattern>/ListadoDesarrolladoresDisplay.do</url-pattern>
+  </servlet-mapping>
 </web-app>

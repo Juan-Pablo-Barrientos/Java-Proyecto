@@ -38,7 +38,8 @@
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Lista de usuarios actualizada!</h5>
+								<h5 class="modal-title" id="exampleModalLabel">Lista de
+									usuarios actualizada!</h5>
 								<button type="button" class="btn-close" data-bs-dismiss="modal"
 									aria-label="Close"></button>
 							</div>
@@ -103,7 +104,8 @@
 								</div>
 								<p></p>
 								<div class="form-group">
-									<label for="exampleInputEmail1">Tipo</label> <select id="InputUsuarioTipoId" name="InputUsuarioTipo">
+									<label for="exampleInputEmail1">Tipo</label> <select
+										id="InputUsuarioTipoId" name="InputUsuarioTipo">
 										<option value="admin">admin</option>
 										<option value="usuario">usuario</option>
 									</select>
@@ -116,9 +118,10 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="submit" class="btn btn-primary">Guardar!</button>
 								<button type="button" class="btn btn-secondary"
 									data-bs-dismiss="modal">Regresar</button>
+								<button type="submit" class="btn btn-primary">Guardar!</button>
+
 							</div>
 						</form>
 					</div>
