@@ -14,7 +14,12 @@ public class ReseñaLogic {
 	}
 	
 	public Reseña getOne(Reseña obj) {
-		return db.getOne(obj);
+		return this.getOne(obj.getId());
+		
+	} 
+	
+	public Reseña getOne(int i) {
+		return db.getOne(i);
 		
 	} 
 		

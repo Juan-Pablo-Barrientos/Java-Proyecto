@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class DataReembolso {
 
-	public Reembolso getOne(Reembolso rem) {
+	public Reembolso getOne(int rem) {
 		
 		Reembolso r=null;
 		PreparedStatement stmt=null;
@@ -18,7 +18,7 @@ public class DataReembolso {
 					+ " from reembolso where id=?"
 					);
 			
-			stmt.setInt(1, rem.getId());			
+			stmt.setInt(1, rem);			
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				r=new Reembolso();		

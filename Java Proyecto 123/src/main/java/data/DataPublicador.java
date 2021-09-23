@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class DataPublicador {
 	
-	public Publicador getOne(Publicador pu) {
+	public Publicador getOne(int pu) {
 		
 		Publicador p=null;
 		PreparedStatement stmt=null;
@@ -18,7 +18,7 @@ public class DataPublicador {
 					+ " from publicador where id=?"
 					);
 			
-			stmt.setInt(1, pu.getId());			
+			stmt.setInt(1, pu);			
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				p=new Publicador();				

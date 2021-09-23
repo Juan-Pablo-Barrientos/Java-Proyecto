@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class DataReseña {
 
-	public Reseña getOne(Reseña res) {
+	public Reseña getOne(int res) {
 		
 		Reseña r=null;
 		PreparedStatement stmt=null;
@@ -18,7 +18,7 @@ public class DataReseña {
 					+ " from reseña where id=?"
 					);
 			
-			stmt.setInt(1, res.getId());			
+			stmt.setInt(1, res);			
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				r=new Reseña();		

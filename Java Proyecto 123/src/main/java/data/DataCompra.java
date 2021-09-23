@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 public class DataCompra {
 
-	public Compra getOne(Compra com) {
+	public Compra getOne(int com) {
 		
 		Compra c=null;;
 		PreparedStatement stmt=null;
@@ -19,7 +19,7 @@ public class DataCompra {
 					+ " from compra where nroSerie=?"
 					);
 			
-			stmt.setInt(1, com.getNroSerie());			
+			stmt.setInt(1, com);			
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				c=new Compra();		

@@ -14,7 +14,12 @@ private DataPublicador db= new DataPublicador();
 	}
 	
 	public Publicador getOne(Publicador obj) {
-		return db.getOne(obj);
+		return this.getOne(obj.getId());
+		
+	} 
+	
+	public Publicador getOne(int i) {
+		return db.getOne(i);
 		
 	} 
 		
