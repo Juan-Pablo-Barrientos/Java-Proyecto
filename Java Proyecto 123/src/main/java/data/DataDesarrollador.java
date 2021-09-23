@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class DataDesarrollador {
 	
-	public Desarrollador getOne(Desarrollador de) {
+	public Desarrollador getOne(int de) {
 		
 		Desarrollador d=null;
 		PreparedStatement stmt=null;
@@ -18,7 +18,7 @@ public class DataDesarrollador {
 					+ " from desarrollador where id=?"
 					);
 			
-			stmt.setInt(1, de.getId());			
+			stmt.setInt(1, de);			
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				d=new Desarrollador();				
