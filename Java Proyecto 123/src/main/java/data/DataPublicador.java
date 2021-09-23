@@ -15,7 +15,7 @@ public class DataPublicador {
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select id,nombre"
-					+ " from publicador where id=?"
+					+ " from publicador where id=? and habilitado=1"
 					);
 			
 			stmt.setInt(1, pu);			
@@ -48,7 +48,7 @@ public class DataPublicador {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select id,nombre from publicador");			
+			rs= stmt.executeQuery("select id,nombre from publicador where habilitado=1");			
 			if(rs!=null) {
 				while(rs.next()) {
 					Publicador p=new Publicador();
@@ -139,7 +139,7 @@ public class DataPublicador {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"delete from publicador where id=?");
+							"update publicador set habilitado=0 where id=?");
 			stmt.setInt(1, p.getId());
 			stmt.executeUpdate();
 		} catch (SQLException e) {

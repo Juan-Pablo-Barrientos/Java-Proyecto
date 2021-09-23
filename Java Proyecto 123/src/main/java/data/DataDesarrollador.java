@@ -15,7 +15,7 @@ public class DataDesarrollador {
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select id,nombre"
-					+ " from desarrollador where id=?"
+					+ " from desarrollador where id=? and habilitado=1"
 					);
 			
 			stmt.setInt(1, de);			
@@ -48,7 +48,7 @@ public class DataDesarrollador {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select id,nombre from desarrollador");			
+			rs= stmt.executeQuery("select id,nombre from desarrollador where habilitado=1");			
 			if(rs!=null) {
 				while(rs.next()) {
 					Desarrollador d=new Desarrollador();
@@ -138,7 +138,7 @@ public class DataDesarrollador {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"delete from desarrollador where id=?");
+							"update desarrollador set habilitado=0 where id=?");
 			stmt.setInt(1, d.getId());
 			stmt.executeUpdate();
 		} catch (SQLException e) {

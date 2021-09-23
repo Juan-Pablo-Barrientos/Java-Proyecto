@@ -16,7 +16,7 @@ public class DataCompra {
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select nroSerie,id_juego,id_usuario,id_reembolso,id_reseña,horas_jugadas,fecha_compra"
-					+ " from compra where nroSerie=?"
+					+ " from compra where nroSerie=? and habilitado=1"
 					);
 			
 			stmt.setInt(1, com);			
@@ -55,7 +55,7 @@ public class DataCompra {
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select nroSerie,id_juego,id_usuario,id_reembolso,id_reseña,horas_jugadas,fecha_compra"
-					+ " from compra where id_reembolso=?"
+					+ " from compra where id_reembolso=? and habilitado=1"
 					);
 			
 			stmt.setInt(1, com.getId());			
@@ -93,7 +93,7 @@ public class DataCompra {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select nroSerie,id_juego,id_usuario,id_reembolso,id_reseña,horas_jugadas,fecha_compra from compra");			
+			rs= stmt.executeQuery("select nroSerie,id_juego,id_usuario,id_reembolso,id_reseña,horas_jugadas,fecha_compra from compra where habilitado=1");			
 			if(rs!=null) {
 				while(rs.next()) {
 					Compra c=new Compra();
@@ -199,7 +199,7 @@ public class DataCompra {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"delete from compra where nroSerie=?");
+							"update compra set habilitado=0 where nroSerie=?");
 			stmt.setInt(1, c.getNroSerie());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
