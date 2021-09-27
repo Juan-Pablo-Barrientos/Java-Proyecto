@@ -50,6 +50,9 @@ public class ListadoUsuariosDisplay extends HttpServlet {
 			case 2:
 				request.setAttribute("result", "Usuario editado con exito!");
 				break;
+			case 4:
+				request.setAttribute("result", "");
+				break;
 			}
 			UsuarioLogic usrLogic = new UsuarioLogic();
 			LinkedList<Usuario> usrs = usrLogic.getAll();

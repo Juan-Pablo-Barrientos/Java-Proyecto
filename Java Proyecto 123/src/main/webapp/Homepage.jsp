@@ -78,7 +78,6 @@
 				</div>
 				<div class="col" style="padding: 5px;">3 of 3</div>
 			</div>
-		</main>
 <jsp:include page="Footer.jsp"/>
 	<script src="bootstrap/js/bootstrap.bundle.js"></script>
 </body>

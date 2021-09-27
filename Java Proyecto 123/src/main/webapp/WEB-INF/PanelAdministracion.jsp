@@ -54,7 +54,7 @@
 				
 
 		<div class="col" style="padding: 5px;">
-			<form action="ListadoDesarrolladores" method="post">
+			<form action="ListadoDesarrolladores" method="get">
 				<button class="btn btn-success" type="submit">Listado de
 					Desarrolladores</button>
 					</form>
@@ -74,7 +74,6 @@
 					</form>
 		</div>
 				
-		</main>
 
 		<jsp:include page="/Footer.jsp" />
 		<script

@@ -137,7 +137,6 @@
 			</div>
 		</div>
 	</div>
-	</main>
 	<jsp:include page="/Footer.jsp" />
 	<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 	<script
@@ -151,12 +150,10 @@
 		var $table = $('#table')
 
 		function operateFormatter(value, row, index) {
-			return [
-					'<a class="like" href="javascript:void(0)" title="like">',
-					'<i class="fas fa-pencil"></i>',
-					'</a>  '/*,
-					'<a class="remove" href="javascript:void(0)" title="Remove">',
-					'<i class="fas fa-trash"></i>', '</a>'*/ ].join('')
+			return [ '<a class="like" href="javascript:void(0)" title="like">',
+					'<i class="fas fa-pencil"></i>', '</a>  '/*,
+										'<a class="remove" href="javascript:void(0)" title="Remove">',
+										'<i class="fas fa-trash"></i>', '</a>'*/].join('')
 		}
 
 		window.operateEvents = {
@@ -164,20 +161,32 @@
 				$('#modalEditar').modal('show');
 				$('#EditarDesarrolladorNombrelbl').text(
 						"Editar desarrollador: " + row.nombre);
-				$('#desarrolladorId').val([ row.id ]);
-				$('#InputDesarrolladorId').val([ row.nombreUsuario ]);
+				$('#desarrolladorId').val([ row.iddesarrollador ]);
+				$('#InputDesarrolladorId').val([ row.nombre ]);
 			},
-			/*'click .remove' : function(e, value, row, index) {
-				$("#modalBorrarlbl").text(
-						"Esta seguro de que quiere borrar el desarrollador "
-								+ row.nombre);
-				$("#modalBorrar").modal('show');
-				$("#hiddenId").val([ row.id ]);
-			}*/
+		/*'click .remove' : function(e, value, row, index) {
+			$("#modalBorrarlbl").text(
+					"Esta seguro de que quiere borrar el desarrollador "
+							+ row.nombre);
+			$("#modalBorrar").modal('show');
+			$("#hiddenId").val([ row.id ]);
+		}*/
 		};
 		$(window).on('load', function() {
 			$('#modalExito').modal('show');
 		});
+
+		/*if (!($('#asd') === "")) {
+			window.history.pushState({}, document.title, "/"
+					+ "Java_Proyecto_123/WEB-INF/ListadoDesarrolladores.jsp");
+		}*/
+		   const url = new URL(window.location.href)
+	      const params = new URLSearchParams(url.search.slice(1))
+	      window.history.replaceState(
+	        {},
+	        '',
+	        `${window.location.pathname}?${"s=4"}${window.location.hash}`,
+	      )
 	</script>
 
 </body>

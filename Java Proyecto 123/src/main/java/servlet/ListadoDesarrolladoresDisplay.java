@@ -20,49 +20,58 @@ import logic.UsuarioLogic;
 @WebServlet("/ListadoDesarrolladoresDisplay")
 public class ListadoDesarrolladoresDisplay extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ListadoDesarrolladoresDisplay() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ListadoDesarrolladoresDisplay() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// Verifica que el usuario sea admin
-				Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
-				if (usr.getTipo().equals("admin")) {
-
-					int success = Integer.parseInt(request.getParameter("s"));
-					switch (success) {
-					case 0:
-						request.setAttribute("result", "Ha ocurrido un error: " + request.getAttribute("error"));
-						break;
-					case 1:
-						request.setAttribute("result", "Desarrollador borrado con exito!");
-						break;
-					case 2:
-						request.setAttribute("result", "Desarrollador editado con exito!");
-						break;
-					}
-					DesarrolladorLogic devLogic = new DesarrolladorLogic();
-					LinkedList<Desarrollador> devs = devLogic.getAll();
-					request.setAttribute("listaDesarrollador", devs);
-					request.getRequestDispatcher("/WEB-INF/ListadoDesarrolladores.jsp").forward(request, response);
-				} else {
-					response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
+		if (usr.getTipo().equals("admin")) {
+				int success = Integer.parseInt(request.getParameter("s"));
+				switch (success) {
+				case 0:
+					request.setAttribute("result", "Ha ocurrido un error: " + request.getAttribute("error"));
+					break;
+				case 1:
+					request.setAttribute("result", "Desarrollador borrado con exito!");
+					break;
+				case 2:
+					request.setAttribute("result", "Desarrollador editado con exito!");
+					break;
+				case 3:
+					request.setAttribute("result", "Desarrollador creado con exito!");
+					break;
+				case 4:
+					request.setAttribute("result", "");
+					break;
 				}
-			}
+			DesarrolladorLogic devLogic = new DesarrolladorLogic();
+			LinkedList<Desarrollador> devs = devLogic.getAll();
+			request.setAttribute("listaDesarrollador", devs);
+			request.getRequestDispatcher("/WEB-INF/ListadoDesarrolladores.jsp").forward(request, response);
+		} else {
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+		}
+	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

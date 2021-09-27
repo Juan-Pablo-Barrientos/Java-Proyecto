@@ -72,7 +72,6 @@
 				</div>
 			</div>
 		</div>
-</main>
 	<jsp:include page="/Footer.jsp"/>
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 	<script

@@ -187,7 +187,6 @@
 			</div>
 		</div>
 	</div>
-	</main>
 	<jsp:include page="/Footer.jsp" />
 	<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 	<script
@@ -250,6 +249,13 @@
 			alert("Email no coincide");
 			return false
 		}
+		const url = new URL(window.location.href)
+	      const params = new URLSearchParams(url.search.slice(1))
+	      window.history.replaceState(
+	        {},
+	        '',
+	        `${window.location.pathname}?${"s=4"}${window.location.hash}`,
+	      )
 	</script>
 </body>
 </html>
