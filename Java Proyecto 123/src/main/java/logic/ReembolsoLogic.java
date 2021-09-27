@@ -18,7 +18,12 @@ private DataReembolso db= new DataReembolso();
 	}
 	
 	public Reembolso getOne(Reembolso obj) {
-		return db.getOne(obj);
+		return this.getOne(obj.getId());
+		
+	} 
+	
+	public Reembolso getOne(int i) {
+		return db.getOne(i);
 		
 	} 
 		

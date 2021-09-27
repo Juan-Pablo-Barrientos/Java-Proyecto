@@ -16,7 +16,7 @@ public class DataJuego {
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad"
-					+ " from juego where id=?"
+					+ " from juego where id=? and habilitado=1"
 					);
 			
 			stmt.setInt(1, jue);			
@@ -57,7 +57,8 @@ public class DataJuego {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad from juego");			
+			rs= stmt.executeQuery("select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad "
+					+ "from juego where habilitado=1");			
 			if(rs!=null) {
 				while(rs.next()) {
 					Juego j=new Juego();
@@ -175,7 +176,7 @@ public class DataJuego {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"delete from juego where id=?");
+							"update juego set habilitado=0 where id=?");
 			stmt.setInt(1, j.getId());
 			stmt.executeUpdate();
 		} catch (SQLException e) {

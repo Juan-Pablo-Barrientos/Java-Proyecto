@@ -15,7 +15,12 @@ private DataCompra db= new DataCompra();
 	}
 	
 	public Compra getOne(Compra obj) {
-		return db.getOne(obj);
+		return this.getOne(obj.getNroSerie());
+		
+	} 
+	
+	public Compra getOne(int i) {
+		return db.getOne(i);
 		
 	} 
 	

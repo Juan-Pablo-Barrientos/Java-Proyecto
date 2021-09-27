@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class DataReembolso {
 
-	public Reembolso getOne(Reembolso rem) {
+	public Reembolso getOne(int rem) {
 		
 		Reembolso r=null;
 		PreparedStatement stmt=null;
@@ -15,10 +15,10 @@ public class DataReembolso {
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select id,razon,estado,comentario_evaluador"
-					+ " from reembolso where id=?"
+					+ " from reembolso where id=? and habilitado=1"
 					);
 			
-			stmt.setInt(1, rem.getId());			
+			stmt.setInt(1, rem);			
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				r=new Reembolso();		
@@ -50,7 +50,7 @@ public class DataReembolso {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select id,razon,estado,comentario_evaluador from reembolso");			
+			rs= stmt.executeQuery("select id,razon,estado,comentario_evaluador from reembolso where habilitado=1");			
 			if(rs!=null) {
 				while(rs.next()) {
 					Reembolso r=new Reembolso();
@@ -85,7 +85,7 @@ public class DataReembolso {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select id,razon,estado,comentario_evaluador from reembolso WHERE estado='Pendiente' ");			
+			rs= stmt.executeQuery("select id,razon,estado,comentario_evaluador from reembolso WHERE estado='Pendiente' and habilitado=1 ");			
 			if(rs!=null) {
 				while(rs.next()) {
 					Reembolso r=new Reembolso();
@@ -183,7 +183,7 @@ public class DataReembolso {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"delete from reembolso where id=?");
+							"update reembolso set habilitado=0 where id=?");
 			stmt.setInt(1, r.getId());
 			stmt.executeUpdate();
 		} catch (SQLException e) {

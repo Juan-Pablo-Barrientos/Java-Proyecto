@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class DataReseña {
 
-	public Reseña getOne(Reseña res) {
+	public Reseña getOne(int res) {
 		
 		Reseña r=null;
 		PreparedStatement stmt=null;
@@ -15,10 +15,10 @@ public class DataReseña {
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select id,titulo,descripcion,puntuacion"
-					+ " from reseña where id=?"
+					+ " from reseña where id=? and habilitado=1"
 					);
 			
-			stmt.setInt(1, res.getId());			
+			stmt.setInt(1, res);			
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				r=new Reseña();		
@@ -50,7 +50,7 @@ public class DataReseña {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select id,titulo,descripcion,puntuacion from reseña");			
+			rs= stmt.executeQuery("select id,titulo,descripcion,puntuacion from reseña where habilitado=1");			
 			if(rs!=null) {
 				while(rs.next()) {
 					Reseña r=new Reseña();
@@ -148,7 +148,7 @@ public class DataReseña {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"delete from reseña where id=?");
+							"update reseña set habilitado=0 where id=?");
 			stmt.setInt(1, r.getId());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
