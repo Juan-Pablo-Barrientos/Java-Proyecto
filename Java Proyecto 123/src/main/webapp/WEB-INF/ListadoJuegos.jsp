@@ -41,7 +41,9 @@
 							<tr>
 								<th data-field="idjuego">Id Juego</th>
 								<th data-field="idpublicador">Id Publicador</th>
+								<th data-field="nombrePublicador">Nombre del Publicador</th>
 								<th data-field="iddesarrollador">Id Desarrollador</th>
+								<th data-field="nombreDesarrollador">Nombre del Desarrollador</th>
 								<th data-field="nombreJuego">Nombre del juego</th>								
 								<th data-field="precio">Precio</th>				
 								<th data-field="descuento">Descuento</th>		
@@ -53,17 +55,19 @@
 							</tr>
 						</thead>
 						<tbody>
-						<c:forEach items="${listajuegos}" var="c">
+						<c:forEach items="${listajuegosview}" var="c">
 								<tr>
-									<td><c:out value="${c.id}"></c:out></td>
-									<td><c:out value="${c.idPublicador}"></c:out></td>
-									<td><c:out value="${c.idDesarrollador}"></c:out></td>
-									<td><c:out value="${c.nombre}"></c:out></td>												
-									<td><c:out value="${c.precioBase}"></c:out></td>
-									<td><c:out value="${c.descuento}"></c:out></td>
-									<td><c:out value="${c.genero}"></c:out></td>
-									<td><c:out value="${c.fecha_publicacion}"></c:out></td>	
-									<td><c:out value="${c.reestriccionPorEdad}"></c:out></td>															
+									<td><c:out value="${c.juego.id}"></c:out></td>
+									<td><c:out value="${c.juego.idPublicador}"></c:out></td>
+									<td><c:out value="${c.publicador.nombre}"></c:out></td>
+									<td><c:out value="${c.juego.idDesarrollador}"></c:out></td>
+									<td><c:out value="${c.desarrollador.nombre}"></c:out></td>
+									<td><c:out value="${c.juego.nombre}"></c:out></td>												
+									<td><c:out value="${c.juego.precioBase}"></c:out></td>
+									<td><c:out value="${c.juego.descuento}"></c:out></td>
+									<td><c:out value="${c.juego.genero}"></c:out></td>
+									<td><c:out value="${c.juego.fecha_publicacion}"></c:out></td>	
+									<td><c:out value="${c.juego.reestriccionPorEdad}"></c:out></td>															
 									<td></td>
 								</tr>
 							</c:forEach>

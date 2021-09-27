@@ -35,9 +35,9 @@ public class ListadoJuegos extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		JuegoLogic juegologic = new JuegoLogic();
-		LinkedList<Juego> juegos= juegologic.getAll();
-		request.setAttribute("listajuegos", juegos); 
+		JuegoViewLogic juegoviewlogic = new JuegoViewLogic();
+		LinkedList<JuegoView> juegosview= juegoviewlogic.getAll();
+		request.setAttribute("listajuegosview", juegosview); 
 		request.getRequestDispatcher("/WEB-INF/ListadoJuegos.jsp").forward(request, response);	
 	}
 
