@@ -21,3 +21,7 @@ body{
 .hideFullColumn tr>.hidecol {
 	display: none;
 }
+
+input:focus {
+  background: rgba(var(--bs-dark-rgb));
+}

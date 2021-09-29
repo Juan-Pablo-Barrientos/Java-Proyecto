@@ -11,18 +11,23 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	crossorigin="anonymous" />
 <link rel="icon" href="http://getbootstrap.com/favicon.ico">
 <link href="Styles/Style.css" rel="stylesheet" type="text/css" />
-<link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet"
+	type="text/css" />
 <title>MasterPage</title>
 </head>
 <body style="background-color: black">
 
 	<div id="wrapper">
 		<nav class="navbar navbar-expand-lg"
-			style="color: black; background-color: gold; border-color:black; border-width:thin; border-style: solid;">
-			<a class="navbar-brand" style="padding: 10px; color: grey" href="/Java_Proyecto_123/Homepage.jsp">Juego
-				Mundo</a>
+			style="color: black; background-color: gold; border-color: black; border-width: thin; border-style: solid;">
+			<a class="navbar-brand" style="padding: 10px; color: grey"
+				href="/Java_Proyecto_123/Homepage.jsp">Juego Mundo</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarNav" aria-controls="navbarNav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -35,29 +40,39 @@
 					</a></li>
 					<li class="nav-item"><a class="nav-link" style="color: black"
 						href="#">Placeholder</a></li>
-					
+
 					<li><a class="nav-link" style="color: black" href="#">Placeholder</a>
-					</li><li class="nav-item">
-					<c:if test="${usuario.tipo==('admin')}">
+					</li>
+					<li class="nav-item"><c:if test="${usuario.tipo==('admin')}">
 							<form action="PanelAdministracion" method=get>
-								<button class="btn btn-success" type="submit">Panel de administracion</button>
+								<button class="btn btn-success" type="submit">Panel de
+									administracion</button>
 							</form>
 						</c:if></li>
 				</ul>
 				<ul class="navbar-nav ms-auto" style="margin-right: 10px">
+					<li><div class="container-fluid">
+							<form class="d-flex" action="busquedaJuegos" method="get">
+								<input class="form-control bg-dark text-white" type="search"
+									placeholder="Búsqueda" aria-label="Search" name="InputBusqueda">
+								<button class="btn btn-primary" type="submit">
+									<i class="fas fa-search"></i>
+								</button>
+							</form>
+						</div></li>
 					<li class="nav-item"><form action="SignOut" method="post"
 							style="text-align: right;">
-							<button class="btn btn-danger" "type="submit">Cerrar
+							<button class="btn btn-danger" type="submit">Cerrar
 								Sesión</button>
 						</form></li>
 				</ul>
 			</div>
 		</nav>
-		
+
 	</div>
 	<script src="bootstrap/js/bootstrap.bundle.js"></script>
 </body>
 </html>
 
-	<main role="main" class="container"
-		style="background-color: gold; text-align: center; padding: 20px">
+<main role="main" class="container"
+	style="background-color: gold; text-align: center; padding: 20px">
