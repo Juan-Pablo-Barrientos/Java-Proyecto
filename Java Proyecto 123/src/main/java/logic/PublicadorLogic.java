@@ -37,4 +37,9 @@ private DataPublicador db= new DataPublicador();
 		
 	}
 
+	public void delete(int id) {
+		db.delete(this.getOne(id));
+
+	}
+
 }

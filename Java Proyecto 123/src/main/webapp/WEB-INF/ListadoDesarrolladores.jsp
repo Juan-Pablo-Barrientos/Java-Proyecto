@@ -86,7 +86,36 @@
 			</div>
 		</div>
 	</div>
-	<!-- borrar desarrolladores
+	<div class="modal fade" id="modalNuevo" tabindex="-1"
+		data-bs-backdrop="static" data-bs-keyboard="false"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="NuevoDesarrolladorNombrelbl">Nuevo
+						desarrollador</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<form action="ListadoDesarrolladores" method="post" onSubmit="">
+					<input type="hidden" name="action3" value="create" />
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="exampleInputEmail1">Desarrollador</label> <input
+								type="text" class="form-control" id="InputDesarrolladorId"
+								placeholder="Ingrese nombre de desarrollador"
+								name="InputDesarrollador" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Regresar</button>
+						<button type="submit" class="btn btn-primary">Guardar!</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	<div class="modal fade" id="modalBorrar" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -103,14 +132,15 @@
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">Regresar</button>
 					<form method="post" action="ListadoDesarrolladores">
-						<input type="hidden" name="action" value="delete" /> <input
-							type="hidden" id="hiddenId" name="hiddenId" />
-						<button type="submit" class="btn btn-primary">Borrar</button>
+						<input type="hidden" name="action" value="delete" /> 
+						<input type="hidden" id="hiddenId" name="hiddenId" />
+						<button type="submit" class="btn btn-danger">Borrar</button>
 					</form>
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
+
 	<div class="row">
 		<h4>Desarrolladores</h4>
 		<div class="col-12 col-sm-12 col-lg-12">
@@ -121,7 +151,10 @@
 							<th data-field="iddesarrollador">Id Desarrollador</th>
 							<th data-field="nombre">Nombre</th>
 							<th data-field="operate" data-formatter="operateFormatter"
-								data-events="operateEvents"></th>
+								data-events="operateEvents"><a class="nuevo"
+								id="nuevoButtonId" onclick="showModal()"
+								href="javascript:void(0)" title="nuevo"> <i
+									class="fas fa-plus"></i></a></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -151,9 +184,9 @@
 
 		function operateFormatter(value, row, index) {
 			return [ '<a class="like" href="javascript:void(0)" title="like">',
-					'<i class="fas fa-pencil"></i>', '</a>  '/*,
+					'<i class="fas fa-pencil"></i>', '</a>  ',
 										'<a class="remove" href="javascript:void(0)" title="Remove">',
-										'<i class="fas fa-trash"></i>', '</a>'*/].join('')
+										'<i class="fas fa-trash"></i>', '</a>'].join('')
 		}
 
 		window.operateEvents = {
@@ -164,29 +197,32 @@
 				$('#desarrolladorId').val([ row.iddesarrollador ]);
 				$('#InputDesarrolladorId').val([ row.nombre ]);
 			},
-		/*'click .remove' : function(e, value, row, index) {
+		'click .remove' : function(e, value, row, index) {
 			$("#modalBorrarlbl").text(
 					"Esta seguro de que quiere borrar el desarrollador "
 							+ row.nombre);
 			$("#modalBorrar").modal('show');
-			$("#hiddenId").val([ row.id ]);
-		}*/
+			$("#hiddenId").val([ row.iddesarrollador ]);
+		}
 		};
+		
+		function showModal(){
+			$('#modalNuevo').modal('show');
+		}
+		
 		$(window).on('load', function() {
 			$('#modalExito').modal('show');
 		});
-
-		/*if (!($('#asd') === "")) {
-			window.history.pushState({}, document.title, "/"
-					+ "Java_Proyecto_123/WEB-INF/ListadoDesarrolladores.jsp");
-		}*/
 		   const url = new URL(window.location.href)
 	      const params = new URLSearchParams(url.search.slice(1))
 	      window.history.replaceState(
 	        {},
 	        '',
 	        `${window.location.pathname}?${"s=4"}${window.location.hash}`,
-	      )
+	      );
+	      
+	      
+			
 	</script>
 
 </body>

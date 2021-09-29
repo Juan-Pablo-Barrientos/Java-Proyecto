@@ -181,7 +181,7 @@
 					<form method="post" action="ListadoUsuarios">
 						<input type="hidden" name="action" value="delete" /> <input
 							type="hidden" id="hiddenId" name="hiddenId" />
-						<button type="submit" class="btn btn-primary">Borrar</button>
+						<button type="submit" class="btn btn-danger">Borrar</button>
 					</form>
 				</div>
 			</div>
@@ -235,6 +235,22 @@
 		});
 	</script>
 	<script type="text/javascript">
+
+	$(function(){
+	    var dtToday = new Date();
+
+	    var month = dtToday.getMonth() + 1;
+	    var day = dtToday.getDate();
+	    var year = dtToday.getFullYear();
+
+	    if(month < 10)
+	        month = '0' + month.toString();
+	    if(day < 10)
+	        day = '0' + day.toString();
+
+	    var maxDate = year + '-' + month + '-' + day;    
+	    $('#InputFechaNacimientoId').attr('max', maxDate);
+	});
 		function ValidateEmail() {
 			if (document.getElementById('idEmail1').value === document
 					.getElementById('idEmail2').value) {

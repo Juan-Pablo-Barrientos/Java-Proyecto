@@ -44,4 +44,26 @@
     <servlet-name>ListadoDesarrolladoresDisplay</servlet-name>
     <url-pattern>/ListadoDesarrolladoresDisplay.do</url-pattern>
   </servlet-mapping>
+
+   <servlet>
+    <servlet-name>ListadoPublicadores</servlet-name>
+    <servlet-class>
+        servlet.ListadoPublicadores
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoPublicadores</servlet-name>
+    <url-pattern>/ListadoPublicadores.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ListadoPublicadoresDisplay</servlet-name>
+    <servlet-class>
+        servlet.ListadoPublicadoresDisplay
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoPublicadoresDisplay</servlet-name>
+    <url-pattern>/ListadoPublicadoresDisplay.do</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -39,7 +39,7 @@
 		</div>
 		<div class="col" style="padding: 5px;">
 			<form action="ListadoReembolsoPendiente" method="post">
-				<button class="btn btn-success" type="submit">Listado
+				<button class="btn btn-danger" type="submit">Listado
 					Reembolso</button>
 
 			</form>
@@ -47,7 +47,7 @@
 		<div class="col" style="padding: 5px;">3 of 3</div>
 		<div class="col" style="padding: 5px;">
 			<form action="ListadoJuegos" method="post">
-				<button class="btn btn-success" type="submit">Listado de
+				<button class="btn btn-danger" type="submit">Listado de
 					juegos</button>
 					</form>
 		</div>
@@ -62,13 +62,13 @@
 		
 		<div class="col" style="padding: 5px;">
 			<form action="ListadoCompras" method="post">
-				<button class="btn btn-success" type="submit">Listado de
+				<button class="btn btn-danger" type="submit">Listado de
 					Compras</button>
 					</form>
 		</div>
 		
 		<div class="col" style="padding: 5px;">
-			<form action="ListadoPublicadores" method="post">
+			<form action="ListadoPublicadores" method="get">
 				<button class="btn btn-success" type="submit">Listado de
 					Publicadores</button>
 					</form>

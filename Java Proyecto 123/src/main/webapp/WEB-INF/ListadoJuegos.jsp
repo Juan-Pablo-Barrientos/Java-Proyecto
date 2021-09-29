@@ -2,9 +2,9 @@
 <%@page import="logic.*"%>
 <%@page import="java.util.LinkedList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>	
-<%@ page isELIgnored="false"%>	
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
+	pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -27,57 +27,61 @@
 	crossorigin="anonymous" />
 <link rel="stylesheet"
 	href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+
+
 </head>
 <body>
 
-<jsp:include page="/Navbar.jsp"/>
+	<jsp:include page="/Navbar.jsp" />
 
-		<div class="row">
-			<h4>Juegos</h4>
-			<div class="col-12 col-sm-12 col-lg-12">
-				<div class="table-responsive">
-					<table class="table" id="table" data-toggle="table">
-						<thead>
-							<tr>
-								<th data-field="idjuego">Id Juego</th>
-								<th data-field="idpublicador">Id Publicador</th>
-								<th data-field="nombrePublicador">Nombre del Publicador</th>
-								<th data-field="iddesarrollador">Id Desarrollador</th>
-								<th data-field="nombreDesarrollador">Nombre del Desarrollador</th>
-								<th data-field="nombreJuego">Nombre del juego</th>								
-								<th data-field="precio">Precio</th>				
-								<th data-field="descuento">Descuento</th>		
-								<th data-field="genero">Genero</th>		
-								<th data-field="fechapublicacion">Fecha de publicacion</th>	
-								<th data-field="resticcion">Restriccion por edad</th>	
-								<th data-field="operate" data-formatter="operateFormatter"
-									data-events="operateEvents"></th>
-							</tr>
-						</thead>
-						<tbody>
+	<div class="row">
+		<h4>Juegos</h4>
+		<div class="col-12 col-sm-12 col-lg-12">
+			<div class="table-responsive">
+				<table class="table hideFullColumn" id="table" data-toggle="table">
+					<thead>
+						<tr>
+							<th data-field="idjuego">Id Juego</th>
+							<th data-field="idpublicador" class="hidecol">Id Publicador</th>
+							<th data-field="nombrePublicador">Nombre del Publicador</th>
+							<th data-field="iddesarrollador" class="hidecol">Id
+								Desarrollador</th>
+							<th data-field="nombreDesarrollador">Nombre del
+								Desarrollador</th>
+							<th data-field="nombreJuego">Nombre del juego</th>
+							<th data-field="precio">Precio</th>
+							<th data-field="descuento">Descuento</th>
+							<th data-field="genero">Genero</th>
+							<th data-field="fechapublicacion">Fecha de publicacion</th>
+							<th data-field="resticcion">Restriccion por edad</th>
+							<th data-field="operate" data-formatter="operateFormatter"
+								data-events="operateEvents"></th>
+						</tr>
+					</thead>
+					<tbody>
 						<c:forEach items="${listajuegosview}" var="c">
-								<tr>
-									<td><c:out value="${c.juego.id}"></c:out></td>
-									<td><c:out value="${c.juego.idPublicador}"></c:out></td>
-									<td><c:out value="${c.publicador.nombre}"></c:out></td>
-									<td><c:out value="${c.juego.idDesarrollador}"></c:out></td>
-									<td><c:out value="${c.desarrollador.nombre}"></c:out></td>
-									<td><c:out value="${c.juego.nombre}"></c:out></td>												
-									<td><c:out value="${c.juego.precioBase}"></c:out></td>
-									<td><c:out value="${c.juego.descuento}"></c:out></td>
-									<td><c:out value="${c.juego.genero}"></c:out></td>
-									<td><c:out value="${c.juego.fecha_publicacion}"></c:out></td>	
-									<td><c:out value="${c.juego.reestriccionPorEdad}"></c:out></td>															
-									<td></td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
+							<tr>
+								<td><c:out value="${c.juego.id}"></c:out></td>
+								<td><c:out value="${c.juego.idPublicador}"></c:out></td>
+								<td><c:out value="${c.publicador.nombre}"></c:out></td>
+								<td><c:out value="${c.juego.idDesarrollador}"></c:out></td>
+								<td><c:out value="${c.desarrollador.nombre}"></c:out></td>
+								<td><c:out value="${c.juego.nombre}"></c:out></td>
+								<td>$<c:out value="${c.juego.precioBase}"></c:out></td>
+								<td><c:out value="${c.juego.descuento}"></c:out></td>
+								<td><c:out value="${c.juego.genero}"></c:out></td>
+								<td><c:out value="${c.juego.fecha_publicacion}"></c:out></td>
+								<td><c:out value="${c.juego.reestriccionPorEdad}"></c:out></td>
+								<td></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
-	<jsp:include page="/Footer.jsp"/>
-<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+	</div>
+	<jsp:include page="/Footer.jsp" />
+	<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
@@ -86,30 +90,27 @@
 		src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 
 	<script>
-  var $table = $('#table')
+		var $table = $('#table');
+		function operateFormatter(value, row, index) {
+			return [
+					'<a class="like" href="javascript:void(0)" title="Like">',
+					'<i class="fas fa-heart"></i>',
+					'</a>  ',
+					'<a class="remove" href="javascript:void(0)" title="Remove">',
+					'<i class="fas fa-trash"></i>', '</a>' ].join('')
+		}
 
-  function operateFormatter(value, row, index) {
-    return [
-      '<a class="like" href="javascript:void(0)" title="Like">',
-      '<i class="fas fa-heart"></i>',
-      '</a>  ',
-      '<a class="remove" href="javascript:void(0)" title="Remove">',
-      '<i class="fas fa-trash"></i>',
-      '</a>'
-    ].join('')
-  }
-
-  window.operateEvents = {
-    'click .like': function (e, value, row, index) {
-      alert([row.id])
-    },
-    'click .remove': function (e, value, row, index) {
-      $table.bootstrapTable('remove', {
-        field: 'id',
-        values: [row.id]
-      })
-    }
-  }
-</script>
+		window.operateEvents = {
+			'click .like' : function(e, value, row, index) {
+				alert([ row.idpublicador ])
+			},
+			'click .remove' : function(e, value, row, index) {
+				$table.bootstrapTable('remove', {
+					field : 'id',
+					values : [ row.id ]
+				})
+			}
+		}
+	</script>
 </body>
 </html>

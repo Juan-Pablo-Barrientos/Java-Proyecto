@@ -59,17 +59,18 @@ public class ListadoDesarrolladores extends HttpServlet {
 		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
 		int success = 0;
 		if (usr.getTipo().equals("admin")) {
-			/*if ("create".equals(request.getParameter("action"))) {
+			if ("create".equals(request.getParameter("action3"))) {
 				try {
 					DesarrolladorLogic devLogic = new DesarrolladorLogic();
-					int idDesarrollador = Integer.parseInt(request.getParameter("hiddenId"));
-					devLogic.delete(idDesarrollador);
-					success = 1;
+					Desarrollador newDev = new Desarrollador();
+					newDev.setNombre(request.getParameter("InputDesarrollador"));
+					devLogic.add(newDev);
+					success = 3;
 				} catch (Exception e) {
 					request.setAttribute("error", e.getMessage());
-					success = 3;
+					success = 0;
 				}
-			}*/
+			}
 			if ("delete".equals(request.getParameter("action"))) {
 				try {
 					DesarrolladorLogic devLogic = new DesarrolladorLogic();

@@ -71,6 +71,8 @@
 			<button type="submit" name="submit" class="btn btn-lg btn-primary">Confirmar registro</button>
 		</form>
 	</div>
+	<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+	
 	<script type="text/javascript">
 		function ValidateEmail() {
 			if (document.getElementById('idEmail1').value === document
@@ -86,6 +88,22 @@
 			alert("Email no coincide");
 			return false
 		}
+		
+		$(function(){
+		    var dtToday = new Date();
+
+		    var month = dtToday.getMonth() + 1;
+		    var day = dtToday.getDate();
+		    var year = dtToday.getFullYear();
+
+		    if(month < 10)
+		        month = '0' + month.toString();
+		    if(day < 10)
+		        day = '0' + day.toString();
+
+		    var maxDate = year + '-' + month + '-' + day;    
+		    $('#idFechaNacimiento').attr('max', maxDate);
+		});
 	</script>
 </body>
 </html>
