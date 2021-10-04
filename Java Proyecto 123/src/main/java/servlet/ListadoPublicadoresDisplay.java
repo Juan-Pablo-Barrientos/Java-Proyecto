@@ -71,8 +71,40 @@ public class ListadoPublicadoresDisplay extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+
+		// Verifica que el usuario sea admin
+		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
+		int success = 0;
+		if (usr.getTipo().equals("admin")) {
+			if ("create".equals(request.getParameter("action3"))) {
+				try {
+					PublicadorLogic pubLogic = new PublicadorLogic();
+					Publicador pubNew = new Publicador();
+					pubNew.setNombre(request.getParameter("InputPublicador"));
+					pubLogic.add(pubNew);
+					success = 3;
+				} catch (Exception e) {
+					request.setAttribute("error", e.getMessage());
+					success = 0;
+				}
+			}
+			if ("delete".equals(request.getParameter("action"))) {
+				try {
+					PublicadorLogic pubLogic = new PublicadorLogic();
+					int idPublicador = Integer.parseInt(request.getParameter("hiddenId"));
+					pubLogic.delete(idPublicador);
+					success = 1;
+				} catch (Exception e) {
+					request.setAttribute("error", e.getMessage());
+					success = 0;
+				}
+			response.sendRedirect("ListadoReembolsoPendienteDisplay.do?s=" + success);
+		} else {
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+
+		}
+	}
 	}
 
 }

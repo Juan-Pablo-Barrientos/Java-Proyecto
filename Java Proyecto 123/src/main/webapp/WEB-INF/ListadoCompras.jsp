@@ -90,10 +90,10 @@
 		function operateFormatter(value, row, index) {
 			return [
 					'<a class="like" href="javascript:void(0)" title="Like">',
-					'<i class="fas fa-heart"></i>',
+					'<i class="fas fa-heart fa-2x"></i>',
 					'</a>  ',
 					'<a class="remove" href="javascript:void(0)" title="Remove">',
-					'<i class="fas fa-trash"></i>', '</a>' ].join('')
+					'<i class="fas fa-trash fa-2x"></i>', '</a>' ].join('')
 		}
 
 		window.operateEvents = {

@@ -38,8 +38,8 @@
 			</form>
 		</div>
 		<div class="col" style="padding: 5px;">
-			<form action="ListadoReembolsoPendiente" method="post">
-				<button class="btn btn-danger" type="submit">Listado
+			<form action="ListadoReembolsoPendiente" method="get">
+				<button class="btn btn-success" type="submit">Listado
 					Reembolso</button>
 
 			</form>
@@ -49,37 +49,37 @@
 			<form action="ListadoJuegos" method="post">
 				<button class="btn btn-danger" type="submit">Listado de
 					juegos</button>
-					</form>
+			</form>
 		</div>
-				
+
 
 		<div class="col" style="padding: 5px;">
 			<form action="ListadoDesarrolladores" method="get">
 				<button class="btn btn-success" type="submit">Listado de
 					Desarrolladores</button>
-					</form>
+			</form>
 		</div>
-		
+
 		<div class="col" style="padding: 5px;">
 			<form action="ListadoCompras" method="post">
 				<button class="btn btn-danger" type="submit">Listado de
 					Compras</button>
-					</form>
+			</form>
 		</div>
-		
+
 		<div class="col" style="padding: 5px;">
 			<form action="ListadoPublicadores" method="get">
 				<button class="btn btn-success" type="submit">Listado de
 					Publicadores</button>
-					</form>
+			</form>
 		</div>
-				
+	</div>
 
-		<jsp:include page="/Footer.jsp" />
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-			crossorigin="anonymous"></script>
+	<jsp:include page="/Footer.jsp" />
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+		crossorigin="anonymous"></script>
 </body>
 </html>
 

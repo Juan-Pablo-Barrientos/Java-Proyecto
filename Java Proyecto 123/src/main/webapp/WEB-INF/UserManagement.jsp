@@ -202,10 +202,10 @@
 		function operateFormatter(value, row, index) {
 			return [
 					'<a class="like" href="javascript:void(0)" title="like">',
-					'<i class="fas fa-pencil"></i>',
+					'<i class="fas fa-pencil fa-2x"></i>',
 					'</a>  ',
 					'<a class="remove" href="javascript:void(0)" title="Remove">',
-					'<i class="fas fa-trash"></i>', '</a>' ].join('')
+					'<i class="fas fa-trash fa-2x"></i>', '</a>' ].join('')
 		}
 
 		window.operateEvents = {

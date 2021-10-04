@@ -154,7 +154,7 @@
 								data-events="operateEvents"><a class="nuevo"
 								id="nuevoButtonId" onclick="showModal()"
 								href="javascript:void(0)" title="nuevo"> <i
-									class="fas fa-plus"></i></a></th>
+									class="fas fa-plus fa-2x"></i></a></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -183,9 +183,9 @@
 
 		function operateFormatter(value, row, index) {
 			return [ '<a class="like" href="javascript:void(0)" title="like">',
-					'<i class="fas fa-pencil"></i>', '</a>  ',
+					'<i class="fas fa-pencil fa-2x"></i>', '</a>  ',
 										'<a class="remove" href="javascript:void(0)" title="Remove">',
-										'<i class="fas fa-trash"></i>', '</a>'].join('')
+										'<i class="fas fa-trash fa-2x"></i>', '</a>'].join('')
 		}
 
 		window.operateEvents = {

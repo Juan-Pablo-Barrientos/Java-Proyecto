@@ -66,4 +66,26 @@
     <servlet-name>ListadoPublicadoresDisplay</servlet-name>
     <url-pattern>/ListadoPublicadoresDisplay.do</url-pattern>
   </servlet-mapping>
+
+   <servlet>
+    <servlet-name>ListadoReembolsoPendiente</servlet-name>
+    <servlet-class>
+        servlet.ListadoReembolsoPendiente
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoReembolsoPendiente</servlet-name>
+    <url-pattern>/ListadoReembolsoPendiente.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ListadoReembolsoPendienteDisplay</servlet-name>
+    <servlet-class>
+        servlet.ListadoReembolsoPendienteDisplay
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoReembolsoPendienteDisplay</servlet-name>
+    <url-pattern>/ListadoReembolsoPendienteDisplay.do</url-pattern>
+  </servlet-mapping>
 </web-app>
