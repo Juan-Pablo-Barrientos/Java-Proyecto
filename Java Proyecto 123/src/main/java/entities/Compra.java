@@ -10,6 +10,7 @@ public class Compra implements java.io.Serializable{
 	private int id_reembolso;
 	private int id_reseña;
 	private int horas_jugadas;
+	private double importe;
 	private LocalDateTime dateFechaHora;
 	
 	public LocalDateTime getDateFechaHora() {
@@ -53,6 +54,12 @@ public class Compra implements java.io.Serializable{
 	}
 	public void setId_reseña(int id_reseña) {
 		this.id_reseña = id_reseña;
+	}
+	public double getImporte() {
+		return importe;
+	}
+	public void setImporte(double importe) {
+		this.importe = importe;
 	}
 
 }

@@ -108,6 +108,8 @@
 						<input type="hidden" name="approveInput" value="approve" />
 						<div class="modal-body">
 							<input type="hidden" id="hiddenIdApprove" name="hiddenIdApprove" />
+							<input type="hidden" id="hiddenIdGame" name="hiddenIdGame" />
+							<input type="hidden" id="hiddenIdUser" name="hiddenIdUser" />
 							<label id="modalApprovelbl"> </label>
 						</div>
 						<div class="modal-footer">
@@ -129,6 +131,7 @@
 								<th data-field="idReembolso">Id Reembolso</th>
 								<th data-field="nombreUsuario">Nombre del usuario</th>
 								<th data-field="idUsuario">Id Usuario</th>
+								<th data-field="idCompra">Id Compra</th>
 								<th data-field="nombreJuego">Nombre del juego</th>
 								<th data-field="horasJugadas">Horas jugadas</th>
 								<th data-field="estado">Estado</th>
@@ -145,6 +148,7 @@
 										<td><c:out value="${c.reembolso.id}"></c:out></td>
 										<td><c:out value="${c.usuario.nombreUsuario}"></c:out></td>
 										<td><c:out value="${c.usuario.id}"></c:out></td>
+										<td><c:out value="${c.compra.nroSerie}"></c:out></td>
 										<td><c:out value="${c.juego.nombre}"></c:out></td>
 										<td><c:out value="${c.compra.horas_jugadas}"></c:out> Hs</td>
 										<td><c:out value="${c.reembolso.estado}"></c:out></td>
@@ -185,6 +189,8 @@
 
 		window.operateEvents = {
 			'click .like' : function(e, value, row, index) {
+				$("#hiddenIdUser").val([ row.idUsuario ]);
+				$("#hiddenIdGame").val([ row.idCompra ]);
 				$("#hiddenIdApprove").val([ row.idReembolso ]);
 				$("#modalApprovelbl").text(
 						"Esta seguro de que quiere aprobar el reembolso del usuario "

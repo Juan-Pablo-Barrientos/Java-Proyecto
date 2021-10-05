@@ -12,7 +12,7 @@ public class Usuario implements java.io.Serializable {
 	private LocalDate fechaNacimiento;
 	private String telefono;
 	private String tipo;
-	
+	private double saldo;
 	public int getId() {
 		return id;
 	}
@@ -75,6 +75,14 @@ public class Usuario implements java.io.Serializable {
 	
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public double getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
 	}
 	
 	

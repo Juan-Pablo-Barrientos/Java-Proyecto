@@ -56,12 +56,17 @@ public class ListadoReembolsoPendiente extends HttpServlet {
 		if (usr.getTipo().equals("admin")) {
 			if ("approve".equals(request.getParameter("approveInput"))) {
 				try {
+					CompraLogic ComLogic = new CompraLogic();
+					UsuarioLogic UsrLogic = new UsuarioLogic();
 					ReembolsoLogic RemLogic = new ReembolsoLogic();
 					Reembolso remEdit = RemLogic.getOne(Integer.parseInt(request.getParameter("hiddenIdApprove")));
+					Compra compra = ComLogic.getOne(Integer.parseInt(request.getParameter("hiddenIdGame")));
+					Usuario usuario = UsrLogic.getOne(Integer.parseInt(request.getParameter("hiddenIdUser")));					
 					remEdit.setComentario("");
 					remEdit.setEstado("Aprobado");
 					RemLogic.update(remEdit);
-
+					usuario.setSaldo(usuario.getSaldo()+compra.getImporte());
+					UsrLogic.update(usuario);
 					success = 2;
 				} catch (Exception e) {
 					request.setAttribute("error", e.getMessage());

@@ -18,7 +18,7 @@ public class DataUsuario
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn()
-		    .prepareStatement("select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo" + " from usuario where id=? and habilitado=1");
+		    .prepareStatement("select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo,saldo" + " from usuario where id=? and habilitado=1");
 
 	    stmt.setInt(1, us);
 	    rs = stmt.executeQuery();
@@ -32,7 +32,7 @@ public class DataUsuario
 		u.setFechaNacimiento(rs.getObject("fecha_nacimiento", LocalDate.class));
 		u.setTelefono(rs.getString("telefono"));
 		u.setTipo(rs.getString("tipo"));
-
+		u.setSaldo(rs.getDouble("saldo"));
 	    }
 	}
 	catch (SQLException e)
@@ -72,7 +72,7 @@ public class DataUsuario
 	ResultSet rs = null;
 	try
 	{
-	    stmt = DbConnector.getInstancia().getConn().prepareStatement("select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo,contraseña"
+	    stmt = DbConnector.getInstancia().getConn().prepareStatement("select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo,contraseña,saldo"
 		    + " from usuario where contraseña=? AND (email=? OR nombre_usuario=?) AND habilitado=1");
 
 	    stmt.setString(1, us.getContraseña());
@@ -90,6 +90,7 @@ public class DataUsuario
 		u.setTelefono(rs.getString("telefono"));
 		u.setTipo(rs.getString("tipo"));
 		u.setContraseña(rs.getString("contraseña"));
+		u.setSaldo(rs.getDouble("saldo"));
 	    }
 	}
 	catch (SQLException e)
@@ -129,7 +130,7 @@ public class DataUsuario
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().createStatement();
-	    rs = stmt.executeQuery("select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo from usuario where habilitado=1");
+	    rs = stmt.executeQuery("select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo,saldo from usuario where habilitado=1");
 	    if (rs != null)
 	    {
 		while (rs.next())
@@ -142,6 +143,7 @@ public class DataUsuario
 		    u.setFechaNacimiento(rs.getObject("fecha_nacimiento", LocalDate.class));
 		    u.setTelefono(rs.getString("telefono"));
 		    u.setTipo(rs.getString("tipo"));
+		    u.setSaldo(rs.getDouble("saldo"));
 		    usrs.add(u);
 		}
 	    }
@@ -212,7 +214,7 @@ public class DataUsuario
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "insert into usuario(nombre_usuario,email,contraseña,nickname,fecha_nacimiento,telefono,tipo) " + "values(?,?,?,?,?,?,?)",
+		    "insert into usuario(nombre_usuario,email,contraseña,nickname,fecha_nacimiento,telefono,tipo,saldo) " + "values(?,?,?,?,?,?,?,?)",
 		    PreparedStatement.RETURN_GENERATED_KEYS);
 
 	    stmt.setString(1, u.getNombreUsuario());
@@ -222,6 +224,7 @@ public class DataUsuario
 	    stmt.setObject(5, u.getFechaNacimiento());
 	    stmt.setString(6, u.getTelefono());
 	    stmt.setString(7, u.getTipo());
+	    stmt.setDouble(8, u.getSaldo());
 
 	    stmt.executeUpdate();
 
@@ -260,7 +263,7 @@ public class DataUsuario
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "update usuario set nombre_usuario=?,email=?," + "nickname=?,fecha_nacimiento=?,telefono=?,tipo=? where id=?");
+		    "update usuario set nombre_usuario=?,email=?," + "nickname=?,fecha_nacimiento=?,telefono=?,tipo=?,saldo=? where id=?");
 
 	    stmt.setString(1, u.getNombreUsuario());
 	    stmt.setString(2, u.getEmail());	    
@@ -268,7 +271,8 @@ public class DataUsuario
 	    stmt.setObject(4, u.getFechaNacimiento());
 	    stmt.setString(5, u.getTelefono());
 	    stmt.setString(6, u.getTipo());
-	    stmt.setInt(7, u.getId());
+	    stmt.setDouble(7, u.getSaldo());
+	    stmt.setInt(8, u.getId());
 	    stmt.executeUpdate();
 
 	}
