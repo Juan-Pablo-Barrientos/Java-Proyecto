@@ -97,7 +97,8 @@ public class DataCompraView {
 					+ "join juego as j on j.id = c.id_juego \r\n"
 					+ "join usuario as u  on u.id = c.id_usuario \r\n"
 					+ "left join reembolso as r on r.id = c.id_reembolso\r\n"
-					+ "where  u.id =?;");
+					+ "having  u.id =? AND not  estado  = \"Aprobado\"\r\n"
+					+ "order by j.nombre;");
 			stmt.setInt(1, id);
 			rs= stmt.executeQuery();			
 			if(rs!=null) {
