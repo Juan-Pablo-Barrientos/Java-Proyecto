@@ -38,9 +38,13 @@
 					<li class="nav-item active"><a class="nav-link"
 						style="color: black" href="#">Home <span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link" style="color: black"
-						href="#">Placeholder</a></li>
-
+					<li class="nav-item">				
+						<form action="Biblioteca" method=get>
+								<button class="btn btn-success" type="submit">
+								Biblioteca</button>
+							</form>					
+						</li>
+					
 					<li><a class="nav-link" style="color: black" href="#">Placeholder</a>
 					</li>
 					<li class="nav-item"><c:if test="${usuario.tipo==('admin')}">
