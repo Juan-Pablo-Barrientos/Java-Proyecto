@@ -48,7 +48,7 @@ public class DataCompraView {
 					j.setDescuento(rs.getDouble("descuento"));
 					j.setGenero(rs.getString("genero"));
 					j.setFecha_publicacion(rs.getDate("fecha_publicacion"));
-					j.setReestriccionPorEdad(rs.getInt("restriccion_por_edad"));
+					j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
 					compraView.setJuego(j);
 				    //Usuario
 					Usuario u=new Usuario();
@@ -125,7 +125,7 @@ public class DataCompraView {
 					j.setDescuento(rs.getDouble("descuento"));
 					j.setGenero(rs.getString("genero"));
 					j.setFecha_publicacion(rs.getDate("fecha_publicacion"));
-					j.setReestriccionPorEdad(rs.getInt("restriccion_por_edad"));
+					j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
 					compraView.setJuego(j);
 				    //Usuario
 					Usuario u=new Usuario();

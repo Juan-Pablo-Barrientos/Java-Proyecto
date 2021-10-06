@@ -34,7 +34,7 @@ public class DataJuego
 		j.setDescuento(rs.getDouble("descuento"));
 		j.setGenero(rs.getString("genero"));
 		j.setFecha_publicacion(rs.getDate("fecha_publicacion"));
-		j.setReestriccionPorEdad(rs.getInt("restriccion_por_edad"));
+		j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
 
 	    }
 	}
@@ -94,7 +94,7 @@ public class DataJuego
 		    j.setDescuento(rs.getDouble("descuento"));
 		    j.setGenero(rs.getString("genero"));
 		    j.setFecha_publicacion(rs.getDate("fecha_publicacion"));
-		    j.setReestriccionPorEdad(rs.getInt("restriccion_por_edad"));
+		    j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
 
 		    juegs.add(j);
 		}
@@ -156,7 +156,7 @@ public class DataJuego
 		    j.setDescuento(rs.getDouble("descuento"));
 		    j.setGenero(rs.getString("genero"));
 		    j.setFecha_publicacion(rs.getDate("fecha_publicacion"));
-		    j.setReestriccionPorEdad(rs.getInt("restriccion_por_edad"));
+		    j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
 
 		    juegs.add(j);
 		}
@@ -211,7 +211,7 @@ public class DataJuego
 	    stmt.setDouble(6, j.getDescuento());
 	    stmt.setString(7, j.getGenero());
 	    stmt.setObject(8, j.getFecha_publicacion());
-	    stmt.setInt(9, j.getReestriccionPorEdad());
+	    stmt.setString(9, j.getReestriccionPorEdad());
 
 	    stmt.executeUpdate();
 
@@ -260,7 +260,7 @@ public class DataJuego
 	    stmt.setDouble(6, j.getDescuento());
 	    stmt.setString(7, j.getGenero());
 	    stmt.setObject(8, j.getFecha_publicacion());
-	    stmt.setInt(9, j.getReestriccionPorEdad());
+	    stmt.setString(9, j.getReestriccionPorEdad());
 	    stmt.setInt(10, j.getId());
 
 	    stmt.executeUpdate();

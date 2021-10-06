@@ -13,7 +13,7 @@ public class Juego implements java.io.Serializable
 	private double descuento;
 	private String genero;
 	private Date fecha_publicacion;
-	private int reestriccionPorEdad;
+	private String reestriccionPorEdad;
 	
 	public int getId() {
 		return id;
@@ -69,10 +69,10 @@ public class Juego implements java.io.Serializable
 	public void setFecha_publicacion(Date fecha_publicacion) {
 		this.fecha_publicacion = fecha_publicacion;
 	}
-	public int getReestriccionPorEdad() {
+	public String getReestriccionPorEdad() {
 		return reestriccionPorEdad;
 	}
-	public void setReestriccionPorEdad(int reestriccionPorEdad) {
+	public void setReestriccionPorEdad(String reestriccionPorEdad) {
 		this.reestriccionPorEdad = reestriccionPorEdad;
 	}
 	
