@@ -14,61 +14,61 @@
 </head>
 <body style="background-color: black">
 	<div class="container"
-		style="border: 2px solid black; border-radius: 20px; background-color: gold; margin-top: 5%;">
-		<h2 style="margin-left: 20px;">Registro</h2>
+		style="border: 2px solid black; border-radius: 20px; background-color: #FF9800; margin-top: 5%;">
+		<h2 class="text-white" style="margin-left: 20px;">Registro</h2>
 		<form role="form" style="margin: 20px;" action="SignUp" method="post"
 			id="formID" name="frmSignUp" onSubmit="return ValidateEmail()">
 			<div class="form-group">
-				<label for="exampleInputEmail1">Usuario</label> <input type="text"
+				<label class="text-white" for="exampleInputEmail1">Usuario</label> <input type="text"
 					class="form-control" id="exampleInputUsuario"
 					placeholder="Ingrese nombre de usuario" name="InputUsuario"
 					required>
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail1">Email</label> <input type="email"
+				<label class="text-white" for="exampleInputEmail1">Email</label> <input type="email"
 					class="form-control" id="idEmail1" placeholder="Ingrese email"
 					name="InputEmail" required>
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail1">Confimar Email</label> <input
+				<label class="text-white" for="exampleInputEmail1">Confimar Email</label> <input
 					type="email" class="form-control" id="idEmail2"
 					placeholder="Ingrese email nuevamente" name="InputConfirmEmail"
 					required>
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail1">Contraseña</label> <input
+				<label class="text-white" for="exampleInputEmail1">Contraseña</label> <input
 					type="password"
 					pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$"
 					class="form-control" id="idContraseña"
 					placeholder="Ingrese Contraseña" name="InputPassword" required>
-				<label style="font-style: italic;">La contraseña debe tener
+				<label class="text-white" style="font-style: italic;">La contraseña debe tener
 					entre 8 y 16 caracteres al menos un digito, una minúscula y una
 					mayúscula </label>
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail1">Confirmar contraseña</label> <input
+				<label class="text-white" for="exampleInputEmail1">Confirmar contraseña</label> <input
 					type="password" class="form-control" id="idContraseña2"
 					placeholder="Ingrese contraseña nuevamente"
 					name="InputConfirmaPassword" required>
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail1">Nickname</label> <input
+				<label class="text-white" for="exampleInputEmail1">Nickname</label> <input
 					type="text" class="form-control" id="idNickname"
 					placeholder="Ingrese nickname" name="InputNickname" required>
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail1">Telefono</label> <input type="text"
+				<label class="text-white" for="exampleInputEmail1">Telefono</label> <input type="text"
 					pattern="^[0-9]+$" class="form-control" id="idTelefono"
 					placeholder="Ingrese numero de telefono" name="InputTelefono"
 					required>
 			</div>
 			<p></p>
 						<div class="form-group">
-				<label for="InputFechaNacimiento">Fecha de nacimiento</label> <input type="date" id="idFechaNacimiento" name="InputFechaNacimiento" required> 
+				<label class="text-white" for="InputFechaNacimiento">Fecha de nacimiento</label> <input type="date" id="idFechaNacimiento" name="InputFechaNacimiento" required> 
 			</div>
 			
 			<p></p>
-			<button type="submit" name="submit" class="btn btn-lg btn-primary">Confirmar registro</button>
+			<button type="submit" name="submit" class="boton">Confirmar registro</button>
 		</form>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>

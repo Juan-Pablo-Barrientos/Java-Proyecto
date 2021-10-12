@@ -18,56 +18,59 @@
 <title>Java</title>
 </head>
 <body style="background-color: black">
-			<c:if test="${not empty result}">
-	<div class="modal fade" id="modalLogin" data-bs-backdrop="static"
-		data-bs-keyboard="false" tabindex="-1"
-		aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">Error de ingreso</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body"><c:out value="${result} "></c:out></div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendido!</button>
+	<c:if test="${not empty result}">
+		<div class="modal fade" id="modalLogin" data-bs-backdrop="static"
+			data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdropLabel">Error de
+							ingreso</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<c:out value="${result} "></c:out>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary"
+							data-bs-dismiss="modal">Entendido!</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	</c:if>
 	<div class="container"
-		style="border: 2px solid black; border-radius: 20px; background-color: gold; margin-top: 20%;">
+		style="border: 2px solid black; border-radius: 20px; background-color: #FF9800; margin-top: 20%; margin-bottom: 20%;">
 		<form role="form" style="margin: 20px;" action="signin" method="post">
 
 			<div class="form-group">
-				<label for="exampleInputEmail1">Usuario o Email</label> <input
-					type="text" class="form-control" id="exampleInputEmail1"
-					placeholder="Ingrese email o usuario" name="InputEmail" required>
+				<label for="exampleInputEmail1" style="color: white">Usuario
+					o Email</label> <input type="text" class="form-control"
+					id="exampleInputEmail1" placeholder="Ingrese email o usuario"
+					name="InputEmail" required>
 			</div>
 			<div class="form-group">
-				<label for="exampleInputPassword1">Contraseña</label> <input
-					type="password" class="form-control" id="exampleInputPassword1"
-					placeholder="Contraseña" name="InputPass" required>
+				<label for="exampleInputPassword1" style="color: white">Contraseña</label>
+				<input type="password" class="form-control"
+					id="exampleInputPassword1" placeholder="Contraseña"
+					name="InputPass" required>
 			</div>
 			<div class="checkbox">
-				<label> <input type="checkbox" name=checkboxRemember>
-					Recuérdame
+				<label style="color: white"> <input type="checkbox"
+					name=checkboxRemember> Recuérdame
 				</label>
 			</div>
-			<button type="submit" class="btn btn-lg btn-primary">Ingresar</button>
+			<button type="submit" class="boton">Ingresar</button>
+			<div></div>
+			<a href="signUp.jsp">Registrarse</a>
+			<div></div>
+			<a href="#">Olvidé mi contraseña</a>
 		</form>
-		<form method="post" action="signUp.jsp">
-			<button type="submit" style="margin-bottom: 5px; margin-left: 20px"
-				class="btn btn-link btn-sm">Registarse</button>
-		</form>
-		<form method="post" action="">
-			<button type="submit" style="margin-bottom: 5px; margin-left: 20px"
-				class="btn btn-link btn-sm">Olvidé mi contraseña</button>
-		</form>
+
 	</div>
-	
+
 	<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -77,9 +80,9 @@
 		src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 
 	<script>
-	$(window).on('load', function() {
-		$('#modalLogin').modal('show');
-	});
+		$(window).on('load', function() {
+			$('#modalLogin').modal('show');
+		});
 	</script>
 
 </body>

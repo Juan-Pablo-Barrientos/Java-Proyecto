@@ -25,8 +25,8 @@
 
 	<div id="wrapper">
 		<nav class="navbar navbar-expand-lg"
-			style="color: black; background-color: gold; border-color: black; border-width: thin; border-style: solid;">
-			<a class="navbar-brand" style="padding: 10px; color: grey"
+			style="color: black; background-color: #FF9800;">
+			<a class="navbar-brand" style="padding: 10px; color: white"
 				href="/Java_Proyecto_123/Homepage.jsp">Juego Mundo</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarNav" aria-controls="navbarNav"
@@ -35,31 +35,44 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
-					<li class="nav-item active"><a class="nav-link"
-						style="color: black" href="#">Home <span class="sr-only">(current)</span>
+					<li class="nav-item"><a class="nav-link active"
+						style="color: white" href="Homepage.jsp">Home <span
+							class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item">				
-						<form action="Biblioteca" method=get>
-								<button class="btn btn-success" type="submit">
+					<li class="nav-item">
+						<!--  	<form action="Biblioteca" method=get>
+							<button class="btn btn-success"
+								style="background-color: #009688;" type="submit">
 								Biblioteca</button>
-							</form>					
-						</li>
-					
-					<li><a class="nav-link" style="color: black" href="#">Placeholder</a>
+						</form>
+					</li> -->
+					<li class="nav-item "><a class="nav-link" style="color: white"
+						href="Biblioteca">Biblioteca<span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item">
+					<li><a class="nav-link" style="color: white" href="#">Placeholder</a>
 					</li>
-					<li class="nav-item"><c:if test="${usuario.tipo==('admin')}">
+					<!-- <li class="nav-item"><c:if test="${usuario.tipo==('admin')}">
 							<form action="PanelAdministracion" method=get>
-								<button class="btn btn-success" type="submit">Panel de
-									administracion</button>
+								<button class="btn btn-success"
+									style="background-color: #009688;" type="submit">Panel
+									de administracion</button>
 							</form>
+						</c:if></li> -->
+					<li class="nav-item"><c:if test="${usuario.tipo==('admin')}">
+							<a class="nav-link" style="color: white"
+								href="PanelAdministracion">Panel de Administración<span
+								class="sr-only">(current)</span>
+							</a>
 						</c:if></li>
 				</ul>
 				<ul class="navbar-nav ms-auto" style="margin-right: 10px">
 					<li><div class="container-fluid">
 							<form class="d-flex" action="busquedaJuegos" method="get">
-								<input class="form-control bg-dark text-white" type="search"
+								<input class="form-control bg-light text-white" type="search"
 									placeholder="Búsqueda" aria-label="Search" name="InputBusqueda">
-								<button class="btn btn-primary" type="submit">
+								<button class="btn btn-primary"
+									style="background-color: #009688;" type="submit">
 									<i class="fas fa-search"></i>
 								</button>
 							</form>
@@ -75,8 +88,23 @@
 
 	</div>
 	<script src="bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+	<script>
+		$(document).ready(
+				function() {
+					$('a.active').removeClass('active');
+					$(
+							'a[href="'
+									+ window.location.pathname.split("/").pop()
+									+ '"]').closest('a').addClass('active');
+				});
+	</script>
+
 </body>
 </html>
 
 <main role="main" class="container"
-	style="background-color: gold; text-align: center; padding: 20px">
+	style="background-color: #F5F5F5; text-align: center; padding: 20px">

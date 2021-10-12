@@ -18,7 +18,7 @@
 <title>Footer</title>
 </head>
 <body>
-<footer class="nav-footer" style="background: orange; padding: 10px">
+<footer class="nav-footer" style="color: white; background-color: #FF9800; padding: 10px">
 			<div class="container">
 				<span>Trabajo Practico UTN FRRO Java.</span>
 			</div>
