@@ -12,7 +12,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="icon" href="http://getbootstrap.com/favicon.ico">
+<link rel="icon" href="img/logo_modificado.ico">
 <link href="Styles/Style.css" rel="stylesheet" type="text/css" />
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
 <title>Java</title>

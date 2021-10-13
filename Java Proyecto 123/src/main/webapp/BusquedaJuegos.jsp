@@ -17,7 +17,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>Lista de Juegos</title>
-<link rel="icon" href="http://getbootstrap.com/favicon.ico">
+<link rel="icon" href="img/logo_modificado.ico">
 <link href="Styles/Style.css" rel="stylesheet" type="text/css" />
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet"

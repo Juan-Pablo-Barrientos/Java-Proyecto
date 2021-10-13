@@ -16,6 +16,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
+<link rel="icon" href="img/logo_modificado.ico">
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet"
 	type="text/css" />
 <link rel="stylesheet"

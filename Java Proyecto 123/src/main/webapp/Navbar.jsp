@@ -15,7 +15,7 @@
 	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	crossorigin="anonymous" />
-<link rel="icon" href="http://getbootstrap.com/favicon.ico">
+<link rel="icon" href="img/logo_modificado.ico">
 <link href="Styles/Style.css" rel="stylesheet" type="text/css" />
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet"
 	type="text/css" />
@@ -26,8 +26,16 @@
 	<div id="wrapper">
 		<nav class="navbar navbar-expand-lg"
 			style="color: black; background-color: #FF9800;">
-			<a class="navbar-brand" style="padding: 10px; color: white"
-				href="/Java_Proyecto_123/Homepage.jsp">Juego Mundo</a>
+			<a class="navbar-brand" href="/Java_Proyecto_123/Homepage.jsp" style="color:white;"> <img
+				src="img/logo_modificado.svg" alt="" width="30" height="30"
+				style="filter: invert(21%) sepia(68%) saturate(6615%) hue-rotate(269deg) brightness(93%) contrast(115%); margin-left: 10px"
+				class="d-inline-block align-text-top"> Claw Games
+			</a>
+
+			<!--<a class="navbar-brand" style="padding: 10px; color: white"
+				href="/Java_Proyecto_123/Homepage.jsp">
+				<img src="https://i.imgur.com/sHd1cWK.png" style="padding: 5px;" alt="" width="25" height="25">Juego Mundo</a>-->
+
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarNav" aria-controls="navbarNav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -71,8 +79,8 @@
 							<form class="d-flex" action="busquedaJuegos" method="get">
 								<input class="form-control bg-light text-white" type="search"
 									placeholder="Búsqueda" aria-label="Search" name="InputBusqueda">
-								<button class="btn btn-primary"
-									style="background-color: #009688;" type="submit">
+								<button class="boton"
+									style="margin-left: 10px;" type="submit">
 									<i class="fas fa-search"></i>
 								</button>
 							</form>

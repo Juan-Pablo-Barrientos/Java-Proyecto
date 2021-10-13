@@ -11,6 +11,8 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+
+<link rel="icon" href="img/logo_modificado.ico">
 <link href="Styles/Style.css" rel="stylesheet" type="text/css" />
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet"
 	type="text/css" />
@@ -33,13 +35,13 @@
 	<div class="row  " style="height: 50vh">
 		<div class="col" style="padding: 5px;">
 			<form action="ListadoUsuarios" method="get">
-				<button class="btn btn-success" type="submit">Listado
+				<button class="boton" type="submit">Listado
 					Usuarios</button>
 			</form>
 		</div>
 		<div class="col" style="padding: 5px;">
 			<form action="ListadoReembolsoPendiente" method="get">
-				<button class="btn btn-success" type="submit">Listado
+				<button class="boton" type="submit">Listado
 					Reembolso</button>
 
 			</form>
@@ -47,7 +49,7 @@
 		<div class="col" style="padding: 5px;">3 of 3</div>
 		<div class="col" style="padding: 5px;">
 			<form action="ListadoJuegos" method="post">
-				<button class="btn btn-danger" type="submit">Listado de
+				<button class="boton" type="submit">Listado de
 					juegos</button>
 			</form>
 		</div>
@@ -55,21 +57,21 @@
 
 		<div class="col" style="padding: 5px;">
 			<form action="ListadoDesarrolladores" method="get">
-				<button class="btn btn-success" type="submit">Listado de
+				<button class="boton" type="submit">Listado de
 					Desarrolladores</button>
 			</form>
 		</div>
 
 		<div class="col" style="padding: 5px;">
 			<form action="ListadoCompras" method="post">
-				<button class="btn btn-danger" type="submit">Listado de
+				<button class="boton" type="submit">Listado de
 					Compras</button>
 			</form>
 		</div>
 
 		<div class="col" style="padding: 5px;">
 			<form action="ListadoPublicadores" method="get">
-				<button class="btn btn-success" type="submit">Listado de
+				<button class="boton" type="submit">Listado de
 					Publicadores</button>
 			</form>
 		</div>
