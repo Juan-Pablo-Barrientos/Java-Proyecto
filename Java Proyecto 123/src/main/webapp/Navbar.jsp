@@ -107,7 +107,7 @@
 					$(
 							'a[href="'
 									+ window.location.pathname.split("/").pop()
-									+ '"]').closest('a').addClass('btn-primary');
+									+ '"]').closest('a').addClass('active');
 				});
 	</script>
 
