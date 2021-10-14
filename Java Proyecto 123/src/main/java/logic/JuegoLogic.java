@@ -58,5 +58,9 @@ public class JuegoLogic
     {
 	db.delete(this.getOne(id));
     }
+    
+    public boolean GameNameExist(String nombre) throws SQLException { 
+		return	db.GameNameExist(nombre);	 
+    }
 
 }

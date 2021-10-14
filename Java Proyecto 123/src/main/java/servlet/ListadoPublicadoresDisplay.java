@@ -56,6 +56,10 @@ public class ListadoPublicadoresDisplay extends HttpServlet {
 			case 4:
 				request.setAttribute("result", "");
 				break;
+			case 5 :
+				request.setAttribute("result", "El nombre ingresado ya esta en uso");
+				break;
+				
 			}
 			PublicadorLogic PublicadorLogic = new PublicadorLogic();
 			LinkedList<Publicador> Publicador = PublicadorLogic.getAll();

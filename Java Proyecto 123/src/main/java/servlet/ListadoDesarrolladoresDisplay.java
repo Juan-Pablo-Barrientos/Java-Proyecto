@@ -55,6 +55,9 @@ public class ListadoDesarrolladoresDisplay extends HttpServlet {
 				break;
 			case 4:
 				request.setAttribute("result", "");
+				break;	
+			case 5 :
+				request.setAttribute("result", "El nombre ingresado ya esta en uso");
 				break;
 			}
 			DesarrolladorLogic devLogic = new DesarrolladorLogic();

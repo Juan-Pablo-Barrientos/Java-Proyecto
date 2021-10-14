@@ -1,5 +1,6 @@
 package logic;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import data.*;
@@ -41,5 +42,9 @@ private DataPublicador db= new DataPublicador();
 		db.delete(this.getOne(id));
 
 	}
+	
+	 public boolean PublisherNameExist(String nombre) throws SQLException { 
+			return	db.PublisherNameExist(nombre);	 
+	    }
 
 }

@@ -7,6 +7,54 @@ import java.util.LinkedList;
 
 public class DataPublicador {
 	
+	public boolean PublisherNameExist(String nombre) throws SQLException
+
+    {
+	
+	PreparedStatement stmt = null;
+	boolean respuesta=false;
+	ResultSet rs = null;
+	try
+	{
+	    stmt = DbConnector.getInstancia().getConn()
+		    .prepareStatement("Select count(id) as resultado From publicador Where publicador.nombre=? and habilitado=1");
+	    stmt.setString(1, nombre);
+	    rs = stmt.executeQuery();
+	    if (rs != null && rs.next())
+	    {		
+		respuesta =rs.getBoolean("resultado");		
+	    }
+	}
+	catch (SQLException e)
+	{
+	    e.printStackTrace();
+	    throw e;
+	}
+	finally
+	{
+	    try
+	    {
+		if (rs != null)
+		{
+		    rs.close();
+		}
+		if (stmt != null)
+		{
+		    stmt.close();
+		}
+		DbConnector.getInstancia().releaseConn();
+	    }
+	    catch (SQLException e)
+	    {
+		e.printStackTrace();
+		throw e;
+	    }
+	}
+
+	return respuesta;
+    }
+
+	
 	public Publicador getOne(int pu) {
 		
 		Publicador p=null;

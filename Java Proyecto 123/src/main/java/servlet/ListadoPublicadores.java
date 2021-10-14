@@ -60,8 +60,12 @@ public class ListadoPublicadores extends HttpServlet {
 					PublicadorLogic pubLogic = new PublicadorLogic();
 					Publicador pubNew = new Publicador();
 					pubNew.setNombre(request.getParameter("InputPublicador"));
+					if (!pubLogic.PublisherNameExist(pubNew.getNombre()))
+					{
 					pubLogic.add(pubNew);
 					success = 3;
+					}
+					else success=5;
 				} catch (Exception e) {
 					request.setAttribute("error", e.getMessage());
 					success = 0;
@@ -84,9 +88,10 @@ public class ListadoPublicadores extends HttpServlet {
 					Publicador pubEdit = new Publicador();
 					pubEdit.setId(Integer.parseInt(request.getParameter("publicadorId")));
 					pubEdit.setNombre(request.getParameter("InputPublicador"));
-
+					if (!pubLogic.PublisherNameExist(pubEdit.getNombre())){
 					pubLogic.update(pubEdit);
-					success = 2;
+					success = 2;}
+					else success=5;
 				} catch (Exception e) {
 					request.setAttribute("error", e.getMessage());
 					success = 0;

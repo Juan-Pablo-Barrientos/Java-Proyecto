@@ -64,8 +64,10 @@ public class ListadoDesarrolladores extends HttpServlet {
 					DesarrolladorLogic devLogic = new DesarrolladorLogic();
 					Desarrollador newDev = new Desarrollador();
 					newDev.setNombre(request.getParameter("InputDesarrollador"));
+					if (!devLogic.DeveloperNameExist(newDev.getNombre())) {
 					devLogic.add(newDev);
-					success = 3;
+					success = 3;}
+					else success =5;
 				} catch (Exception e) {
 					request.setAttribute("error", e.getMessage());
 					success = 0;
@@ -86,12 +88,12 @@ public class ListadoDesarrolladores extends HttpServlet {
 				try {
 					DesarrolladorLogic devLogic = new DesarrolladorLogic();
 					Desarrollador devEdit = new Desarrollador();
-
 					devEdit.setId(Integer.parseInt(request.getParameter("desarrolladorId")));
 					devEdit.setNombre(request.getParameter("InputDesarrollador"));
-
+					if (!devLogic.DeveloperNameExist(devEdit.getNombre())) {	
 					devLogic.update(devEdit);
-					success = 2;
+					success = 2;}
+					else success=5;
 				} catch (Exception e) {
 					request.setAttribute("error", e.getMessage());
 					success = 0;

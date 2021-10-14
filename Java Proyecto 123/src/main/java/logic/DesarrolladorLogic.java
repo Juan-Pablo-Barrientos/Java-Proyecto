@@ -42,5 +42,9 @@ public class DesarrolladorLogic {
 		db.delete(this.getOne(id));
 
 	}
+	
+	 public boolean DeveloperNameExist(String nombre) throws SQLException { 
+			return	db.DeveloperNameExist(nombre);	 
+	    }
 
 }
