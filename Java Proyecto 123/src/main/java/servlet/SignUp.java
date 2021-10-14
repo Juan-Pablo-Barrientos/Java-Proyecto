@@ -53,7 +53,7 @@ public class SignUp extends HttpServlet {
 		LocalDate date = LocalDate.parse(request.getParameter("InputFechaNacimiento"));
 		usr.setFechaNacimiento(date);	
 		try {			
-			if (usrLogic.getOneByUserName(usr)==null) {
+			if (!(usrLogic.UserNameExist(usr.getNombreUsuario()) || usrLogic.UserEmailExist(usr.getEmail()))) {
 				usrLogic.add(usr);
 				request.getSession().setAttribute("usuario", usr);
 				request.getRequestDispatcher("Homepage.jsp").forward(request, response);

@@ -83,4 +83,12 @@ public class UsuarioLogic
 		}
 		 
 	}
+		  
+    public boolean UserNameExist(String userName) throws SQLException { 
+		return	db.UserNameExist(userName);	 
+    }
+    
+    public boolean UserEmailExist(String email) throws SQLException { 
+		return	db.UserEmailExist(email);	 
+    }
 }
