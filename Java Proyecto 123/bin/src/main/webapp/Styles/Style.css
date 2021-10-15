@@ -1,0 +1,64 @@
+@charset "ISO-8859-1";
+
+body {
+	overflow: auto;
+}
+
+.center {
+	margin: auto;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.center2 {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+/*Estilo para esconder columnas de la tabla*/
+.hideFullColumn tr>.hidecol {
+	display: none;
+}
+
+input:focus {
+	background: rgba(var(- -bs-dark-rgb));
+}
+
+.boton {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  background-color: #536DFE;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.active{
+	border-radius: 4px;
+	background: #F57C00;
+	font-weight: bold;
+}
+
+.color-principal{
+	background-color: #FF9800;
+}
+
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
