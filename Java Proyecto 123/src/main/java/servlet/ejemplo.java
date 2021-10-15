@@ -19,7 +19,7 @@ public class ejemplo extends HttpServlet {
      */
     public ejemplo() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**

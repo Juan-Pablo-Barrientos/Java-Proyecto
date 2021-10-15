@@ -35,7 +35,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary"
-							data-bs-dismiss="modal">Entendido!</button>
+							data-bs-dismiss="modal">Entendido!!!!</button>
 					</div>
 				</div>
 			</div>
