@@ -45,7 +45,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 offset-md-4" >
-				<div class="login-form mt-4 p-4 color-principal text-dark shadow"
+				<div class="login-form mt-4 p-4 color-principal text-dark shadow-lg"
 					style="border-radius: 4px;">
 					<form action="signin" method="post" class="row g-3">
 						<h4>Iniciar sesión</h4>
