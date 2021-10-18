@@ -25,9 +25,7 @@
 			<div class="row ">
 				<div class="col ">1 of 3</div>
 				<div class="col ">
-					<h3>
-						Bienvenido
-						${usuario.nickname}</h3>
+					
 						
 				</div>
 				<div class="col ">3 of 3</div>
