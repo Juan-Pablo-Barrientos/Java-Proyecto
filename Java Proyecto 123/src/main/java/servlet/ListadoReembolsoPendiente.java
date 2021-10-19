@@ -40,7 +40,7 @@ public class ListadoReembolsoPendiente extends HttpServlet {
 				request.setAttribute("listaCompraView", rems);
 				request.getRequestDispatcher("/WEB-INF/Reembolso.jsp").forward(request, response);
 			} else {
-				//response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 
 			}
 		} else {
