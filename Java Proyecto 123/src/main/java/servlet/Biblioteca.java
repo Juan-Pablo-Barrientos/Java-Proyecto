@@ -9,9 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entities.Compra;
 import entities.CompraView;
+import entities.Desarrollador;
+import entities.Reembolso;
 import entities.Usuario;
+import logic.CompraLogic;
 import logic.CompraViewLogic;
+import logic.DesarrolladorLogic;
+import logic.ReembolsoLogic;
 
 /**
  * Servlet implementation class Biblioteca
@@ -44,8 +50,41 @@ public class Biblioteca extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		int success=0;
+		if ("create".equals(request.getParameter("action1"))) {			
+				ReembolsoLogic remLogic = new ReembolsoLogic();
+				Reembolso reembolso =new Reembolso();
+				CompraLogic comLogic = new CompraLogic();
+				Compra compra = new Compra();
+				compra = comLogic.getOne(Integer.parseInt(request.getParameter("idCompra")));
+				
+				if (compra.getId_reembolso()!=0) 
+				{
+					try {				
+					reembolso = remLogic.getOne(compra.getId_reembolso());
+					if (reembolso.getEstado().equals("Rechazado")) {success = 2;} //El reembolso fue rechazado
+					else success=3; //El reembolso esta Pendiente	
+					}catch (Exception e) {
+					request.setAttribute("error", e.getMessage());
+					success = 0;	}
+									
+				}
+				if (compra.getId_reembolso()==0)  //Crear el reembolso si no existe
+				{	try {					
+					reembolso.setRazon(request.getParameter("razon"));
+					reembolso.setEstado("Pendiente");
+					reembolso = remLogic.add(reembolso);
+					compra.setId_reembolso(reembolso.getId());
+					comLogic.update(compra);
+					success = 1;
+						}catch (Exception e) {
+							request.setAttribute("error", e.getMessage());
+							success = 0; }
+				}
+				
+				
+		response.sendRedirect("BibliotecaDisplay.do?s=" + success);
+		}
 	}
 
 }

@@ -31,14 +31,71 @@
 </head>
 <body>
 <jsp:include page="/Navbar.jsp" />
+	<c:if test="${not empty result}">
+		<div class="modal fade" id="modalExito" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Solicitud Enviada!</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<c:out value="${result}"></c:out>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary"
+							data-bs-dismiss="modal">Entendido!</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:if>
+	<div class="modal fade" id="modalReembolso" tabindex="-1"
+		data-bs-backdrop="static" data-bs-keyboard="false"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="Reembolsar">Esta seguro que quiere reembolsar este juego?</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<form action="Biblioteca" method="post" onSubmit="">
+					<input type="hidden" name="action1" value="create" />
+					<div class="modal-body">								
+						<div class="form-group">
+							<input type="text" class="form-control" id="idCompra"
+								placeholder="id compra" name="idCompra"
+								hidden="true">										
+						</div>
+						<div class="form-group">
+							<label id="nombreJuego" > </label>									
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" id="razon"
+								placeholder="Escriba su razon" name="razon"	>										
+						</div>		
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Regresar</button>
+						<button type="submit" class="btn btn-primary">Enviar!</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	<div class="container">
 		<div class="row">
 			<h4>Mis Juegos</h4>
 			<div class="col-12 col-sm-12 col-lg-12">
 				<div class="table-responsive">
-					<table class="table" id="table" data-toggle="table">
+					<table class="table hideFullColumn" id="table" data-toggle="table">
 						<thead>
-							<tr>						
+							<tr>
+								<th data-field="idCompra" class="hidecol">Id Compra</th>					
 								<th data-field="nombreJuego">Nombre del juego</th>
 								<th data-field="hsJugadas">Horas jugadas</th>
 								<th data-field="operate" data-formatter="operateFormatter"
@@ -47,7 +104,8 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${listaCompraView}" var="c">							
-									<tr>									
+									<tr>
+										<td><c:out value="${c.compra.nroSerie}"></c:out></td>									
 										<td><c:out value="${c.juego.nombre}"></c:out></td>	
 										<td><c:out value="${c.compra.horas_jugadas}"></c:out></td>																																																												
 										<td></td>
@@ -69,20 +127,43 @@
 		src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 
 	<script>
-		var $table = $('#table')
+	var $table = $('#table')
 
-		function operateFormatter(value, row, index) {
-			return [
-					'<a class="like" href="javascript:void(0)" title="Jugar">',
-					'<i class="fas fa-play fa-2x"></i>',
-					'</a>  ',].join('')
-		} 
+	function operateFormatter(value, row, index) {
+		return [
+				'<a class="jugar" href="javascript:void(0)" title="Jugar">',
+				'<i class="fas fa-play fa-2x"></i>',
+				'</a>  ',
+				'<a class="reembolso" href="javascript:void(0)" title="Reembolso">',
+				'<i class="fas fa-dollar-sign fa-2x"></i>', '</a>' ].join('')
+	}
 
-		window.operateEvents = {
-			'click .like' : function(e, value, row, index) {
-				alert([ row.id ])
-			},		
+	window.operateEvents = {
+		'click .jugar' : function(e, value, row, index) {
+		$table.bootstrapTable('remove', {
+				field : 'id',
+				values : [ row.id ]
+			})				
+		},
+		'click .reembolso' : function(e, value, row, index) {
+			$('#modalReembolso').modal('show');
+			$('#Reembolso').text(
+					"Juego : " + row.nombreJuego);
+			$('#idCompra').val([ row.idCompra ]);
+			$('#nombreJuego').text([ row.nombreJuego ]);
 		}
+		
+	}
+	$(window).on('load', function() {
+		$('#modalExito').modal('show');
+	});
+	   const url = new URL(window.location.href)
+      const params = new URLSearchParams(url.search.slice(1))
+      window.history.replaceState(
+        {},
+        '',
+        `${window.location.pathname}?${"s=4"}${window.location.hash}`,
+      );
 	</script>
 
 </body>
