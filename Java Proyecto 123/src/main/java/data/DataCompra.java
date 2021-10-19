@@ -8,6 +8,37 @@ import java.util.LinkedList;
 
 public class DataCompra {
 
+public int NumeroDeCompras(int IdUsuario,int Idjuego) {
+		
+		int compras=0;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"select count(compra.id_juego) as resultado from compra where id_usuario=? and id_juego=?"					
+					);
+			
+			stmt.setInt(1, IdUsuario);
+			stmt.setInt(2, Idjuego);		
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) {				
+				compras =(rs.getInt("resultado"));		
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return compras;
+	}
+	
 	public Compra getOne(int com) {
 		
 		Compra c=null;;
