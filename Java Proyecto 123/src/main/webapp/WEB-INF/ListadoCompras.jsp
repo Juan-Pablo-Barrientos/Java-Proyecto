@@ -40,19 +40,17 @@
 			<h4>Compras</h4>
 			<div class="col-12 col-sm-12 col-lg-12">
 				<div class="table-responsive">
-					<table class="table" id="table" data-toggle="table">
+					<table class="table hideFullColumn" id="table" data-toggle="table">
 						<thead>
 							<tr>
 								<th data-field="nroSerie">Numero de serie</th>
 								<th data-field="nombreUsuario">Nombre del usuario</th>
-								<th data-field="idUsuario">Id Usuario</th>
+								<th data-field="idUsuario" class="hidecol">Id Usuario</th>
 								<th data-field="nombreJuego">Nombre del juego</th>
-								<th data-field="ideJuego">Id de juego</th>
+								<th data-field="ideJuego" class="hidecol">Id de juego</th>
 								<th data-field="precioBase">Precio base</th>
 								<th data-field="fechaDeCompra">Fecha de compra</th>
 								<th data-field="estadodeReembolso">Estado de reembolso</th>
-								<th data-field="operate" data-formatter="operateFormatter"
-									data-events="operateEvents"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -63,10 +61,9 @@
 										<td><c:out value="${c.usuario.id}"></c:out></td>
 										<td><c:out value="${c.juego.nombre}"></c:out></td>	
 										<td><c:out value="${c.juego.id}"></c:out></td>
-										<td><c:out value="${c.juego.precioBase}"></c:out></td>			
+										<td>$<c:out value="${c.juego.precioBase}"></c:out></td>			
 										<td><c:out value="${c.compra.dateFechaHora}"></c:out></td>	
-										<td><c:out value="${c.reembolso.estado}"></c:out></td>																																	
-										<td></td>
+										<td><c:out value="${c.reembolso.estado}"></c:out></td>
 									</tr>						
 							</c:forEach>
 						</tbody>
@@ -85,28 +82,14 @@
 		src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 
 	<script>
-		var $table = $('#table')
-
-		function operateFormatter(value, row, index) {
-			return [
-					'<a class="like" href="javascript:void(0)" title="Like">',
-					'<i class="fas fa-heart fa-2x"></i>',
-					'</a>  ',
-					'<a class="remove" href="javascript:void(0)" title="Remove">',
-					'<i class="fas fa-trash fa-2x"></i>', '</a>' ].join('')
-		}
-
-		window.operateEvents = {
-			'click .like' : function(e, value, row, index) {
-				alert([ row.id ])
-			},
-			'click .remove' : function(e, value, row, index) {
-				$table.bootstrapTable('remove', {
-					field : 'id',
-					values : [ row.id ]
-				})
-			}
-		}
+	   const url = new URL(window.location.href)
+	      const params = new URLSearchParams(url.search.slice(1))
+	      window.history.replaceState(
+	        {},
+	        '',
+	        `${window.location.pathname}?${"s=4"}${window.location.hash}`,
+	      );
+	      
 	</script>
 
 </body>

@@ -48,7 +48,7 @@
 		</div>
 		<div class="col" style="padding: 5px;">3 of 3</div>
 		<div class="col" style="padding: 5px;">
-			<form action="ListadoJuegos" method="post">
+			<form action="ListadoJuegos" method="get">
 				<button class="boton" type="submit">Listado de
 					juegos</button>
 			</form>
