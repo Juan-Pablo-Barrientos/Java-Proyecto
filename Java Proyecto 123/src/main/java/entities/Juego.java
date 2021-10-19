@@ -1,6 +1,8 @@
 package entities;
 
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 public class Juego implements java.io.Serializable
 {
@@ -12,7 +14,7 @@ public class Juego implements java.io.Serializable
 	private double precioBase;
 	private double descuento;
 	private String genero;
-	private Date fecha_publicacion;
+	private LocalDate fecha_publicacion;
 	private String reestriccionPorEdad;
 	
 	public int getId() {
@@ -63,10 +65,10 @@ public class Juego implements java.io.Serializable
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
-	public Date getFecha_publicacion() {
+	public LocalDate getFecha_publicacion() {
 		return fecha_publicacion;
 	}
-	public void setFecha_publicacion(Date fecha_publicacion) {
+	public void setFecha_publicacion(LocalDate fecha_publicacion) {
 		this.fecha_publicacion = fecha_publicacion;
 	}
 	public String getReestriccionPorEdad() {

@@ -42,7 +42,7 @@ public class BibliotecaDisplay extends HttpServlet {
 			request.setAttribute("result", "Solicitud enviada exitosamente!");
 			break;
 		case 2:
-			request.setAttribute("result", "La solicitud fue rechaza anteriormente.");
+			request.setAttribute("result", "La solicitud fue rechazada anteriormente.");
 			break;
 		case 3:
 			request.setAttribute("result", "La solicitud de reembolso esta pendiente de aprobacion");

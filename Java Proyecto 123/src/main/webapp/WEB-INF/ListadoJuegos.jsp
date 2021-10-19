@@ -66,7 +66,7 @@
 						aria-label="Close"></button>
 				</div>
 				<form action="ListadoJuegos" method="post" onSubmit="">
-					<input type="hidden" name="action" value="" />
+					<input type="hidden" name="action" value="" id="action" />
 					<div class="modal-body">
 						<div class="form-group">
 							<input type="text" class="form-control" id="juegoId"
@@ -112,7 +112,7 @@
 							<div class="input-group mb-3">
 								<input type="text" class="form-control" id="juegoNombreId"
 									placeholder="Ingrese nombre del juego" name="juegoNombreId"
-									required>
+									required required>
 							</div>
 						</div>
 						<div class="form-group">
@@ -121,14 +121,24 @@
 								<span class="input-group-text">$</span> <input type="text"
 									id="juegoPrecioBaseId" name="juegoPrecioBaseId"
 									placeholder="Ingrese precio base del juego"
-									class="form-control">
+									class="form-control" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="juegoDescuentoId" id="lblDescuentoId">Descuento</label>
+							<div class="input-group mb-3" id="juegoDescuentoDiv">
+								<input type="number" class="form-control" id="juegoDescuentoId2"
+									name="juegoDescuentoId2" max="100" min="0" required
+									placeholder="Ingrese descuento del juego" /> <span
+									class="input-group-text">%</span>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="juegoGeneroId">Genero</label>
 							<div class="input-group mb-3">
 								<input type="text" class="form-control" id="juegoGeneroId"
-									name="juegoGeneroId" placeholder="Ingrese genero del juego" />
+									name="juegoGeneroId" placeholder="Ingrese genero del juego"
+									required />
 							</div>
 						</div>
 						<div class="form-group">
@@ -151,7 +161,7 @@
 							<label for="juegoDescuentoId" id="lblDescripcion">Descripcion</label>
 							<div class="mb-3">
 								<textarea id="juegoDescripcionId" class="form-control" rows="5"
-									name="juegoDescripcionId"
+									name="juegoDescripcionId" required
 									placeholder="Ingrese descripcion del juego"></textarea>
 							</div>
 						</div>
@@ -187,8 +197,8 @@
 						<div class="form-group">
 							<label for="juegoDescuentoId">Descuento</label>
 							<div class="input-group mb-3">
-								<input type="number" class="form-control" id="juegoDescuentoId2"
-									name="juegoDescuentoId" max="100" min="0"
+								<input type="number" class="form-control" id="juegoDescuentoId"
+									name="juegoDescuentoId" max="100" min="0" required
 									placeholder="Ingrese descuento del juego" /> <span
 									class="input-group-text">%</span>
 							</div>
@@ -215,7 +225,7 @@
 						aria-label="Close"></button>
 				</div>
 				<form action="ListadoJuegos" method="post" onSubmit="">
-					<input type="hidden" name="actionDescripcion" value="descripcion" />
+					<input type="hidden" name="actionDesc" value="desc" />
 					<div class="modal-body">
 						<div class="form-group">
 							<input type="text" class="form-control" id="hiddenIdDescripcion"
@@ -226,7 +236,7 @@
 							<label for="juegoDescuentoId">Descripcion</label>
 							<div class="mb-3">
 								<textarea id="juegoDescripcionId2" class="form-control" rows="5"
-									name="juegoDescripcionId"
+									name="juegoDescripcionId2" required
 									placeholder="Ingrese descripcion del juego"></textarea>
 							</div>
 						</div>
@@ -287,7 +297,7 @@
 							<th data-field="descripcion" class="hidecol">Descripcion</th>
 							<th data-field="operate" data-formatter="operateFormatter"
 								data-events="operateEvents"><a class="nuevo"
-								id="nuevoButtonId" onclick="showModal()"
+								id="nuevoButtonId" onclick="createJuego()"
 								href="javascript:void(0)" title="nuevo"> <i
 									class="fas fa-plus fa-2x"></i></a></th>
 						</tr>
@@ -340,6 +350,7 @@
 		window.operateEvents = {
 			'click .like' : function(e, value, row, index) {
 				$('#modalEditar').modal('show');
+				$("#action").val("edit");
 				clearField();
 				$("#EditarJuegoNombrelbl").text("Editar juego: "+row.nombreJuego);
 				$("#desarrolladorNombreId").val([row.iddesarrollador]).change();
@@ -356,8 +367,11 @@
 				$("#juegoRestriccionId").val([row.restriccion]);
 			    $("#juegoDescripcionId").hide();
 			    $("#lblDescripcion").hide();
-				
-			},
+			    $("#juegoDescuentoDiv").hide();
+			    $("#lblDescuentoId").hide();
+			    $('#juegoDescripcionId').removeAttr('required');
+			    $('#juegoDescuentoId2').removeAttr('required');
+			    },
 			'click .remove' : function(e, value, row, index) {
 			$("#modalBorrarlbl").text(
 					"Esta seguro de que quiere borrar el juego "
@@ -369,7 +383,7 @@
 				$("#modalDescuento").modal('show');
 				$("#EditarJuegoDescuentolbl").text("Editar descuento del juego: "+row.nombreJuego);
 				$("#hiddenIdDescuento").val([ row.idjuego ]);
-				$("#juegoDescuentoId2").val(parseInt([ row.descuento ]));
+				$("#juegoDescuentoId").val(parseInt([ row.descuento ]));
 			},
 			'click .descripcion' : function(e, value, row, index) {
 				$("#modalDescripcion").modal('show');
@@ -388,15 +402,23 @@
 			$("#juegoNombreId").val("");
 			$("#juegoDescripcionId").val("");
 			$("#juegoPrecioBaseId").val("");
-			$("#juegoDescuentoId").val("");
+			$("#juegoDescuentoId2").val("");
 			$("#juegoGeneroId").val("");
 			$("#juegoFechaId").val("");
 			$("#juegoReestriccionId").val("");
 		}
 		
-		function showModal(){
+		function createJuego(){
 			$('#modalEditar').modal('show');
 			clearField();
+			$("#action").val("new");
+		    $("#juegoDescripcionId").show();
+		    $("#lblDescripcion").show();
+		    $("#juegoDescuentoId2").show();
+		    $("#lblDescuentoId").show();
+			$("#EditarJuegoNombrelbl").text("Crear nuevo juego");
+		    $('#juegoDescripcionId').Attr('required');
+		    $('#juegoDescuentoId2').Attr('required');
 		}
 		
 		$(window).on('load', function() {

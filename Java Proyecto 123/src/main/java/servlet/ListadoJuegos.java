@@ -18,82 +18,142 @@ import java.util.*;
 @WebServlet("/ListadoJuegos")
 public class ListadoJuegos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ListadoJuegos() {
-        super();       
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
-		if (usr.getTipo().equals("admin")) {
-			JuegoViewLogic juegoviewlogic = new JuegoViewLogic();
-			LinkedList<JuegoView> juegosview= juegoviewlogic.getAll();
-			DesarrolladorLogic devLogic = new DesarrolladorLogic();
-			LinkedList<Desarrollador> devs=devLogic.getAll();
-			PublicadorLogic pubLogic= new PublicadorLogic();
-			LinkedList<Publicador> pubs =pubLogic.getAll();
-			request.setAttribute("listajuegosview", juegosview); 
-			request.setAttribute("listadevs", devs); 
-			request.setAttribute("listapubs", pubs); 
-			request.getRequestDispatcher("/WEB-INF/ListadoJuegos.jsp").forward(request, response);	
+	public ListadoJuegos() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		Usuario usr;
+		if (request.getSession().getAttribute("usuario")!=null) {
+			usr = (Usuario) request.getSession().getAttribute("usuario");
+			if (usr.getTipo().equals("admin")) {
+				JuegoViewLogic juegoviewlogic = new JuegoViewLogic();
+				LinkedList<JuegoView> juegosview = juegoviewlogic.getAll();
+				DesarrolladorLogic devLogic = new DesarrolladorLogic();
+				LinkedList<Desarrollador> devs = devLogic.getAll();
+				PublicadorLogic pubLogic = new PublicadorLogic();
+				LinkedList<Publicador> pubs = pubLogic.getAll();
+				request.setAttribute("listajuegosview", juegosview);
+				request.setAttribute("listadevs", devs);
+				request.setAttribute("listapubs", pubs);
+				request.getRequestDispatcher("/WEB-INF/ListadoJuegos.jsp").forward(request, response);
+			} else {
+				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+
+			}
 		} else {
 			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-				// Verifica que el usuario sea admin
-				Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
-				int success = 0;
-				if (usr.getTipo().equals("admin")) {
-				if ("delete".equals(request.getParameter("action"))) {
+		// Verifica que el usuario sea admin
+		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
+		int success = 0;
+		if (usr != null) {
+			if (usr.getTipo().equals("admin")) {
+				if ("delete".equals(request.getParameter("actionDelete"))) {
 					try {
-						UsuarioLogic usrLogic = new UsuarioLogic();
-						int idUsuario = Integer.parseInt(request.getParameter("hiddenId"));
-						usrLogic.delete(idUsuario);
+						JuegoLogic jgoLogic = new JuegoLogic();
+						int idJuego = Integer.parseInt(request.getParameter("hiddenId"));
+						jgoLogic.delete(idJuego);
 						success = 1;
 					} catch (Exception e) {
 						request.setAttribute("error", e.getMessage());
 						success = 0;
 					}
 				}
-				if ("edit".equals(request.getParameter("action2"))) {
+				if ("edit".equals(request.getParameter("action"))) {
 					try {
-						UsuarioLogic usrLogic = new UsuarioLogic();
-						Usuario usrEdit = new Usuario();
-						
-						usrEdit.setId(Integer.parseInt(request.getParameter("usuarioId")));
-						usrEdit.setEmail(request.getParameter("InputEmail"));
-						usrEdit.setNickname(request.getParameter("InputNickname"));
-						usrEdit.setTelefono(request.getParameter("InputTelefono"));
-						usrEdit.setNombreUsuario(request.getParameter("InputUsuario"));
-						usrEdit.setTipo(request.getParameter("InputUsuarioTipo"));
-						LocalDate date = LocalDate.parse(request.getParameter("InputFechaNacimiento"));
-						usrEdit.setFechaNacimiento(date);
-						
-						usrLogic.update(usrEdit);
+						JuegoLogic jgoLogic = new JuegoLogic();
+						Juego jgoEdit = jgoLogic.getOne(Integer.parseInt(request.getParameter("juegoId")));
+						LocalDate date = LocalDate.parse(request.getParameter("juegoFechaId"));
+						jgoEdit.setFecha_publicacion(date);
+						jgoEdit.setIdPublicador(Integer.parseInt(request.getParameter("publicadorNombreId")));
+						jgoEdit.setIdDesarrollador(Integer.parseInt(request.getParameter("desarrolladorNombreId")));
+						jgoEdit.setNombre(request.getParameter("juegoNombreId"));
+						jgoEdit.setPrecioBase(Double.parseDouble(request.getParameter("juegoPrecioBaseId")));
+						jgoEdit.setGenero(request.getParameter("juegoGeneroId"));
+						jgoEdit.setReestriccionPorEdad(request.getParameter("juegoReestriccionId"));
+
+						jgoLogic.update(jgoEdit);
 						success = 2;
 					} catch (Exception e) {
 						request.setAttribute("error", e.getMessage());
 						success = 0;
 					}
 				}
-				response.sendRedirect("ListadoUsuariosDisplay.do?s=" + success);
-				}
-				else  {
-					response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
-					
-				}
-	}
+				if ("new".equals(request.getParameter("action"))) {
+					try {
+						JuegoLogic jgoLogic = new JuegoLogic();
+						Juego jgoEdit = new Juego();
+						LocalDate date = LocalDate.parse(request.getParameter("juegoFechaId"));
+						jgoEdit.setFecha_publicacion(date);
+						jgoEdit.setIdPublicador(Integer.parseInt(request.getParameter("publicadorNombreId")));
+						jgoEdit.setIdDesarrollador(Integer.parseInt(request.getParameter("desarrolladorNombreId")));
+						jgoEdit.setNombre(request.getParameter("juegoNombreId"));
+						jgoEdit.setPrecioBase(Double.parseDouble(request.getParameter("juegoPrecioBaseId")));
+						jgoEdit.setGenero(request.getParameter("juegoGeneroId"));
+						jgoEdit.setReestriccionPorEdad(request.getParameter("juegoReestriccionId"));
+						jgoEdit.setDescripcion(request.getParameter("juegoDescripcionId"));
+						jgoEdit.setDescuento(Double.parseDouble(request.getParameter("juegoDescuentoId2")) / 100);
 
+						jgoLogic.add(jgoEdit);
+						success = 3;
+					} catch (Exception e) {
+						request.setAttribute("error", e.getMessage());
+						success = 0;
+					}
+				}
+				if ("descuento".equals(request.getParameter("actionDiscount"))) {
+					try {
+						JuegoLogic jgoLogic = new JuegoLogic();
+						Juego jgoEdit = jgoLogic.getOne(Integer.parseInt(request.getParameter("juegoId")));
+						jgoEdit.setDescuento(Double.parseDouble(request.getParameter("juegoDescuentoId")) / 100);
+
+						jgoLogic.update(jgoEdit);
+						success = 4;
+					} catch (Exception e) {
+						request.setAttribute("error", e.getMessage());
+						success = 0;
+					}
+				}
+				if ("desc".equals(request.getParameter("actionDesc"))) {
+					try {
+						JuegoLogic jgoLogic = new JuegoLogic();
+						Juego jgoEdit = jgoLogic.getOne(Integer.parseInt(request.getParameter("juegoId")));
+						jgoEdit.setDescripcion(request.getParameter("juegoDescripcionId2"));
+
+						jgoLogic.update(jgoEdit);
+						success = 5;
+					} catch (Exception e) {
+						request.setAttribute("error", e.getMessage());
+						success = 0;
+					}
+				}
+				response.sendRedirect("ListadoJuegosDisplay.do?s=" + success);
+			} else {
+				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+
+			}
+		} else {
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+		}
+	}
 }

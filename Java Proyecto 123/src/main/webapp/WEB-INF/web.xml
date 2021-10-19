@@ -110,5 +110,27 @@
   <servlet-mapping>
     <servlet-name>Biblioteca</servlet-name>
     <url-pattern>/Biblioteca.do</url-pattern>
+  </servlet-mapping> 
+  
+  <servlet>
+    <servlet-name>ListadoJuegos</servlet-name>
+    <servlet-class>
+        servlet.ListadoJuegos
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoJuegos</servlet-name>
+    <url-pattern>/ListadoJuegos.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ListadoJuegosDisplay</servlet-name>
+    <servlet-class>
+        servlet.ListadoJuegosDisplay
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoJuegosDisplay</servlet-name>
+    <url-pattern>/ListadoJuegosDisplay.do</url-pattern>
   </servlet-mapping>
 </web-app>

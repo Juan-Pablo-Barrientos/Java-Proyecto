@@ -3,6 +3,7 @@ package data;
 import entities.*;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 public class DataJuego
@@ -79,7 +80,7 @@ public class DataJuego
 		j.setPrecioBase(rs.getDouble("precio_base"));
 		j.setDescuento(rs.getDouble("descuento"));
 		j.setGenero(rs.getString("genero"));
-		j.setFecha_publicacion(rs.getDate("fecha_publicacion"));
+		j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 		j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
 
 	    }
@@ -139,7 +140,7 @@ public class DataJuego
 		    j.setPrecioBase(rs.getDouble("precio_base"));
 		    j.setDescuento(rs.getDouble("descuento"));
 		    j.setGenero(rs.getString("genero"));
-		    j.setFecha_publicacion(rs.getDate("fecha_publicacion"));
+		    j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 		    j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
 
 		    juegs.add(j);
@@ -201,7 +202,7 @@ public class DataJuego
 		    j.setPrecioBase(rs.getDouble("precio_base"));
 		    j.setDescuento(rs.getDouble("descuento"));
 		    j.setGenero(rs.getString("genero"));
-		    j.setFecha_publicacion(rs.getDate("fecha_publicacion"));
+		    j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 		    j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
 
 		    juegs.add(j);

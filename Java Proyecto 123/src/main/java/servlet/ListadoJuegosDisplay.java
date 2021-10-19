@@ -9,9 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entities.Desarrollador;
 import entities.JuegoView;
+import entities.Publicador;
 import entities.Usuario;
+import logic.DesarrolladorLogic;
 import logic.JuegoViewLogic;
+import logic.PublicadorLogic;
 import logic.UsuarioLogic;
 
 /**
@@ -20,19 +24,21 @@ import logic.UsuarioLogic;
 @WebServlet("/ListadoJuegosDisplay")
 public class ListadoJuegosDisplay extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ListadoJuegosDisplay() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ListadoJuegosDisplay() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
 		if (usr.getTipo().equals("admin")) {
@@ -55,22 +61,33 @@ public class ListadoJuegosDisplay extends HttpServlet {
 				request.setAttribute("result", "Descuento del juego editado con exito");
 				break;
 			case 5:
+				request.setAttribute("result", "Descripcion del juego editado con exito");
+				break;
+			case 6:
 				request.setAttribute("result", "");
 				break;
 			}
 			JuegoViewLogic juegoviewlogic = new JuegoViewLogic();
-			LinkedList<JuegoView> juegosview= juegoviewlogic.getAll();
-			request.setAttribute("listajuegosview", juegosview); 
-			request.getRequestDispatcher("/WEB-INF/ListadoJuegos.jsp").forward(request, response);	
+			LinkedList<JuegoView> juegosview = juegoviewlogic.getAll();
+			DesarrolladorLogic devLogic = new DesarrolladorLogic();
+			LinkedList<Desarrollador> devs = devLogic.getAll();
+			PublicadorLogic pubLogic = new PublicadorLogic();
+			LinkedList<Publicador> pubs = pubLogic.getAll();
+			request.setAttribute("listajuegosview", juegosview);
+			request.setAttribute("listadevs", devs);
+			request.setAttribute("listapubs", pubs);
+			request.getRequestDispatcher("/WEB-INF/ListadoJuegos.jsp").forward(request, response);
 		} else {
 			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

@@ -47,7 +47,7 @@ public class DataCompraView {
 					j.setPrecioBase(rs.getDouble("precio_base"));
 					j.setDescuento(rs.getDouble("descuento"));
 					j.setGenero(rs.getString("genero"));
-					j.setFecha_publicacion(rs.getDate("fecha_publicacion"));
+					j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 					j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
 					compraView.setJuego(j);
 				    //Usuario
@@ -124,7 +124,7 @@ public class DataCompraView {
 					j.setPrecioBase(rs.getDouble("precio_base"));
 					j.setDescuento(rs.getDouble("descuento"));
 					j.setGenero(rs.getString("genero"));
-					j.setFecha_publicacion(rs.getDate("fecha_publicacion"));
+					j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 					j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
 					compraView.setJuego(j);
 				    //Usuario

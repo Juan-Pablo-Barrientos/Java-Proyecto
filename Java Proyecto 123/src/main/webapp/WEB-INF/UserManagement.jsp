@@ -106,7 +106,7 @@
 								<p></p>
 								<div class="form-group">
 									<label for="exampleInputEmail1">Tipo</label> <select
-										id="InputUsuarioTipoId" name="InputUsuarioTipo">
+										id="InputUsuarioTipoId" name="InputUsuarioTipo" class="form-control">
 										<option value="admin">admin</option>
 										<option value="usuario">usuario</option>
 									</select>
@@ -114,7 +114,7 @@
 								<p></p>
 								<div class="form-group">
 									<label for="InputFechaNacimiento">Fecha de nacimiento</label> <input
-										type="date" id="InputFechaNacimientoId"
+										type="date" id="InputFechaNacimientoId" class="form-control"
 										name="InputFechaNacimiento" required>
 								</div>
 							</div>

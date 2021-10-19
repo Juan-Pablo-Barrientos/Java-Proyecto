@@ -40,7 +40,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link active"
+					<li class="nav-item"><a class="nav-link"
 						style="color: black" href="Homepage.jsp">Home <span
 							class="sr-only">(current)</span>
 					</a></li>
