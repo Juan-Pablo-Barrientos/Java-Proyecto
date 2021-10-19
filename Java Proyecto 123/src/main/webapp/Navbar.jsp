@@ -26,15 +26,12 @@
 	<div id="wrapper">
 		<nav class="navbar navbar-expand-lg"
 			style="color: black; background-color: #FF9800;">
-			<a class="navbar-brand" href="/Java_Proyecto_123/Homepage.jsp" style="color:white;"> <img
-				src="img/logo_modificado.svg" alt="" width="30" height="30"
+			<a class="navbar-brand" href="/Java_Proyecto_123/Homepage.jsp"
+				style="color: black;"> <img src="img/logo_modificado.svg" alt=""
+				width="30" height="30"
 				style="filter: invert(21%) sepia(68%) saturate(6615%) hue-rotate(269deg) brightness(93%) contrast(115%); margin-left: 10px"
 				class="d-inline-block align-text-top"> Claw Games
 			</a>
-
-			<!--<a class="navbar-brand" style="padding: 10px; color: white"
-				href="/Java_Proyecto_123/Homepage.jsp">
-				<img src="https://i.imgur.com/sHd1cWK.png" style="padding: 5px;" alt="" width="25" height="25">Juego Mundo</a>-->
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarNav" aria-controls="navbarNav"
@@ -44,52 +41,87 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link active"
-						style="color: white" href="Homepage.jsp">Home <span
+						style="color: black" href="Homepage.jsp">Home <span
 							class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item">
-						<!--  	<form action="Biblioteca" method=get>
-							<button class="btn btn-success"
-								style="background-color: #009688;" type="submit">
-								Biblioteca</button>
-						</form>
-					</li> -->
-					<li class="nav-item "><a class="nav-link" style="color: white"
-						href="Biblioteca">Biblioteca<span class="sr-only">(current)</span>
-					</a></li>
-					<li class="nav-item">
-					<li><a class="nav-link" style="color: white" href="#">Placeholder</a>
-					</li>
-					<!-- <li class="nav-item"><c:if test="${usuario.tipo==('admin')}">
-							<form action="PanelAdministracion" method=get>
-								<button class="btn btn-success"
-									style="background-color: #009688;" type="submit">Panel
-									de administracion</button>
-							</form>
-						</c:if></li> -->
-					<li class="nav-item"><c:if test="${usuario.tipo==('admin')}">
-							<a class="nav-link" style="color: white"
-								href="PanelAdministracion">Panel de Administración<span
+
+					<c:if test="${usuario != null}">
+
+						<li class="nav-item "><a class="nav-link"
+							style="color: black" href="Biblioteca">Biblioteca<span
 								class="sr-only">(current)</span>
-							</a>
-						</c:if></li>
+						</a></li>
+
+					</c:if>
+
+					<li class="nav-item">
+					<li><a class="nav-link" style="color: black" href="#">Placeholder</a>
+					</li>
+
+					<li class="nav-item"><c:choose>
+							<c:when test="${usuario.tipo==('admin')}">
+								<a class="nav-link" style="color: black"
+									href="PanelAdministracion">Panel de Administración<span
+									class="sr-only">(current)</span>
+								</a>
+							</c:when>
+							<c:otherwise>
+							</c:otherwise>
+
+						</c:choose></li>
+
 				</ul>
 				<ul class="navbar-nav ms-auto" style="margin-right: 10px">
 					<li><div class="container-fluid">
 							<form class="d-flex" action="busquedaJuegos" method="get">
-								<input class="form-control bg-light text-white" type="search"
+								<input class="form-control bg-light" type="search"
 									placeholder="Búsqueda" aria-label="Search" name="InputBusqueda">
-								<button class="boton"
-									style="margin-left: 10px;" type="submit">
+								<button class="boton" style="margin-left: 10px;" type="submit">
 									<i class="fas fa-search"></i>
 								</button>
 							</form>
 						</div></li>
-					<li class="nav-item"><form action="SignOut" method="post"
-							style="text-align: right;">
-							<button class="btn btn-danger" type="submit">Cerrar
-								Sesión</button>
-						</form></li>
+
+
+					<c:if test="${usuario != null}">
+						<li class="nav-item">
+							<div>
+								<div class="row">
+									<div class="col-md-auto" style="margin: 0px 0px 0px 10px">
+										<div class=""
+											style="font-size: medium; text-align: right; height: 20px;">${usuario.nickname}</div>
+										<div class=""
+											style="font-size: small; text-align: right; height: 20px;">$${usuario.saldo}</div>
+									</div>
+									<div class="col-md-auto align-items-center"
+										style="height: 40px; margin: 0px 10px 0px 0px; font-size: 24px">
+										<i class="fas fa-user" style="line-height: 40px"></i>
+									</div>
+								</div>
+							</div>
+						</li>
+					</c:if>
+
+
+
+
+					<li class="nav-item">
+						<div class="container-fluid">
+							<c:choose>
+								<c:when test="${usuario != null}">
+									<form action="SignOut" method="post">
+										<button class="btn btn-danger" type="submit">Cerrar
+											Sesión</button>
+									</form>
+								</c:when>
+								<c:otherwise>
+									<form action="index.jsp" method="get">
+										<button class="boton" type="submit">Iniciar Sesión</button>
+									</form>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</li>
 				</ul>
 			</div>
 		</nav>
