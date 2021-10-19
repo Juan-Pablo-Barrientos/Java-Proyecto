@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entities.CompraView;
 import entities.Usuario;
+import logic.CompraViewLogic;
 import logic.UsuarioLogic;
 
 /**
@@ -34,11 +36,11 @@ public class ListadoUsuariosDisplay extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// Verifica que el usuario sea admin
-		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
+		
+	Usuario usr;
+	if (request.getSession().getAttribute("usuario") != null) {
+		usr = (Usuario) request.getSession().getAttribute("usuario");
 		if (usr.getTipo().equals("admin")) {
-
 			int success = Integer.parseInt(request.getParameter("s"));
 			switch (success) {
 			case 0:
@@ -60,8 +62,12 @@ public class ListadoUsuariosDisplay extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/UserManagement.jsp").forward(request, response);
 		} else {
 			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+
 		}
+	} else {
+		response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 	}
+}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

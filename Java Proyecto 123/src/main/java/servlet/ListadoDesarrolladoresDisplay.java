@@ -35,35 +35,39 @@ public class ListadoDesarrolladoresDisplay extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// Verifica que el usuario sea admin
-		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
-		if (usr.getTipo().equals("admin")) {
-			int success = Integer.parseInt(request.getParameter("s"));
-			switch (success) {
-			case 0:
-				request.setAttribute("result", "Ha ocurrido un error: " + request.getAttribute("error"));
-				break;
-			case 1:
-				request.setAttribute("result", "Desarrollador borrado con exito!");
-				break;
-			case 2:
-				request.setAttribute("result", "Desarrollador editado con exito!");
-				break;
-			case 3:
-				request.setAttribute("result", "Desarrollador creado con exito!");
-				break;
-			case 4:
-				request.setAttribute("result", "");
-				break;	
-			case 5 :
-				request.setAttribute("result", "El nombre ingresado ya esta en uso");
-				break;
+		Usuario usr;
+		if (request.getSession().getAttribute("usuario") != null) {
+			usr = (Usuario) request.getSession().getAttribute("usuario");
+			if (usr.getTipo().equals("admin")) {
+				int success = Integer.parseInt(request.getParameter("s"));
+				switch (success) {
+				case 0:
+					request.setAttribute("result", "Ha ocurrido un error: " + request.getAttribute("error"));
+					break;
+				case 1:
+					request.setAttribute("result", "Desarrollador borrado con exito!");
+					break;
+				case 2:
+					request.setAttribute("result", "Desarrollador editado con exito!");
+					break;
+				case 3:
+					request.setAttribute("result", "Desarrollador creado con exito!");
+					break;
+				case 4:
+					request.setAttribute("result", "");
+					break;
+				case 5:
+					request.setAttribute("result", "El nombre ingresado ya esta en uso");
+					break;
+				}
+				DesarrolladorLogic devLogic = new DesarrolladorLogic();
+				LinkedList<Desarrollador> devs = devLogic.getAll();
+				request.setAttribute("listaDesarrollador", devs);
+				request.getRequestDispatcher("/WEB-INF/ListadoDesarrolladores.jsp").forward(request, response);
+			} else {
+				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+
 			}
-			DesarrolladorLogic devLogic = new DesarrolladorLogic();
-			LinkedList<Desarrollador> devs = devLogic.getAll();
-			request.setAttribute("listaDesarrollador", devs);
-			request.getRequestDispatcher("/WEB-INF/ListadoDesarrolladores.jsp").forward(request, response);
 		} else {
 			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 		}

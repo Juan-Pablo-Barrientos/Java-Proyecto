@@ -40,7 +40,10 @@ public class ListadoJuegosDisplay extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
+		
+	Usuario usr;
+	if (request.getSession().getAttribute("usuario") != null) {
+		usr = (Usuario) request.getSession().getAttribute("usuario");
 		if (usr.getTipo().equals("admin")) {
 
 			int success = Integer.parseInt(request.getParameter("s"));
@@ -66,6 +69,9 @@ public class ListadoJuegosDisplay extends HttpServlet {
 			case 6:
 				request.setAttribute("result", "");
 				break;
+			case 7:
+				request.setAttribute("result", "El nombre del juego ya existe");
+				break;
 			}
 			JuegoViewLogic juegoviewlogic = new JuegoViewLogic();
 			LinkedList<JuegoView> juegosview = juegoviewlogic.getAll();
@@ -79,9 +85,12 @@ public class ListadoJuegosDisplay extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/ListadoJuegos.jsp").forward(request, response);
 		} else {
 			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
-		}
-	}
 
+		}
+	} else {
+		response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+	}
+}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)

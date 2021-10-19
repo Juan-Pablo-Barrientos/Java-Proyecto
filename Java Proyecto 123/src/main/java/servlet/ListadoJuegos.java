@@ -32,9 +32,9 @@ public class ListadoJuegos extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		Usuario usr;
-		if (request.getSession().getAttribute("usuario")!=null) {
+		if (request.getSession().getAttribute("usuario") != null) {
 			usr = (Usuario) request.getSession().getAttribute("usuario");
 			if (usr.getTipo().equals("admin")) {
 				JuegoViewLogic juegoviewlogic = new JuegoViewLogic();
@@ -64,9 +64,10 @@ public class ListadoJuegos extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// Verifica que el usuario sea admin
-		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
+		Usuario usr;
 		int success = 0;
-		if (usr != null) {
+		if (request.getSession().getAttribute("usuario") != null) {
+			usr = (Usuario) request.getSession().getAttribute("usuario");
 			if (usr.getTipo().equals("admin")) {
 				if ("delete".equals(request.getParameter("actionDelete"))) {
 					try {
@@ -91,9 +92,19 @@ public class ListadoJuegos extends HttpServlet {
 						jgoEdit.setPrecioBase(Double.parseDouble(request.getParameter("juegoPrecioBaseId")));
 						jgoEdit.setGenero(request.getParameter("juegoGeneroId"));
 						jgoEdit.setReestriccionPorEdad(request.getParameter("juegoReestriccionId"));
+						if (request.getParameter("juegoNombreId").equals((jgoLogic.getOne(Integer.parseInt(request.getParameter("juegoId"))).getNombre()))) {
+							jgoLogic.update(jgoEdit);
+							success = 2;
+						}
+						else {
+							if (!jgoLogic.GameNameExist(jgoEdit.getNombre())) {
+								jgoLogic.update(jgoEdit);
+								success = 2;
+							} else {
+								success = 7;
+							}
 
-						jgoLogic.update(jgoEdit);
-						success = 2;
+						}
 					} catch (Exception e) {
 						request.setAttribute("error", e.getMessage());
 						success = 0;
@@ -114,8 +125,11 @@ public class ListadoJuegos extends HttpServlet {
 						jgoEdit.setDescripcion(request.getParameter("juegoDescripcionId"));
 						jgoEdit.setDescuento(Double.parseDouble(request.getParameter("juegoDescuentoId2")) / 100);
 
-						jgoLogic.add(jgoEdit);
-						success = 3;
+						if (!jgoLogic.GameNameExist(jgoEdit.getNombre())) {
+							jgoLogic.add(jgoEdit);
+							success = 3;
+						} else
+							success = 7;
 					} catch (Exception e) {
 						request.setAttribute("error", e.getMessage());
 						success = 0;
@@ -152,7 +166,9 @@ public class ListadoJuegos extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 
 			}
-		} else {
+		} else
+
+		{
 			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 		}
 	}

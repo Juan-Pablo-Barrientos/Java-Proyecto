@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.Desarrollador;
+import entities.JuegoView;
 import entities.Publicador;
 import entities.Usuario;
 import logic.DesarrolladorLogic;
+import logic.JuegoViewLogic;
 import logic.PublicadorLogic;
 
 /**
@@ -37,8 +39,12 @@ public class ListadoPublicadoresDisplay extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
+		
+	Usuario usr;
+	if (request.getSession().getAttribute("usuario") != null) {
+		usr = (Usuario) request.getSession().getAttribute("usuario");
 		if (usr.getTipo().equals("admin")) {
+
 			int success = Integer.parseInt(request.getParameter("s"));
 			switch (success) {
 			case 0:
@@ -67,8 +73,12 @@ public class ListadoPublicadoresDisplay extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/ListadoPublicadores.jsp").forward(request, response);
 		} else {
 			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+
 		}
+	} else {
+		response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 	}
+}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)

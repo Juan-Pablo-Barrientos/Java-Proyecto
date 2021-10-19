@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entities.CompraView;
 import entities.Desarrollador;
 import entities.Publicador;
 import entities.Usuario;
+import logic.CompraViewLogic;
 import logic.DesarrolladorLogic;
 import logic.PublicadorLogic;
 
@@ -35,12 +37,18 @@ public class ListadoPublicadores extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
-		if (usr.getTipo().equals("admin")) {
+		Usuario usr;
+		if (request.getSession().getAttribute("usuario") != null) {
+			usr = (Usuario) request.getSession().getAttribute("usuario");
+			if (usr.getTipo().equals("admin")) {
 			PublicadorLogic PublicadorLogic = new PublicadorLogic();
 			LinkedList<Publicador> Publicador= PublicadorLogic.getAll();
 			request.setAttribute("listapublicadores", Publicador); 
 			request.getRequestDispatcher("/WEB-INF/ListadoPublicadores.jsp").forward(request, response);	
+			} else {
+				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+
+			}
 		} else {
 			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 		}
@@ -52,55 +60,60 @@ public class ListadoPublicadores extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// Verifica que el usuario sea admin
-		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
 		int success = 0;
-		if (usr.getTipo().equals("admin")) {
-			if ("create".equals(request.getParameter("action3"))) {
-				try {
-					PublicadorLogic pubLogic = new PublicadorLogic();
-					Publicador pubNew = new Publicador();
-					pubNew.setNombre(request.getParameter("InputPublicador"));
-					if (!pubLogic.PublisherNameExist(pubNew.getNombre()))
-					{
-					pubLogic.add(pubNew);
-					success = 3;
+		Usuario usr;
+		if (request.getSession().getAttribute("usuario") != null) {
+			usr = (Usuario) request.getSession().getAttribute("usuario");
+			if (usr.getTipo().equals("admin")) {
+				if ("create".equals(request.getParameter("action3"))) {
+					try {
+						PublicadorLogic pubLogic = new PublicadorLogic();
+						Publicador pubNew = new Publicador();
+						pubNew.setNombre(request.getParameter("InputPublicador"));
+						if (!pubLogic.PublisherNameExist(pubNew.getNombre()))
+						{
+						pubLogic.add(pubNew);
+						success = 3;
+						}
+						else success=5;
+					} catch (Exception e) {
+						request.setAttribute("error", e.getMessage());
+						success = 0;
 					}
-					else success=5;
-				} catch (Exception e) {
-					request.setAttribute("error", e.getMessage());
-					success = 0;
 				}
-			}
-			if ("delete".equals(request.getParameter("action"))) {
-				try {
-					PublicadorLogic pubLogic = new PublicadorLogic();
-					int idPublicador = Integer.parseInt(request.getParameter("hiddenId"));
-					pubLogic.delete(idPublicador);
-					success = 1;
-				} catch (Exception e) {
-					request.setAttribute("error", e.getMessage());
-					success = 0;
+				if ("delete".equals(request.getParameter("action"))) {
+					try {
+						PublicadorLogic pubLogic = new PublicadorLogic();
+						int idPublicador = Integer.parseInt(request.getParameter("hiddenId"));
+						pubLogic.delete(idPublicador);
+						success = 1;
+					} catch (Exception e) {
+						request.setAttribute("error", e.getMessage());
+						success = 0;
+					}
 				}
-			}
-			if ("edit".equals(request.getParameter("action2"))) {
-				try {
-					PublicadorLogic pubLogic = new PublicadorLogic();
-					Publicador pubEdit = new Publicador();
-					pubEdit.setId(Integer.parseInt(request.getParameter("publicadorId")));
-					pubEdit.setNombre(request.getParameter("InputPublicador"));
-					if (!pubLogic.PublisherNameExist(pubEdit.getNombre())){
-					pubLogic.update(pubEdit);
-					success = 2;}
-					else success=5;
-				} catch (Exception e) {
-					request.setAttribute("error", e.getMessage());
-					success = 0;
+				if ("edit".equals(request.getParameter("action2"))) {
+					try {
+						PublicadorLogic pubLogic = new PublicadorLogic();
+						Publicador pubEdit = new Publicador();
+						pubEdit.setId(Integer.parseInt(request.getParameter("publicadorId")));
+						pubEdit.setNombre(request.getParameter("InputPublicador"));
+						if (!pubLogic.PublisherNameExist(pubEdit.getNombre())){
+						pubLogic.update(pubEdit);
+						success = 2;}
+						else success=5;
+					} catch (Exception e) {
+						request.setAttribute("error", e.getMessage());
+						success = 0;
+					}
 				}
-			}
-			response.sendRedirect("ListadoPublicadoresDisplay.do?s=" + success);
-		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+				response.sendRedirect("ListadoPublicadoresDisplay.do?s=" + success);
+			}else {
+				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 
+			}
+		}else {
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 		}
 	}
 

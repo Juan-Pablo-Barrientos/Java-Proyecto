@@ -79,7 +79,23 @@
 			</div>
 <jsp:include page="Footer.jsp"/>
 	<script src="bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+	<script
+		src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 </body>
+<script>
+window.onload = function() {
+	if(!window.location.hash) {
+		window.location = window.location + '#Home';
+		window.location.reload();
+	}
+}
+
+
+</script>
 </html>
 
 
