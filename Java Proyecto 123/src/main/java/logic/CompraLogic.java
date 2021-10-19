@@ -10,6 +10,11 @@ public class CompraLogic {
 
 private DataCompra db= new DataCompra();
 	
+	public int NumeroDeCompras(int IdUsuario,int IdJuego){
+		return db.NumeroDeCompras(IdUsuario, IdJuego);
+	}
+	
+	
 	public LinkedList<Compra> getAll(){
 		return db.getAll();
 	}
