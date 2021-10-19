@@ -54,10 +54,11 @@ public class Biblioteca extends HttpServlet {
 		if ("create".equals(request.getParameter("action1"))) {			
 				ReembolsoLogic remLogic = new ReembolsoLogic();
 				Reembolso reembolso =new Reembolso();
-				CompraLogic comLogic = new CompraLogic();
+		 		CompraLogic comLogic = new CompraLogic();
 				Compra compra = new Compra();
 				compra = comLogic.getOne(Integer.parseInt(request.getParameter("idCompra")));
-				
+				if (comLogic.NumeroDeCompras(compra.getId_usuario(), compra.getId_juego())==1) 
+				{													 
 				if (compra.getId_reembolso()!=0) 
 				{
 					try {				
@@ -81,6 +82,8 @@ public class Biblioteca extends HttpServlet {
 							request.setAttribute("error", e.getMessage());
 							success = 0; }
 				}
+				}
+				else {success=5;} //El juego fue comprado y reembolsado anteriormente.
 				
 				
 		response.sendRedirect("BibliotecaDisplay.do?s=" + success);
