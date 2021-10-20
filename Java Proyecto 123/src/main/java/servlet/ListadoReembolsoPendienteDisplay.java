@@ -66,7 +66,7 @@ public class ListadoReembolsoPendienteDisplay extends HttpServlet {
 
 		}
 	} else {
-		response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+		response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 	}
 }
 

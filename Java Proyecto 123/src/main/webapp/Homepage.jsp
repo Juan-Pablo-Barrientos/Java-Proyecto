@@ -86,16 +86,6 @@
 	<script
 		src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 </body>
-<script>
-window.onload = function() {
-	if(!window.location.hash) {
-		window.location = window.location + '#Home';
-		window.location.reload();
-	}
-}
-
-
-</script>
 </html>
 
 

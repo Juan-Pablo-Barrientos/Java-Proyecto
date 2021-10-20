@@ -57,7 +57,7 @@ public class ListadoCompras extends HttpServlet {
 
 			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 		}
 	}
 

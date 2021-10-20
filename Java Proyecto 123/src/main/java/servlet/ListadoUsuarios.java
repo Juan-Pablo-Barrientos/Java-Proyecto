@@ -55,7 +55,7 @@ public class ListadoUsuarios extends HttpServlet {
 
 			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 		}
 
 	}
@@ -111,7 +111,7 @@ public class ListadoUsuarios extends HttpServlet {
 
 			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 		}
 	}
 

@@ -50,7 +50,7 @@ public class ListadoPublicadores extends HttpServlet {
 
 			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 		}
 	}
 
@@ -113,7 +113,7 @@ public class ListadoPublicadores extends HttpServlet {
 
 			}
 		}else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 		}
 	}
 

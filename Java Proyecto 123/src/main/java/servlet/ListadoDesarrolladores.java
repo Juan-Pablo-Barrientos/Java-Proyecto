@@ -52,7 +52,7 @@ public class ListadoDesarrolladores extends HttpServlet {
 
 			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 		}
 
 	}
@@ -117,7 +117,7 @@ public class ListadoDesarrolladores extends HttpServlet {
 
 			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 		}
 	}
 

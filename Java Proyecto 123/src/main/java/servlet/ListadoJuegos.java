@@ -52,7 +52,7 @@ public class ListadoJuegos extends HttpServlet {
 
 			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 		}
 	}
 
@@ -169,7 +169,7 @@ public class ListadoJuegos extends HttpServlet {
 		} else
 
 		{
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 		}
 	}
 }

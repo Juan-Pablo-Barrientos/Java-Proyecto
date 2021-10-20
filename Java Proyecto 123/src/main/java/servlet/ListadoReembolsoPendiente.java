@@ -44,7 +44,7 @@ public class ListadoReembolsoPendiente extends HttpServlet {
 
 			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 		}
 	}
 
@@ -95,11 +95,11 @@ public class ListadoReembolsoPendiente extends HttpServlet {
 				}
 				response.sendRedirect("ListadoReembolsoPendienteDisplay.do?s=" + success);
 			} else {
-				//response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 
 			}
 	   } else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 		}
 
 	}

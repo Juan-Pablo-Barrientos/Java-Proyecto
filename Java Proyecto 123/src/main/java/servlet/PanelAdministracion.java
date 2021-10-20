@@ -33,16 +33,21 @@ public class PanelAdministracion extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//Verifica que el usuario sea admin
-				Usuario usr= (Usuario)request.getSession().getAttribute("usuario");
-				if (usr.getTipo().equals("admin"))
-				{
+		Usuario usr;
+		if (request.getSession().getAttribute("usuario") != null) {
+			usr = (Usuario) request.getSession().getAttribute("usuario");
+			if (usr.getTipo().equals("admin")) {
 					request.getRequestDispatcher("/WEB-INF/PanelAdministracion.jsp").forward(request, response);
 				}else {
-
 					response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
-				}
 
-	}
+				}
+			} else {
+				response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+			}
+		}
+
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

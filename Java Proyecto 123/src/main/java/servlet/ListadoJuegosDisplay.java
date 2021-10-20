@@ -88,7 +88,7 @@ public class ListadoJuegosDisplay extends HttpServlet {
 
 		}
 	} else {
-		response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+		response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 	}
 }
 	/**
