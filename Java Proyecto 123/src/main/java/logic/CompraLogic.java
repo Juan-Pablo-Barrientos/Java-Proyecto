@@ -43,6 +43,14 @@ private DataCompra db= new DataCompra();
 		 db.update(obj);
 		
 	}
+	public void updateIdReseña(Compra obj) {
+		 db.updateIdReseña(obj);
+		
+	}
+	public void updateIdReembolso(Compra obj) {
+		 db.updateIdReembolso(obj);
+		
+	}
 	public void delete(Compra obj) {
 		 db.delete(obj);
 		

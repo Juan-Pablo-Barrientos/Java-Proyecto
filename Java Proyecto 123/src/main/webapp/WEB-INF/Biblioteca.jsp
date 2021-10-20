@@ -75,7 +75,7 @@
 						</div>
 						<div class="form-group">
 							<input type="text" class="form-control" id="razon"
-								placeholder="Escriba su razon" name="razon"	>										
+								placeholder="Escriba su razon" name="razon"	required>										
 						</div>		
 					</div>
 					<div class="modal-footer">
@@ -84,6 +84,36 @@
 						<button type="submit" class="btn btn-primary">Enviar!</button>
 					</div>
 				</form>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="modalJugando" tabindex="-1"
+		data-bs-backdrop="static" data-bs-keyboard="false"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="Jugar">Jugando</h5>					
+				</div>
+				<form action="Biblioteca" method="post" onSubmit="">
+					<input type="hidden" name="action2" value="update" />
+					<div class="modal-body">	
+				<div class="form-group">
+							<input type="text" class="form-control" id="segundos"
+							placeholder="tiempo" name="segundos" hidden="true">										
+						</div>		
+					<div class="form-group">
+							<input type="text" class="form-control" id="nroCompra"
+							placeholder="id compra" name="nroCompra" hidden="true">										
+						</div>
+				<div class="circle">
+        <span class="time" id="display">00:00:00</span>
+        </div>	
+      </div>	    
+       <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Dejar de jugar</button>                              
+      </div>	
+      </form>	
 			</div>
 		</div>
 	</div>
@@ -125,9 +155,12 @@
 	<script src="bootstrap/js/bootstrap.bundle.js"></script>
 	<script
 		src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
-
+  
 	<script>
-	var $table = $('#table')
+	var $table = $('#table');
+	let startTime;
+	let elapsedTime = 0;
+	let timerInterval;
 
 	function operateFormatter(value, row, index) {
 		return [
@@ -140,10 +173,15 @@
 
 	window.operateEvents = {
 		'click .jugar' : function(e, value, row, index) {
-		$table.bootstrapTable('remove', {
-				field : 'id',
-				values : [ row.id ]
-			})				
+			$('#modalJugando').modal('show');	
+			$('#nroCompra').val([ row.idCompra ]);
+			   startTime = Date.now() - elapsedTime;
+			   timerInterval = setInterval(function printTime() {
+			   elapsedTime = Date.now() - startTime;
+			   $('#segundos').val(elapsedTime);	
+			   $('#display').text(timeToString(elapsedTime));
+				  }, 10);				 
+			   
 		},
 		'click .reembolso' : function(e, value, row, index) {
 			$('#modalReembolso').modal('show');
@@ -164,6 +202,28 @@
         '',
         `${window.location.pathname}?${"s=4"}${window.location.hash}`,
       );
+	   	   
+		function timeToString(time) {
+			  let diffInHrs = time / 3600000;
+			  let hh = Math.floor(diffInHrs);
+
+			  let diffInMin = (diffInHrs - hh) * 60;
+			  let mm = Math.floor(diffInMin);
+
+			  let diffInSec = (diffInMin - mm) * 60;
+			  let ss = Math.floor(diffInSec);
+
+			  let diffInMs = (diffInSec - ss) * 100;
+			  let ms = Math.floor(diffInMs);
+			  
+  			  let formattedHH = hh.toString().padStart(2, "0");
+			  let formattedMM = mm.toString().padStart(2, "0");
+			  let formattedSS = ss.toString().padStart(2, "0");
+			
+			  return (formattedHH.concat(":"+formattedMM+":"+formattedSS));
+			} 
+		
+		
 	</script>
 
 </body>

@@ -53,6 +53,9 @@ public class BibliotecaDisplay extends HttpServlet {
 		case 5:
 			request.setAttribute("result", "El juego ya fue reembolsado en una compra anterior");
 			break;
+		case 6:
+			request.setAttribute("result", "El reebolso fue aprobado!");
+			break;
 		}
 		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
 		CompraViewLogic compraViewLogic = new CompraViewLogic();

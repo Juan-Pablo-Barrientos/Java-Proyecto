@@ -51,12 +51,26 @@ public class Biblioteca extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int success=0;
+		
+		if ("update".equals(request.getParameter("action2"))) {	
+			CompraLogic comLogic = new CompraLogic();
+			Compra compra = new Compra();			
+			double tiempo= (Double.parseDouble(request.getParameter("segundos"))/3600000);
+			compra = comLogic.getOne(Integer.parseInt(request.getParameter("nroCompra")));
+			compra.setHoras_jugadas(compra.getHoras_jugadas()+tiempo);
+			comLogic.update(compra);
+			success= 4;		
+			response.sendRedirect("BibliotecaDisplay.do?s=" + success);
+		}
+		
 		if ("create".equals(request.getParameter("action1"))) {			
 				ReembolsoLogic remLogic = new ReembolsoLogic();
 				Reembolso reembolso =new Reembolso();
 		 		CompraLogic comLogic = new CompraLogic();
 				Compra compra = new Compra();
 				compra = comLogic.getOne(Integer.parseInt(request.getParameter("idCompra")));
+			
+				
 				if (comLogic.NumeroDeCompras(compra.getId_usuario(), compra.getId_juego())==1) 
 				{													 
 				if (compra.getId_reembolso()!=0) 
@@ -73,11 +87,11 @@ public class Biblioteca extends HttpServlet {
 				if (compra.getId_reembolso()==0)  //Crear el reembolso si no existe
 				{	try {					
 					reembolso.setRazon(request.getParameter("razon"));
-					reembolso.setEstado("Pendiente");
+					if (compra.getHoras_jugadas()<2) {reembolso.setEstado("Aprobado");success = 6;}
+					else {reembolso.setEstado("Pendiente");success = 1;}
 					reembolso = remLogic.add(reembolso);
 					compra.setId_reembolso(reembolso.getId());
-					comLogic.update(compra);
-					success = 1;
+					comLogic.updateIdReembolso(compra);					
 						}catch (Exception e) {
 							request.setAttribute("error", e.getMessage());
 							success = 0; }

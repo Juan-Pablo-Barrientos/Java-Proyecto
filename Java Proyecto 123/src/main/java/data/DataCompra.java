@@ -59,7 +59,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 				c.setId_usuario(rs.getInt("id_usuario"));
 				c.setId_reembolso(rs.getInt("id_reembolso"));
 				c.setId_reseña(rs.getInt("id_reseña"));
-				c.setHoras_jugadas(rs.getInt("horas_jugadas"));
+				c.setHoras_jugadas(rs.getDouble("horas_jugadas"));
 				c.setDateFechaHora(rs.getObject("fecha_compra",LocalDateTime.class));
 				c.setImporte(rs.getDouble("importe"));
 			}
@@ -98,7 +98,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 				c.setId_usuario(rs.getInt("id_usuario"));
 				c.setId_reembolso(rs.getInt("id_reembolso"));
 				c.setId_reseña(rs.getInt("id_reseña"));
-				c.setHoras_jugadas(rs.getInt("horas_jugadas"));
+				c.setHoras_jugadas(rs.getDouble("horas_jugadas"));
 				c.setDateFechaHora(rs.getObject("fecha_compra",LocalDateTime.class));
 				c.setImporte(rs.getDouble("importe"));
 				
@@ -134,7 +134,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 					c.setId_usuario(rs.getInt("id_usuario"));
 					c.setId_reembolso(rs.getInt("id_reembolso"));
 					c.setId_reseña(rs.getInt("id_reseña"));
-					c.setHoras_jugadas(rs.getInt("horas_jugadas"));
+					c.setHoras_jugadas(rs.getDouble("horas_jugadas"));
 					c.setDateFechaHora(rs.getObject("fecha_compra",LocalDateTime.class));	
 					c.setImporte(rs.getInt("importe"));
 					coms.add(c);
@@ -174,7 +174,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 			stmt.setInt(2, c.getId_usuario());		
 			stmt.setInt(3, c.getId_reembolso());
 			stmt.setInt(4, c.getId_reseña());
-			stmt.setInt(5, c.getHoras_jugadas());			
+			stmt.setDouble(5, c.getHoras_jugadas());			
 			stmt.setObject(6, c.getDateFechaHora());
 			stmt.setDouble(7, c.getImporte());	
 			stmt.executeUpdate();
@@ -204,18 +204,60 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update compra set id_juego=?,id_usuario=?,id_reembolso=?,"
-							+ "id_reseña=?,horas_jugadas=?,fecha_compra=?,importe=? where nroSerie=?");
+							"update compra set id_juego=?,id_usuario=?,"
+							+ "horas_jugadas=?,fecha_compra=?,importe=? where nroSerie=?");
 			
 			stmt.setInt(1, c.getId_juego());
-			stmt.setInt(2, c.getId_usuario());		
-			stmt.setInt(3, c.getId_reembolso());
-			stmt.setInt(4, c.getId_reseña());
-			stmt.setInt(5, c.getHoras_jugadas());			
-			stmt.setObject(6, c.getDateFechaHora());
-			stmt.setObject(7, c.getImporte());
-			stmt.setInt(8, c.getNroSerie());
+			stmt.setInt(2, c.getId_usuario());						
+			stmt.setDouble(3, c.getHoras_jugadas());			
+			stmt.setObject(4, c.getDateFechaHora());
+			stmt.setObject(5, c.getImporte());
+			stmt.setInt(6, c.getNroSerie());
 		
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
+	}
+	
+	public void updateIdReseña(Compra c) {
+		PreparedStatement stmt= null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"update compra set id_reseña=?"
+							+ " where nroSerie=?");			
+			stmt.setInt(1, c.getId_reseña());	
+			stmt.setInt(2, c.getNroSerie());		
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
+	}
+	
+	public void updateIdReembolso(Compra c) {
+		PreparedStatement stmt= null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"update compra set id_reembolso=?"
+							+ " where nroSerie=?");			
+			stmt.setInt(1, c.getId_reembolso());	
+			stmt.setInt(2, c.getNroSerie());		
 			stmt.executeUpdate();
 		} catch (SQLException e) {
             e.printStackTrace();
