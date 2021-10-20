@@ -429,7 +429,7 @@
 	      window.history.replaceState(
 	        {},
 	        '',
-	        `${window.location.pathname}?${"s=6"}${window.location.hash}`,
+	        `${window.location.pathname}?${"s=8"}${window.location.hash}`,
 	      );
 	</script>
 </body>

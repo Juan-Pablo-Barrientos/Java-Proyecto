@@ -133,4 +133,14 @@
     <servlet-name>ListadoJuegosDisplay</servlet-name>
     <url-pattern>/ListadoJuegosDisplay.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>Homepage</servlet-name>
+    <servlet-class>
+        servlet.Homepage
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Homepage</servlet-name>
+    <url-pattern>/Homepage.do</url-pattern>
+  </servlet-mapping> 
 </web-app>

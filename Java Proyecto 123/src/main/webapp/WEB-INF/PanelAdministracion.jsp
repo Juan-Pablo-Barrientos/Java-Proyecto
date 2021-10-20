@@ -12,6 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
+
 <link rel="icon" href="img/logo_modificado.ico">
 <link href="Styles/Style.css" rel="stylesheet" type="text/css" />
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet"
@@ -83,5 +84,7 @@
 		integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
 		crossorigin="anonymous"></script>
 </body>
+<script>
+</script>
 </html>
 

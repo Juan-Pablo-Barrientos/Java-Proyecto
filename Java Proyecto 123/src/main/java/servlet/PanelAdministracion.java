@@ -18,41 +18,46 @@ import logic.UsuarioLogic;
 @WebServlet("/PanelAdministracion")
 public class PanelAdministracion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PanelAdministracion() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public PanelAdministracion() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//Verifica que el usuario sea admin
+		// Verifica que el usuario sea admin
 		Usuario usr;
 		if (request.getSession().getAttribute("usuario") != null) {
 			usr = (Usuario) request.getSession().getAttribute("usuario");
 			if (usr.getTipo().equals("admin")) {
-					request.getRequestDispatcher("/WEB-INF/PanelAdministracion.jsp").forward(request, response);
-				}else {
-					response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
-
-				}
+				response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+				response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+				response.setHeader("Expires", "0"); // Proxies.
+				request.getRequestDispatcher("/WEB-INF/PanelAdministracion.jsp").forward(request, response);
 			} else {
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
-			}
-		}
+				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 
-	
+			}
+		} else {
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+		}
+	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
