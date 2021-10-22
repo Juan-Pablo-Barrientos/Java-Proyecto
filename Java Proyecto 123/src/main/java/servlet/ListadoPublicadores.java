@@ -95,13 +95,19 @@ public class ListadoPublicadores extends HttpServlet {
 				if ("edit".equals(request.getParameter("action2"))) {
 					try {
 						PublicadorLogic pubLogic = new PublicadorLogic();
-						Publicador pubEdit = new Publicador();
+						Publicador pubEdit = new Publicador();						
 						pubEdit.setId(Integer.parseInt(request.getParameter("publicadorId")));
 						pubEdit.setNombre(request.getParameter("InputPublicador"));
-						if (!pubLogic.PublisherNameExist(pubEdit.getNombre())){
-						pubLogic.update(pubEdit);
-						success = 2;}
-						else success=5;
+						String nombre = pubLogic.getOne(pubEdit.getId()).getNombre();
+						if (!request.getParameter("InputPublicador").equals(nombre)) {
+						if (!pubLogic.PublisherNameExist(pubEdit.getNombre()))
+						{	
+						success=2;
+						pubLogic.update(pubEdit);											
+						}
+						else success =5;						
+						}
+						else success =4;
 					} catch (Exception e) {
 						request.setAttribute("error", e.getMessage());
 						success = 0;

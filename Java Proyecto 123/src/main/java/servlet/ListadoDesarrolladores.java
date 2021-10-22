@@ -101,11 +101,16 @@ public class ListadoDesarrolladores extends HttpServlet {
 						Desarrollador devEdit = new Desarrollador();
 						devEdit.setId(Integer.parseInt(request.getParameter("desarrolladorId")));
 						devEdit.setNombre(request.getParameter("InputDesarrollador"));
-						if (!devLogic.DeveloperNameExist(devEdit.getNombre())) {
-							devLogic.update(devEdit);
-							success = 2;
-						} else
-							success = 5;
+						String nombre = devLogic.getOne(devEdit.getId()).getNombre();
+						if (!request.getParameter("InputDesarrollador").equals(nombre)) {
+						if (!devLogic.DeveloperNameExist(devEdit.getNombre())) 
+						{
+						devLogic.update(devEdit);
+						success = 2;
+						}
+						else success =5;
+						}	
+						else success = 4;
 					} catch (Exception e) {
 						request.setAttribute("error", e.getMessage());
 						success = 0;

@@ -180,10 +180,10 @@
 
 		function operateFormatter(value, row, index) {
 			return [
-					'<a class="like" href="javascript:void(0)" title="Like">',
+					'<a class="like" href="javascript:void(0)" title="Aprobar">',
 					'<i class="fas fa-check fa-2x"></i>',
 					'</a>  ',
-					'<a class="remove" href="javascript:void(0)" title="Remove">',
+					'<a class="remove" href="javascript:void(0)" title="Rechazar">',
 					'<i class="fas fa-times fa-2x"></i>', '</a>' ].join('')
 		}
 
