@@ -128,7 +128,8 @@
 					<table class="table hideFullColumn" id="table" data-toggle="table">
 						<thead>
 							<tr>
-								<th data-field="idCompra" class="hidecol">Id Compra</th>					
+								<th data-field="idCompra" class="hidecol">Id Compra</th>
+								<th data-field="linkJuego" class="hidecol">Id Compra</th>					
 								<th data-field="nombreJuego">Nombre del juego</th>
 								<th data-field="hsJugadas">Horas jugadas</th>
 								<th data-field="operate" data-formatter="operateFormatter"
@@ -138,6 +139,7 @@
 						<tbody>
 							<c:forEach items="${listaCompraView}" var="c">							
 									<tr>
+										<td><c:out value="${c.juego.nombre}"></c:out></td>
 										<td><c:out value="${c.compra.nroSerie}"></c:out></td>									
 										<td><c:out value="${c.juego.nombre}"></c:out></td>	
 										<td><c:out value="${c.compra.horas_jugadas}"></c:out></td>																																																												
