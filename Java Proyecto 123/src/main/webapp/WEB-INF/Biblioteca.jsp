@@ -106,6 +106,9 @@
 							<input type="text" class="form-control" id="nroCompra"
 							placeholder="id compra" name="nroCompra" hidden="true">										
 						</div>
+					<div >
+					<script id="game" src=""></script>
+					</div>
 				<div class="circle">
         <span class="time" id="display">00:00:00</span>
         </div>	
@@ -172,16 +175,18 @@
 	}
 
 	window.operateEvents = {
-		'click .jugar' : function(e, value, row, index) {
+		'click .jugar' : function(e, value, row, index) {			
 			$('#modalJugando').modal('show');	
+			document.getElementById("game").src="https://cdn.htmlgames.com/embed.js?game=PalabraDeCodigoDelDia&amp;bgcolor=white";	 
 			$('#nroCompra').val([ row.idCompra ]);
 			   startTime = Date.now() - elapsedTime;
 			   timerInterval = setInterval(function printTime() {
 			   elapsedTime = Date.now() - startTime;
 			   $('#segundos').val(elapsedTime);	
 			   $('#display').text(timeToString(elapsedTime));
-				  }, 10);				 
-			   
+				  }, 10);	
+			  
+			
 		},
 		'click .reembolso' : function(e, value, row, index) {
 			$('#modalReembolso').modal('show');
