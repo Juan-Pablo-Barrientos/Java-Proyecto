@@ -92,6 +92,7 @@ public class ListadoJuegos extends HttpServlet {
 						jgoEdit.setPrecioBase(Double.parseDouble(request.getParameter("juegoPrecioBaseId")));
 						jgoEdit.setGenero(request.getParameter("juegoGeneroId"));
 						jgoEdit.setReestriccionPorEdad(request.getParameter("juegoReestriccionId"));
+						jgoEdit.setUrl(request.getParameter("juegoUrlId"));
 						if (request.getParameter("juegoNombreId").equals((jgoLogic.getOne(Integer.parseInt(request.getParameter("juegoId"))).getNombre()))) {
 							jgoLogic.update(jgoEdit);
 							success = 2;
@@ -123,6 +124,7 @@ public class ListadoJuegos extends HttpServlet {
 						jgoEdit.setGenero(request.getParameter("juegoGeneroId"));
 						jgoEdit.setReestriccionPorEdad(request.getParameter("juegoReestriccionId"));
 						jgoEdit.setDescripcion(request.getParameter("juegoDescripcionId"));
+						jgoEdit.setUrl(request.getParameter("juegoUrlId"));
 						jgoEdit.setDescuento(Double.parseDouble(request.getParameter("juegoDescuentoId2")) / 100);
 
 						if (!jgoLogic.GameNameExist(jgoEdit.getNombre())) {

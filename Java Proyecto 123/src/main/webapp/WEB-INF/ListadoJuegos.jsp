@@ -154,7 +154,7 @@
 							<div class="input-group mb-3">
 								<input type="text" class="form-control" id="juegoRestriccionId"
 									placeholder="Ingrese reestriccion por edad del juego"
-									name="juegoReestriccionId" required>
+									name="juegoReestriccionId">
 							</div>
 						</div>
 						<div class="form-group">
@@ -163,6 +163,14 @@
 								<textarea id="juegoDescripcionId" class="form-control" rows="5"
 									name="juegoDescripcionId" required
 									placeholder="Ingrese descripcion del juego"></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="juegoUrlId" id="lblUrl">Url</label>
+							<div class="mb-3">
+								<input type="text" class="form-control" id="juegoUrlId"
+									placeholder="Ingrese url del juego (Iframe)"
+									name="juegoUrlId" required>
 							</div>
 						</div>
 					</div>
@@ -295,6 +303,7 @@
 							<th data-field="fechapublicacion">Publicacion</th>
 							<th data-field="restriccion">Restriccion</th>
 							<th data-field="descripcion" class="hidecol">Descripcion</th>
+							<th data-field="url" class="">Url</th>
 							<th data-field="operate" data-formatter="operateFormatter"
 								data-events="operateEvents"><a class="nuevo"
 								id="nuevoButtonId" onclick="createJuego()"
@@ -317,6 +326,7 @@
 								<td><c:out value="${c.juego.fecha_publicacion}"></c:out></td>
 								<td><c:out value="${c.juego.reestriccionPorEdad}"></c:out></td>
 								<td><c:out value="${c.juego.descripcion}"></c:out></td>
+								<td><c:out value="${c.juego.url}"></c:out></td>
 								<td></td>
 							</tr>
 						</c:forEach>
@@ -365,6 +375,7 @@
 				$("#juegoGeneroId").val([row.genero]);
 				$("#juegoFechaId").val([row.fechapublicacion]);
 				$("#juegoRestriccionId").val([row.restriccion]);
+				$("#juegoUrlId").val([row.url]);
 			    $("#juegoDescripcionId").hide();
 			    $("#lblDescripcion").hide();
 			    $("#juegoDescuentoDiv").hide();
@@ -406,6 +417,7 @@
 			$("#juegoGeneroId").val("");
 			$("#juegoFechaId").val("");
 			$("#juegoReestriccionId").val("");
+			$("#juegoUrlId").val("");
 		}
 		
 		function createJuego(){
@@ -414,7 +426,7 @@
 			$("#action").val("new");
 		    $("#juegoDescripcionId").show();
 		    $("#lblDescripcion").show();
-		    $("#juegoDescuentoId2").show();
+		    $("#juegoDescuentoDiv").show();
 		    $("#lblDescuentoId").show();
 			$("#EditarJuegoNombrelbl").text("Crear nuevo juego");
 		    $('#juegoDescripcionId').Attr('required');

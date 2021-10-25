@@ -35,6 +35,7 @@ public class DataJuegoView {
 					j.setGenero(rs.getString("genero"));
 					j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 					j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
+					j.setUrl(rs.getString("url"));
 					juegoView.setJuego(j);
 					//Publicador
 					Publicador p = new Publicador();
