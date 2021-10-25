@@ -249,8 +249,8 @@ public class DataJuego
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "insert into juego(id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url) "
-			    + "values(?,?,?,?,?,?,?,?,?)",
+		    "insert into juego(id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url ) "
+			    + " values(?,?,?,?,?,?,?,?,?)",
 		    PreparedStatement.RETURN_GENERATED_KEYS);
 
 	    stmt.setInt(1, j.getIdPublicador());
