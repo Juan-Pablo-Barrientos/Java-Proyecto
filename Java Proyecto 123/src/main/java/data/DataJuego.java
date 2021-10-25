@@ -122,9 +122,8 @@ public class DataJuego
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "SELECT id,id_publicador,id_desarrollador,nombre,descripcion,\r\n"
-		    + "precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url\r\n"
-		    + "			    FROM juego WHERE nombre LIKE ? AND habilitado=1;");
+		    "SELECT id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url "
+		    +"FROM juego WHERE nombre LIKE ? AND habilitado=1;");
 
 	    stmt.setString(1, "%" + name + "%");
 	    rs = stmt.executeQuery();
