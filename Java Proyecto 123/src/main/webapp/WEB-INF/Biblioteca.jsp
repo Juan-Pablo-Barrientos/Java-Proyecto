@@ -109,7 +109,7 @@
 				<div class="modal-header">
 					<h5 class="modal-title" id="Jugar">Jugando</h5>
 				</div>
-				<form action="Biblioteca" method="post" onSubmit="">
+				<form action="Biblioteca" method="get" onSubmit="">
 					<input type="hidden" name="action2" value="update" />
 					<div class="modal-body">
 						<div id="#gameDiv" class="gameDiv">
@@ -193,24 +193,21 @@
 			$('#modalJugando').modal('show');
 		    $("#game").attr("src", ([row.linkJuego]));
 			$('#nroCompra').val([ row.idCompra ]);
-			   startTime = Date.now() - elapsedTime;
+			var intervaloTiempo=30000
 			   timerInterval = setInterval(function printTime() {
-			   elapsedTime = Date.now() - startTime;
-			   $('#display').text(timeToString(elapsedTime));
 		       $.ajax
 		        (
 		            {
 		                url:'BibliotecaHoras',
-		                data:{"segundos":elapsedTime,"nroCompra":row.idCompra},
+		                data:{"segundos":intervaloTiempo,"nroCompra":row.idCompra},
 		                type:'get',
 		                cache:false,
-		                success:function(data){
-		                						elapsedTime=0;
-		                						},
+		                success:function(){
+		                },
 		                error:function(){alert('no funco');}
 		            }
 		        );
-				  }, 3000);	
+				  }, intervaloTiempo);	
 			  
 			
 		},
@@ -233,26 +230,6 @@
         '',
         `${window.location.pathname}?${"s=4"}${window.location.hash}`,
       );
-	   	   
-		function timeToString(time) {
-			  let diffInHrs = time / 3600000;
-			  let hh = Math.floor(diffInHrs);
-
-			  let diffInMin = (diffInHrs - hh) * 60;
-			  let mm = Math.floor(diffInMin);
-
-			  let diffInSec = (diffInMin - mm) * 60;
-			  let ss = Math.floor(diffInSec);
-
-			  let diffInMs = (diffInSec - ss) * 100;
-			  let ms = Math.floor(diffInMs);
-			  
-  			  let formattedHH = hh.toString().padStart(2, "0");
-			  let formattedMM = mm.toString().padStart(2, "0");
-			  let formattedSS = ss.toString().padStart(2, "0");
-			
-			  return (formattedHH.concat(":"+formattedMM+":"+formattedSS));
-			}
 			</script>
 </body>
 </html>

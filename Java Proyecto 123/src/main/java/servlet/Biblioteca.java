@@ -52,17 +52,6 @@ public class Biblioteca extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int success=0;
 		
-		if ("update".equals(request.getParameter("action2"))) {	
-			CompraLogic comLogic = new CompraLogic();
-			Compra compra = new Compra();			
-			double tiempo= (Double.parseDouble(request.getParameter("segundos"))/3600000);
-			compra = comLogic.getOne(Integer.parseInt(request.getParameter("nroCompra")));
-			compra.setHoras_jugadas(compra.getHoras_jugadas()+tiempo);
-			comLogic.update(compra);
-			success= 4;		
-			response.sendRedirect("BibliotecaDisplay.do?s=" + success);
-		}
-		
 		if ("create".equals(request.getParameter("action1"))) {			
 				ReembolsoLogic remLogic = new ReembolsoLogic();
 				Reembolso reembolso =new Reembolso();
