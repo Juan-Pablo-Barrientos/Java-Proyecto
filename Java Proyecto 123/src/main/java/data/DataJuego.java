@@ -64,7 +64,7 @@ public class DataJuego
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad"
+		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url"
 			    + " from juego where id=? and habilitado=1");
 
 	    stmt.setInt(1, jue);
@@ -80,6 +80,7 @@ public class DataJuego
 		j.setPrecioBase(rs.getDouble("precio_base"));
 		j.setDescuento(rs.getDouble("descuento"));
 		j.setGenero(rs.getString("genero"));
+		j.setUrl(rs.getString("url"));
 		j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 		j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
 
@@ -121,7 +122,7 @@ public class DataJuego
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "SELECT id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad "
+		    "SELECT id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url"
 			    + "FROM juego WHERE nombre LIKE ? AND habilitado=1");
 
 	    stmt.setString(1, "%" + name + "%");
@@ -140,6 +141,7 @@ public class DataJuego
 		    j.setPrecioBase(rs.getDouble("precio_base"));
 		    j.setDescuento(rs.getDouble("descuento"));
 		    j.setGenero(rs.getString("genero"));
+		    j.setUrl(rs.getString("url"));
 		    j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 		    j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
 
@@ -187,7 +189,7 @@ public class DataJuego
 	{
 	    stmt = DbConnector.getInstancia().getConn().createStatement();
 	    rs = stmt.executeQuery(
-		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad "
+		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url "
 			    + "from juego where habilitado=1");
 	    if (rs != null)
 	    {
@@ -202,6 +204,7 @@ public class DataJuego
 		    j.setPrecioBase(rs.getDouble("precio_base"));
 		    j.setDescuento(rs.getDouble("descuento"));
 		    j.setGenero(rs.getString("genero"));
+		    j.setUrl(rs.getString("url"));
 		    j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 		    j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
 
@@ -246,7 +249,7 @@ public class DataJuego
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "insert into juego(id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad) "
+		    "insert into juego(id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url) "
 			    + "values(?,?,?,?,?,?,?,?,?)",
 		    PreparedStatement.RETURN_GENERATED_KEYS);
 
@@ -259,7 +262,7 @@ public class DataJuego
 	    stmt.setString(7, j.getGenero());
 	    stmt.setObject(8, j.getFecha_publicacion());
 	    stmt.setString(9, j.getReestriccionPorEdad());
-
+	    stmt.setString(10, j.getUrl());
 	    stmt.executeUpdate();
 
 	    keyResultSet = stmt.getGeneratedKeys();
@@ -297,7 +300,7 @@ public class DataJuego
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement("update juego set nombre=?,id_publicador=?,id_desarrollador=?,"
-		    + "descripcion=?,precio_base=?,descuento=?,genero=?,fecha_publicacion=?,restriccion_por_edad=? where id=?");
+		    + "descripcion=?,precio_base=?,descuento=?,genero=?,fecha_publicacion=?,restriccion_por_edad=?,url=? where id=?");
 
 	    stmt.setString(1, j.getNombre());
 	    stmt.setInt(2, j.getIdPublicador());
@@ -308,7 +311,8 @@ public class DataJuego
 	    stmt.setString(7, j.getGenero());
 	    stmt.setObject(8, j.getFecha_publicacion());
 	    stmt.setString(9, j.getReestriccionPorEdad());
-	    stmt.setInt(10, j.getId());
+	    stmt.setString(10, j.getUrl());
+	    stmt.setInt(11, j.getId());
 
 	    stmt.executeUpdate();
 	}

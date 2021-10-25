@@ -49,6 +49,7 @@ public class DataCompraView {
 					j.setGenero(rs.getString("genero"));
 					j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 					j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
+					j.setUrl(rs.getString("url"));
 					compraView.setJuego(j);
 				    //Usuario
 					Usuario u=new Usuario();
@@ -126,6 +127,7 @@ public class DataCompraView {
 					j.setGenero(rs.getString("genero"));
 					j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 					j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
+					j.setUrl(rs.getString("url"));
 					compraView.setJuego(j);
 				    //Usuario
 					Usuario u=new Usuario();

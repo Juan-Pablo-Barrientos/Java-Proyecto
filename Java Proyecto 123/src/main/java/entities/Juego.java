@@ -16,6 +16,7 @@ public class Juego implements java.io.Serializable
 	private String genero;
 	private LocalDate fecha_publicacion;
 	private String reestriccionPorEdad;
+	private String url;
 	
 	public int getId() {
 		return id;
@@ -76,6 +77,12 @@ public class Juego implements java.io.Serializable
 	}
 	public void setReestriccionPorEdad(String reestriccionPorEdad) {
 		this.reestriccionPorEdad = reestriccionPorEdad;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
 	}
 	
 }
