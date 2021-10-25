@@ -218,7 +218,7 @@
 			$('#idCompra').val([ row.idCompra ]);
 			$('#nombreJuego').text([ row.nombreJuego ]);
 		}
-		
+		 
 	}
 	$(window).on('load', function() {
 		$('#modalExito').modal('show');
