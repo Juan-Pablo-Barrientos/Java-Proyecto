@@ -122,9 +122,7 @@
 								scrolling="no"></iframe>
 
 						</div>
-						<div class="circle">
-							<span class="time" id="display">00:00:00</span>
-						</div>
+						
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-primary">Dejar de
