@@ -81,7 +81,7 @@ public class Biblioteca extends HttpServlet {
 					else success=3; //El reembolso esta Pendiente	
 					}catch (Exception e) {
 					request.setAttribute("error", e.getMessage());
-					success = 0;	}
+					success = 0;}
 									
 				}
 				if (compra.getId_reembolso()==0)  //Crear el reembolso si no existe

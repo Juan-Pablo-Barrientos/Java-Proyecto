@@ -143,4 +143,15 @@
     <servlet-name>Homepage</servlet-name>
     <url-pattern>/Homepage.do</url-pattern>
   </servlet-mapping> 
+
+  <servlet>
+    <servlet-name>BibliotecaHoras</servlet-name>
+    <servlet-class>
+        servlet.BibliotecaHoras
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BibliotecaHoras</servlet-name>
+    <url-pattern>/BibliotecaHoras.do</url-pattern>
+  </servlet-mapping>
 </web-app>

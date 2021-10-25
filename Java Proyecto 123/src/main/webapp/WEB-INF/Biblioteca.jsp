@@ -28,16 +28,30 @@
 	crossorigin="anonymous" />
 <link rel="stylesheet"
 	href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+<style>
+.modal-dialog {
+  position: relative;
+  display: table;
+  overflow: auto;
+  width: auto;
+  min-width: 300px;
+}
+.modal-body { /* Restrict Modal width to 90% */
+  overflow-x: auto !important;
+  max-width: 90vw !important;
+}
+</style>
 </head>
 <body>
-<jsp:include page="/Navbar.jsp" />
+	<jsp:include page="/Navbar.jsp" />
 	<c:if test="${not empty result}">
 		<div class="modal fade" id="modalExito" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Solicitud Enviada!</h5>
+						<h5 class="modal-title" id="exampleModalLabel">Solicitud
+							Enviada!</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
@@ -58,25 +72,25 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="Reembolsar">Esta seguro que quiere reembolsar este juego?</h5>
+					<h5 class="modal-title" id="Reembolsar">Esta seguro que quiere
+						reembolsar este juego?</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<form action="Biblioteca" method="post" onSubmit="">
 					<input type="hidden" name="action1" value="create" />
-					<div class="modal-body">								
+					<div class="modal-body">
 						<div class="form-group">
 							<input type="text" class="form-control" id="idCompra"
-								placeholder="id compra" name="idCompra"
-								hidden="true">										
+								placeholder="id compra" name="idCompra" hidden="true">
 						</div>
 						<div class="form-group">
-							<label id="nombreJuego" > </label>									
+							<label id="nombreJuego"> </label>
 						</div>
 						<div class="form-group">
 							<input type="text" class="form-control" id="razon"
-								placeholder="Escriba su razon" name="razon"	required>										
-						</div>		
+								placeholder="Escriba su razon" name="razon" required>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
@@ -88,35 +102,35 @@
 		</div>
 	</div>
 	<div class="modal fade" id="modalJugando" tabindex="-1"
-		data-bs-backdrop="static" data-bs-keyboard="false"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel"
+		aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="Jugar">Jugando</h5>					
+					<h5 class="modal-title" id="Jugar">Jugando</h5>
 				</div>
 				<form action="Biblioteca" method="post" onSubmit="">
 					<input type="hidden" name="action2" value="update" />
-					<div class="modal-body">	
-				<div class="form-group">
-							<input type="text" class="form-control" id="segundos"
-							placeholder="tiempo" name="segundos" hidden="true">										
-						</div>		
-					<div class="form-group">
-							<input type="text" class="form-control" id="nroCompra"
-							placeholder="id compra" name="nroCompra" hidden="true">										
+					<div class="modal-body">
+						<div id="#gameDiv" class="gameDiv">
+							<iframe id="game" width="560" height="315" src=""
+								allow="fullscreen; autoplay; encrypted-media" frameborder="0"
+								allowfullscreen="true" msallowfullscreen="true"
+								mozallowfullscreen="true" webkitallowfullscreen="true"
+								allowpaymentrequest="false" referrerpolicy="unsafe-url"
+								sandbox="allow-same-origin allow-forms allow-scripts allow-pointer-lock allow-orientation-lock allow-popups"
+								scrolling="no"></iframe>
+
 						</div>
-					<div >
-					<script id="game" src=""></script>
+						<div class="circle">
+							<span class="time" id="display">00:00:00</span>
+						</div>
 					</div>
-				<div class="circle">
-        <span class="time" id="display">00:00:00</span>
-        </div>	
-      </div>	    
-       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Dejar de jugar</button>                              
-      </div>	
-      </form>	
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">Dejar de
+							jugar</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -129,7 +143,7 @@
 						<thead>
 							<tr>
 								<th data-field="idCompra" class="hidecol">Id Compra</th>
-								<th data-field="linkJuego" class="hidecol">Id Compra</th>					
+								<th data-field="linkJuego" class="hidecol">Id Compra</th>
 								<th data-field="nombreJuego">Nombre del juego</th>
 								<th data-field="hsJugadas">Horas jugadas</th>
 								<th data-field="operate" data-formatter="operateFormatter"
@@ -137,14 +151,14 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${listaCompraView}" var="c">							
-									<tr>
-										<td><c:out value="${c.juego.nombre}"></c:out></td>
-										<td><c:out value="${c.compra.nroSerie}"></c:out></td>									
-										<td><c:out value="${c.juego.nombre}"></c:out></td>	
-										<td><c:out value="${c.compra.horas_jugadas}"></c:out></td>																																																												
-										<td></td>
-									</tr>						
+							<c:forEach items="${listaCompraView}" var="c">
+								<tr>
+									<td><c:out value="${c.compra.nroSerie}"></c:out></td>
+									<td><c:out value="${c.juego.url}"></c:out></td>
+									<td><c:out value="${c.juego.nombre}"></c:out></td>
+									<td><c:out value="${c.compra.horas_jugadas}"></c:out></td>
+									<td></td>
+								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
@@ -156,11 +170,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-
 	<script src="bootstrap/js/bootstrap.bundle.js"></script>
 	<script
 		src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
-  
 	<script>
 	var $table = $('#table');
 	let startTime;
@@ -175,18 +187,30 @@
 				'<a class="reembolso" href="javascript:void(0)" title="Reembolso">',
 				'<i class="fas fa-dollar-sign fa-2x"></i>', '</a>' ].join('')
 	}
-
+	
 	window.operateEvents = {
 		'click .jugar' : function(e, value, row, index) {			
-			$('#modalJugando').modal('show');	
-			document.getElementById("game").src="https://cdn.htmlgames.com/embed.js?game=PalabraDeCodigoDelDia&amp;bgcolor=white";	 
+			$('#modalJugando').modal('show');
+		    $("#game").attr("src", ([row.linkJuego]));
 			$('#nroCompra').val([ row.idCompra ]);
 			   startTime = Date.now() - elapsedTime;
 			   timerInterval = setInterval(function printTime() {
 			   elapsedTime = Date.now() - startTime;
-			   $('#segundos').val(elapsedTime);	
 			   $('#display').text(timeToString(elapsedTime));
-				  }, 10);	
+		       $.ajax
+		        (
+		            {
+		                url:'BibliotecaHoras',
+		                data:{"segundos":elapsedTime,"nroCompra":row.idCompra},
+		                type:'get',
+		                cache:false,
+		                success:function(data){
+		                						elapsedTime=0;
+		                						},
+		                error:function(){alert('no funco');}
+		            }
+		        );
+				  }, 3000);	
 			  
 			
 		},
@@ -228,10 +252,7 @@
 			  let formattedSS = ss.toString().padStart(2, "0");
 			
 			  return (formattedHH.concat(":"+formattedMM+":"+formattedSS));
-			} 
-		
-		
-	</script>
-
+			}
+			</script>
 </body>
 </html>
