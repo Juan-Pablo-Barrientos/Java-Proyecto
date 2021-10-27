@@ -28,6 +28,11 @@
 	crossorigin="anonymous" />
 <link rel="stylesheet"
 	href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+<style>
+tr {
+	cursor: pointer;
+}
+</style>
 </head>
 <body>
 
@@ -37,10 +42,11 @@
 		<h4>Juegos</h4>
 		<div class="col-12 col-sm-12 col-lg-12">
 			<div class="table-responsive">
-				<table class="table" id="table" data-toggle="table"
+				<table class="table hideFullColumn" id="table" data-toggle="table"
 					data-checkbox-header="false">
 					<thead>
 						<tr>
+							<th data-field="id" class="hidecol">Id</th>
 							<th data-field="nombreJuego">Nombre del juego</th>
 							<th data-field="precio">Precio Final</th>
 							<th data-field="descuento">Descuento</th>
@@ -51,7 +57,8 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${juegosBusqueda}" var="j">
-							<tr>
+							<tr class='clickable-row' data-href="Game?game=${j.id}">
+								<td><c:out value="${j.id}"></c:out></td>
 								<td><c:out value="${j.nombre}"></c:out></td>
 								<td>$<c:out
 										value="${j.precioBase - (j.precioBase * j.descuento)}"></c:out></td>
@@ -59,10 +66,11 @@
 								<td><c:out value="${j.genero}"></c:out></td>
 								<td><c:out value="${j.fecha_publicacion}"></c:out></td>
 								<td><c:if test="${j.reestriccionPorEdad == 1}">
-										<input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
-									</c:if>
-									<c:if test="${j.reestriccionPorEdad == 0}">
-										<input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" disabled>
+										<input class="form-check-input" type="checkbox" value=""
+											id="flexCheckCheckedDisabled" checked disabled>
+									</c:if> <c:if test="${j.reestriccionPorEdad == 0}">
+										<input class="form-check-input" type="checkbox" value=""
+											id="flexCheckDisabled" disabled>
 									</c:if></td>
 
 								<!-- <td><c:out value="${j.reestriccionPorEdad}"></c:out></td>	 -->
@@ -83,6 +91,12 @@
 		src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 
 	<script>
+		jQuery(document).ready(function($) {
+			$(".clickable-row").click(function() {
+				window.location = $(this).data("href");
+			});
+		});
+
 		var $table = $('#table')
 
 		function stateFormatter(value, row, index) {
