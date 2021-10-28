@@ -76,7 +76,12 @@ public class Biblioteca extends HttpServlet {
 				if (compra.getId_reembolso()==0)  //Crear el reembolso si no existe
 				{	try {					
 					reembolso.setRazon(request.getParameter("razon"));
-					if (compra.getHoras_jugadas()<2) {reembolso.setEstado("Aprobado");success = 6;}
+					if (compra.getHoras_jugadas()<2) 
+					{					
+					reembolso.setEstado("Aprobado");				
+					success = 6;
+					comLogic.delete(compra);
+					}
 					else {reembolso.setEstado("Pendiente");success = 1;}
 					reembolso = remLogic.add(reembolso);
 					compra.setId_reembolso(reembolso.getId());
