@@ -73,6 +73,7 @@ public class ListadoReembolsoPendiente extends HttpServlet {
 						RemLogic.update(remEdit);
 						usuario.setSaldo(usuario.getSaldo() + compra.getImporte());
 						UsrLogic.update(usuario);
+						ComLogic.delete(compra);
 						success = 2;
 					} catch (Exception e) {
 						request.setAttribute("error", e.getMessage());

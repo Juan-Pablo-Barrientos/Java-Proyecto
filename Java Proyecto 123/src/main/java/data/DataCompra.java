@@ -38,6 +38,37 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 		
 		return compras;
 	}
+
+	public int NumeroDeComprasHabilitadas(int IdUsuario,int Idjuego) {
+	
+	int compras=0;
+	PreparedStatement stmt=null;
+	ResultSet rs=null;
+	try {
+		stmt=DbConnector.getInstancia().getConn().prepareStatement(
+				"select count(compra.id_juego) as resultado from compra where id_usuario=? and id_juego=? and habilitado=1"					
+				);
+		
+		stmt.setInt(1, IdUsuario);
+		stmt.setInt(2, Idjuego);		
+		rs=stmt.executeQuery();
+		if(rs!=null && rs.next()) {				
+			compras =(rs.getInt("resultado"));		
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		try {
+			if(rs!=null) {rs.close();}
+			if(stmt!=null) {stmt.close();}
+			DbConnector.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	return compras;
+}
 	
 	public Compra getOne(int com) {
 		
@@ -47,7 +78,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select nroSerie,id_juego,id_usuario,id_reembolso,id_reseña,horas_jugadas,fecha_compra,importe"
-					+ " from compra where nroSerie=? and habilitado=1"
+					+ " from compra where nroSerie=?"
 					);
 			
 			stmt.setInt(1, com);			
@@ -86,7 +117,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select nroSerie,id_juego,id_usuario,id_reembolso,id_reseña,horas_jugadas,fecha_compra,importe"
-					+ " from compra where id_reembolso=? and habilitado=1"
+					+ " from compra where id_reembolso=?"
 					);
 			
 			stmt.setInt(1, com.getId());			
@@ -125,7 +156,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select nroSerie,id_juego,id_usuario,id_reembolso,id_reseña,horas_jugadas,fecha_compra,importe from compra where habilitado=1");			
+			rs= stmt.executeQuery("select nroSerie,id_juego,id_usuario,id_reembolso,id_reseña,horas_jugadas,fecha_compra,importe from compra");			
 			if(rs!=null) {
 				while(rs.next()) {
 					Compra c=new Compra();

@@ -14,6 +14,9 @@ private DataCompra db= new DataCompra();
 		return db.NumeroDeCompras(IdUsuario, IdJuego);
 	}
 	
+	public int NumeroDeComprasHabilitadas(int IdUsuario,int IdJuego){
+		return db.NumeroDeComprasHabilitadas(IdUsuario, IdJuego);
+	}
 	
 	public LinkedList<Compra> getAll(){
 		return db.getAll();
