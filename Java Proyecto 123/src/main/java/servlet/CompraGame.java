@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,51 +25,68 @@ import java.time.format.DateTimeFormatter;
 @WebServlet("/CompraGame")
 public class CompraGame extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CompraGame() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public CompraGame() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int success=0;
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int success = 0;
+		int game = Integer.parseInt(request.getParameter("idJuego"));
 		if (request.getSession().getAttribute("usuario") != null) {
-		Usuario usuario =(Usuario) request.getSession().getAttribute("usuario");
-		JuegoLogic juegologic= new JuegoLogic();
-		Juego juego = juegologic.getOne(Integer.parseInt(request.getParameter("idJuego")));
-		double importe= juego.getPrecioBase() - (juego.getPrecioBase()*juego.getDescuento()); 		
-		if (usuario.getSaldo()<importe) {success=1;}//No alcanza el saldo
-		else {
-			UsuarioLogic usuariologic=new UsuarioLogic();
-			CompraLogic compralogic=new CompraLogic();
-			Compra compra=new Compra();
-			compra.setDateFechaHora(LocalDateTime.now());
-			compra.setId_juego(juego.getId());
-			compra.setId_usuario(usuario.getId()); 
-			compra.setImporte(importe);
-			usuario.setSaldo(usuario.getSaldo()-importe);
-			usuariologic.update(usuario);
-			compralogic.add(compra);
-			success=2; // Compra realizada con exito
-		}					
+			Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+			UsuarioLogic usrLogic = new UsuarioLogic();
+			JuegoLogic juegologic = new JuegoLogic();
+			Juego juego = juegologic.getOne(game);
+			CompraLogic compraLogic = new CompraLogic();
+			double importe = juego.getPrecioBase() - (juego.getPrecioBase() * juego.getDescuento());
+			try {
+				if (usrLogic.getOne(usuario.getId()).getSaldo() < importe) {
+					success = 1;
+				} // No alcanza el saldo
+				else {
+					if (compraLogic.NumeroDeComprasHabilitadas(usuario.getId(), game) != 1) {
+						UsuarioLogic usuariologic = new UsuarioLogic();
+						CompraLogic compralogic = new CompraLogic();
+						Compra compra = new Compra();
+						compra.setDateFechaHora(LocalDateTime.now());
+						compra.setId_juego(juego.getId());
+						compra.setId_usuario(usuario.getId());
+						compra.setImporte(importe);
+						usuario.setSaldo(usuario.getSaldo() - importe);
+						usuariologic.update(usuario);
+						compralogic.add(compra);
+						success = 2;
+					} else {
+						success = 3;
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 		}
-		else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");		
-		}
-		response.sendRedirect("ListadoDesarrolladoresDisplay.do?s=" + success);
+		response.sendRedirect("CompraGameDisplay.do?s=" + success + "&game=" + game);
 	}
 }

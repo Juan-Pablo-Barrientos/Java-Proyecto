@@ -154,4 +154,25 @@
     <servlet-name>BibliotecaHoras</servlet-name>
     <url-pattern>/BibliotecaHoras.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>CompraGame</servlet-name>
+    <servlet-class>
+        servlet.CompraGame
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CompraGame</servlet-name>
+    <url-pattern>/CompraGame.do</url-pattern>
+  </servlet-mapping> 
+
+  <servlet>
+    <servlet-name>CompraGameDisplay</servlet-name>
+    <servlet-class>
+        servlet.CompraGameDisplay
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CompraGameDisplay</servlet-name>
+    <url-pattern>/CompraGameDisplay.do</url-pattern>
+  </servlet-mapping>
 </web-app>

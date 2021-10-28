@@ -69,6 +69,7 @@
 									class="form-check-label" for="rememberMe"> Recuérdame</label>
 							</div>
 						</div>
+						<input type="hidden" name="game" value="${param.game}" /> 
 						<div class="col-12">
 							<button type="submit" class="boton">Ingresar</button>
 						</div>

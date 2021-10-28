@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.JuegoView;
+import entities.Usuario;
+import logic.CompraLogic;
 import logic.JuegoViewLogic;
 
 /**
@@ -42,12 +44,30 @@ public class CompraGameDisplay extends HttpServlet {
 				request.setAttribute("result", "Compra realizada con exito.");
 				break;
 			case 3:
+				request.setAttribute("result", "Ya ha comprado este juego.");
+				break;
+			case 4:
+				request.setAttribute("result", "Reseña editada con exito.");
+				break;
+			case 5:
+				request.setAttribute("result", "Reseña creada con exito.");
+				break;
+			case 6:
 				request.setAttribute("result", "");
 				break;
 			}
 			JuegoViewLogic jgoLogic = new JuegoViewLogic();
+			CompraLogic compraLogic = new CompraLogic();
 			JuegoView jgo = new JuegoView();
 			jgo= jgoLogic.getOne(Integer.parseInt(request.getParameter("game")));
+			boolean tieneGame = false;
+			if (request.getSession().getAttribute("usuario") != null) {
+				Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+				if (compraLogic.NumeroDeComprasHabilitadas(usuario.getId(), jgo.getJuego().getId()) == 1) {
+					tieneGame=true;
+				}
+			}
+			request.setAttribute("tieneGame", tieneGame);
 			request.setAttribute("game", jgo);
 			request.getRequestDispatcher("/Game.jsp").forward(request, response);			
 		}

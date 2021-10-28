@@ -18,6 +18,7 @@ import logic.CompraLogic;
 import logic.CompraViewLogic;
 import logic.DesarrolladorLogic;
 import logic.ReembolsoLogic;
+import logic.UsuarioLogic;
 
 /**
  * Servlet implementation class Biblioteca
@@ -55,10 +56,12 @@ public class Biblioteca extends HttpServlet {
 		if ("create".equals(request.getParameter("action1"))) {			
 				ReembolsoLogic remLogic = new ReembolsoLogic();
 				Reembolso reembolso =new Reembolso();
+				
+				Usuario usuario= (Usuario) request.getSession().getAttribute("usuario");
 		 		CompraLogic comLogic = new CompraLogic();
 				Compra compra = new Compra();
 				compra = comLogic.getOne(Integer.parseInt(request.getParameter("idCompra")));
-			
+				UsuarioLogic usrLogic = new UsuarioLogic();
 				
 				if (comLogic.NumeroDeCompras(compra.getId_usuario(), compra.getId_juego())==1) 
 				{													 
@@ -81,6 +84,8 @@ public class Biblioteca extends HttpServlet {
 					reembolso.setEstado("Aprobado");				
 					success = 6;
 					comLogic.delete(compra);
+					usuario.setSaldo(usuario.getSaldo() + compra.getImporte());
+					usrLogic.update(usuario);
 					}
 					else {reembolso.setEstado("Pendiente");success = 1;}
 					reembolso = remLogic.add(reembolso);

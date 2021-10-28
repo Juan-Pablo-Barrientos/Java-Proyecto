@@ -303,7 +303,7 @@
 							<th data-field="fechapublicacion">Publicacion</th>
 							<th data-field="restriccion">Restriccion</th>
 							<th data-field="descripcion" class="hidecol">Descripcion</th>
-							<th data-field="url" class="">Url</th>
+							<th data-field="url" class="hidecol">Url</th>
 							<th data-field="operate" data-formatter="operateFormatter"
 								data-events="operateEvents"><a class="nuevo"
 								id="nuevoButtonId" onclick="createJuego()"

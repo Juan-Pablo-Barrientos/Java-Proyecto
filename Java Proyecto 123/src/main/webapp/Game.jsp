@@ -34,7 +34,8 @@ img {
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Compra realizada!</h5>
+						<h5 class="modal-title" id="exampleModalLabel">Compra
+							realizada!</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
@@ -59,20 +60,21 @@ img {
 						aria-label="Close"></button>
 				</div>
 				<form method="post" action="CompraGame">
-				<div class="modal-body">
-					<label id="modalComprarlbl"></label>
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" id="idJuego" name="idJuego" value="${game.juego.id}" hidden/>								 								
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Regresar</button>					
+					<div class="modal-body">
+						<label id="modalComprarlbl"></label>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" id="idJuego"
+							name="idJuego" value="${game.juego.id}" hidden />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Regresar</button>
 						<input type="hidden" name="action" value="delete" /> <input
 							type="hidden" id="hiddenId" name="hiddenId" />
 						<button type="submit" class="btn btn-primary">Comprar</button>
-					</form>
-				</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -104,15 +106,36 @@ img {
 	</div>
 	<div class="row">
 		<div class="col-4">
-			
+
 			<c:if test="${game.juego.descuento!=0.0}">
-				<div><h1><span id="gameDescuento"class="badge bg-success">Descuento: ${game.juego.descuento*100}</span></h1></div>
-			</c:if>
-			<div class="input-group" style="justify-content:center">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="">Precio: $${game.juego.precioBase-(game.juego.precioBase*game.juego.descuento)}</span>
+				<div>
+					<h1>
+						<span id="gameDescuento" class="badge bg-success">Descuento:
+							${game.juego.descuento*100}</span>
+					</h1>
 				</div>
+			</c:if>
+			<div class="input-group" style="justify-content: center">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="">Precio:
+						$${game.juego.precioBase-(game.juego.precioBase*game.juego.descuento)}</span>
+				</div>
+				<c:choose>
+				<c:when test="${usuario==null}">
+				<form action="index.jsp" method="get">
+				<input type="hidden" name="game" value="${game.juego.id}" />
+				<button type="submit" class="btn btn-primary">Iniciar sesion para comprar</button>
+				</form>
+				</c:when>
+				<c:when test="${tieneGame==false }">
 				<button class="btn btn-primary" onclick=showModal()>Comprar</button>
+				</c:when>
+				<c:when test="${tieneGame==true }">
+				<form action="Biblioteca" method="get">
+				<button type="submit" class="btn btn-primary">Jugar</button>
+				</form>
+				</c:when>
+				</c:choose>
 			</div>
 		</div>
 	</div>
@@ -128,12 +151,13 @@ img {
 
 	<jsp:include page="Footer.jsp" />
 	<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
 	<script src="bootstrap/js/bootstrap.bundle.js"></script>
 	<script
 		src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
-		<script>
+	<script>
 		$(window).on('load', function() {
 			$('#modalExito').modal('show')	
 		var str= document.getElementById("gameDescuento").innerHTML;
@@ -146,6 +170,14 @@ img {
 			console.log($("#idJuego").val());
 			$('#modalComprarlbl').text("Esta seguro de que desea comprar el juego: "+ $('#gameNombre').text()+"?");
 		}
+		
+		/*const url = new URL(window.location.href)
+	      const params = new URLSearchParams(url.search.slice(1))
+	      window.history.replaceState(
+	        {},
+	        '',
+	        `${window.location.pathname}?${"s=6"}${window.location.hash}`,
+	      )*/
 		</script>
 </body>
 </html>

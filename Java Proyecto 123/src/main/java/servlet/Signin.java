@@ -67,12 +67,15 @@ public class Signin extends HttpServlet
 	
 	if (usr!=null) { 
 	request.getSession().setAttribute("usuario", usr);
+	if (request.getParameter("game")!=null)
+	{
+		response.sendRedirect("Game?game="+request.getParameter("game"));
+	}else{
 	response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
-	// request.getRequestDispatcher("Homepage.jsp").forward(request, response);
+	}
 				}
 	else {
-		request.setAttribute("result", "La clave no coincide o el usuario no existe");
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
+		response.sendRedirect("SigninDisplay?game="+request.getParameter("game"));
 	}
     }
 
