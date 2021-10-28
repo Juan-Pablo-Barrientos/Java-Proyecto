@@ -28,7 +28,27 @@ img {
 </head>
 <body>
 	<jsp:include page="Navbar.jsp" />
-	
+	<c:if test="${not empty result}">
+		<div class="modal fade" id="modalExito" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Compra realizada!</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<c:out value="${result}"></c:out>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary"
+							data-bs-dismiss="modal">Entendido!</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:if>
 	<div class="modal fade" id="modalComprar" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -38,13 +58,16 @@ img {
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
+				<form method="post" action="CompraGame">
 				<div class="modal-body">
 					<label id="modalComprarlbl"></label>
 				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" id="idJuego" name="idJuego" value="${game.juego.id}" hidden/>								 								
+				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Regresar</button>
-					<form method="post" action="ListadoPublicadores">
+						data-bs-dismiss="modal">Regresar</button>					
 						<input type="hidden" name="action" value="delete" /> <input
 							type="hidden" id="hiddenId" name="hiddenId" />
 						<button type="submit" class="btn btn-primary">Comprar</button>
@@ -112,6 +135,7 @@ img {
 		src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 		<script>
 		$(window).on('load', function() {
+			$('#modalExito').modal('show')	
 		var str= document.getElementById("gameDescuento").innerHTML;
 			str= str.substring(0,str.length  -2).concat("%");
 			str= document.getElementById("gameDescuento").innerHTML=str;
@@ -119,6 +143,7 @@ img {
 
 		function showModal(){
 			$('#modalComprar').modal('show');
+			console.log($("#idJuego").val());
 			$('#modalComprarlbl').text("Esta seguro de que desea comprar el juego: "+ $('#gameNombre').text()+"?");
 		}
 		</script>

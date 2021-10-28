@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entities.JuegoView;
+import logic.JuegoViewLogic;
+
 /**
  * Servlet implementation class CompraGameDisplay
  */
@@ -26,8 +29,31 @@ public class CompraGameDisplay extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		if (request.getSession().getAttribute("usuario") != null) {			
+			int success = Integer.parseInt(request.getParameter("s"));
+			switch (success) {
+			case 0:
+				request.setAttribute("result", "Ha ocurrido un error: " + request.getAttribute("error"));
+				break;
+			case 1:
+				request.setAttribute("result", "El saldo es insuficiente.");
+				break;
+			case 2:
+				request.setAttribute("result", "Compra realizada con exito.");
+				break;
+			case 3:
+				request.setAttribute("result", "");
+				break;
+			}
+			JuegoViewLogic jgoLogic = new JuegoViewLogic();
+			JuegoView jgo = new JuegoView();
+			jgo= jgoLogic.getOne(Integer.parseInt(request.getParameter("game")));
+			request.setAttribute("game", jgo);
+			request.getRequestDispatcher("/Game.jsp").forward(request, response);			
+		}
+		else {
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");		
+		}
 	}
 
 	/**
