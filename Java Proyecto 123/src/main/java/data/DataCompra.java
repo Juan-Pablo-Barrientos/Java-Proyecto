@@ -165,18 +165,16 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into compra(id_juego,id_usuario,id_reembolso,id_reseña,horas_jugadas,fecha_compra,importe) "
-							+ "values(?,?,?,?,?,?,?)",
+							"insert into compra(id_juego,id_usuario,horas_jugadas,fecha_compra,importe) "
+							+ "values(?,?,?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			
 			stmt.setInt(1, c.getId_juego());
-			stmt.setInt(2, c.getId_usuario());		
-			stmt.setInt(3, c.getId_reembolso());
-			stmt.setInt(4, c.getId_reseña());
-			stmt.setDouble(5, c.getHoras_jugadas());			
-			stmt.setObject(6, c.getDateFechaHora());
-			stmt.setDouble(7, c.getImporte());	
+			stmt.setInt(2, c.getId_usuario());				
+			stmt.setDouble(3, c.getHoras_jugadas());			
+			stmt.setObject(4, c.getDateFechaHora());
+			stmt.setDouble(5, c.getImporte());	
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
