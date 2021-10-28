@@ -138,6 +138,8 @@ img {
 				</c:choose>
 			</div>
 		</div>
+		<div class="col-4" style="border:solid;border-color:red">MI REVIEW</div>
+		<div class="col-4" style="border:solid;border-color:red">LA DE LOS OTROS GATOS</div>
 	</div>
 
 
