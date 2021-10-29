@@ -202,7 +202,7 @@
 		                cache:false,
 		                success:function(){
 		                },
-		                error:function(){alert('no funco');}
+		                error:function(){alert('Ajax a fallado');}
 		            }
 		        );
 				  }, intervaloTiempo);	

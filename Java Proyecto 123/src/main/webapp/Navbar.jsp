@@ -27,7 +27,7 @@
 <body style="background-color: black">
 
 	<%
-	Usuario usr;
+	/*Usuario usr;
 	if (request.getSession().getAttribute("usuario") != null) {
 		UsuarioLogic ul = new UsuarioLogic();
 		try {
@@ -39,7 +39,7 @@
 	}
 	else{
 	    response.sendRedirect("Homepage.do");
-	}
+	}*/
 	%>
 
 	<div id="wrapper">
@@ -158,7 +158,20 @@
 							'a[href="'
 									+ window.location.pathname.split("/").pop()
 									+ '"]').closest('a').addClass('active');
+					$.ajax
+			        (
+			            {
+			                url:'ReiniciarUsuario',
+			                data:{},
+			                type:'get',
+			                cache:false,
+			                success:function(){
+			                },
+			                error:function(){alert('Ajax a fallado');}
+			            }
+			        );
 				});
+		
 	</script>
 
 </body>
