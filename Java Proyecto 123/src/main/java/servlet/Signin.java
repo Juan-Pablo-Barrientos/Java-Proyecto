@@ -67,7 +67,7 @@ public class Signin extends HttpServlet
 	
 	if (usr!=null) { 
 	request.getSession().setAttribute("usuario", usr);
-	if (request.getParameter("game")!=null)
+	if (request.getParameter("game")!="")
 	{
 		response.sendRedirect("Game?game="+request.getParameter("game"));
 	}else{
