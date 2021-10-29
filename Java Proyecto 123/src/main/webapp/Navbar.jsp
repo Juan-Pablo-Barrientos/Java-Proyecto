@@ -23,9 +23,10 @@
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet"
 	type="text/css" />
 <title>MasterPage</title>
+<script>
+    </script>
 </head>
 <body style="background-color: black">
-
 	<%
 	/*Usuario usr;
 	if (request.getSession().getAttribute("usuario") != null) {
@@ -108,8 +109,8 @@
 									<div class="col-md-auto" style="margin: 0px 0px 0px 10px">
 										<div class=""
 											style="font-size: medium; text-align: right; height: 20px;">${usuario.nickname}</div>
-										<div class=""
-											style="font-size: small; text-align: right; height: 20px;">$${usuario.saldo}</div>
+										<div class="" id="divSueldo"
+											style="font-size: small; text-align: right; height: 20px;"><label id="saldoUsuario">$${usuario.saldo}</label></div>
 									</div>
 									<div class="col-md-auto align-items-center"
 										style="height: 40px; margin: 0px 10px 0px 0px; font-size: 24px">
@@ -158,18 +159,19 @@
 							'a[href="'
 									+ window.location.pathname.split("/").pop()
 									+ '"]').closest('a').addClass('active');
-					$.ajax
-			        (
-			            {
-			                url:'ReiniciarUsuario',
-			                data:{},
-			                type:'get',
-			                cache:false,
-			                success:function(){
-			                },
-			                error:function(){alert('Ajax a fallado');}
-			            }
-			        );
+
+				    $.ajax(
+				        {
+				            url:'ReiniciarUsuario',
+				            data:{},
+				            type:'get',
+				            cache:false,
+				            async:false,
+				            success:function(){$("#divSueldo").load(location.href+" #divSueldo>*","");
+				            },
+				            error:function(){alert('Ajax a fallado');}
+				        }
+				    );
 				});
 		
 	</script>
