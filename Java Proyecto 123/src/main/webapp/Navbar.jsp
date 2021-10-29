@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page
+	import="entities.Usuario, logic.UsuarioLogic, java.sql.SQLException"%>
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -22,6 +25,22 @@
 <title>MasterPage</title>
 </head>
 <body style="background-color: black">
+
+	<%
+	Usuario usr;
+	if (request.getSession().getAttribute("usuario") != null) {
+		UsuarioLogic ul = new UsuarioLogic();
+		try {
+			usr = ul.getOne((Usuario) request.getSession().getAttribute("usuario"));
+			request.getSession().setAttribute("usuario", usr);
+		} catch (SQLException e) {
+			throw new ServletException(e);
+		}
+	}
+	else{
+	    response.sendRedirect("Homepage.do");
+	}
+	%>
 
 	<div id="wrapper">
 		<nav class="navbar navbar-expand-lg"
