@@ -109,7 +109,7 @@
 									<div class="col-md-auto" style="margin: 0px 0px 0px 10px">
 										<div class=""
 											style="font-size: medium; text-align: right; height: 20px;">${usuario.nickname}</div>
-										<div class="" id="divSueldo"
+										<div class="" id="divSaldo"
 											style="font-size: small; text-align: right; height: 20px;"><label id="saldoUsuario">$${usuario.saldo}</label></div>
 									</div>
 									<div class="col-md-auto align-items-center"
@@ -167,7 +167,7 @@
 				            type:'get',
 				            cache:false,
 				            async:false,
-				            success:function(){$("#divSueldo").load(location.href+" #divSueldo>*","");
+				            success:function(){$("#divSaldo").load(location.href+" #divSaldo>*","");
 				            },
 				            error:function(){alert('Ajax a fallado');}
 				        }
