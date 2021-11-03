@@ -11,6 +11,10 @@ private DataJuegoView db= new DataJuegoView();
 	public LinkedList<JuegoView> getAll(){
 		return db.getAll();
 	}
+	
+	public LinkedList<JuegoView> getAllNotRelesed(){
+		return db.getAllNotRelesed();
+	}
 	public JuegoView getOne(int Id){
 		return db.getOne(Id);
 	}

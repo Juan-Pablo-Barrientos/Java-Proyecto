@@ -4,6 +4,7 @@ import entities.*;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 
 public class DataJuego
@@ -191,6 +192,70 @@ public class DataJuego
 	    rs = stmt.executeQuery(
 		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url "
 			    + "from juego where habilitado=1");
+	    if (rs != null)
+	    {
+		while (rs.next())
+		{
+		    Juego j = new Juego();
+		    j.setId(rs.getInt("id"));
+		    j.setIdPublicador(rs.getInt("id_publicador"));
+		    j.setIdDesarrollador(rs.getInt("id_desarrollador"));
+		    j.setNombre(rs.getString("nombre"));
+		    j.setDescripcion(rs.getString("descripcion"));
+		    j.setPrecioBase(rs.getDouble("precio_base"));
+		    j.setDescuento(rs.getDouble("descuento"));
+		    j.setGenero(rs.getString("genero"));
+		    j.setUrl(rs.getString("url"));
+		    j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
+		    j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
+
+		    juegs.add(j);
+		}
+	    }
+
+	}
+	catch (SQLException e)
+	{
+	    e.printStackTrace();
+
+	}
+	finally
+	{
+	    try
+	    {
+		if (rs != null)
+		{
+		    rs.close();
+		}
+		if (stmt != null)
+		{
+		    stmt.close();
+		}
+		DbConnector.getInstancia().releaseConn();
+	    }
+	    catch (SQLException e)
+	    {
+		e.printStackTrace();
+	    }
+	}
+
+	return juegs;
+    }
+    
+    public LinkedList<Juego> getAllNotRelesed()
+    {
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
+    LocalDate localDate = LocalDate.now();
+    PreparedStatement stmt = null;
+	ResultSet rs = null;
+	LinkedList<Juego> juegs = new LinkedList<>();
+
+	try
+	{
+	    stmt = DbConnector.getInstancia().getConn().prepareStatement(   
+		    "SELECT * FROM market_tp.juego where fecha_publicacion>? ");
+		stmt.setObject(1, dtf.format(localDate));	 
+		rs = stmt.executeQuery();
 	    if (rs != null)
 	    {
 		while (rs.next())

@@ -16,6 +16,12 @@ public class JuegoLogic
 	return db.getAll();
     }
     
+    public LinkedList<Juego> getAllNotRelesed()
+    {
+	return db.getAllNotRelesed();
+    }
+    
+    
     public LinkedList<Juego> search(String name) throws SQLException
     {
 	try
