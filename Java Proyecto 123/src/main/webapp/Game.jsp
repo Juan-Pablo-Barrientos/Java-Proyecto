@@ -121,26 +121,103 @@ img {
 						$${game.juego.precioBase-(game.juego.precioBase*game.juego.descuento)}</span>
 				</div>
 				<c:choose>
-				<c:when test="${usuario==null}">
-				<form action="index.jsp" method="get">
-				<input type="hidden" name="game" value="${game.juego.id}" />
-				<button type="submit" class="btn btn-primary">Iniciar sesion para comprar</button>
-				</form>
-				</c:when>
-				<c:when test="${tieneGame==false }">
-				<button class="btn btn-primary" onclick=showModal()>Comprar</button>
-				</c:when>
-				<c:when test="${tieneGame==true }">
-				<form action="Biblioteca" method="get">
-				<button type="submit" class="btn btn-primary">Jugar</button>
-				</form>
-				</c:when>
+					<c:when test="${usuario==null}">
+						<form action="index.jsp" method="get">
+							<input type="hidden" name="game" value="${game.juego.id}" />
+							<button type="submit" class="btn btn-primary">Iniciar
+								sesion para comprar</button>
+						</form>
+					</c:when>
+					<c:when test="${tieneGame==false }">
+						<button class="btn btn-primary" onclick=showModal()>Comprar</button>
+					</c:when>
+					<c:when test="${tieneGame==true }">
+						<form action="Biblioteca" method="get">
+							<button type="submit" class="btn btn-primary">Jugar</button>
+						</form>
+					</c:when>
 				</c:choose>
 			</div>
 		</div>
-		<div class="col-4" style="border:solid;border-color:red">MI REVIEW</div>
-		<div class="col-4" style="border:solid;border-color:red">LA DE LOS OTROS GATOS</div>
+		<div class="col-8 align-items-center">
+			<c:if test="${reseñaViewUsuario.reseña != null}">
+				<div class="shadow-lg p-4 bg-white rounded">
+					<div class="row" style="height: 20%;">
+						<div class="col-10">
+							<h6 class="text-start">Título:
+								${reseñaViewUsuario.reseña.titulo}
+								${reseñaViewUsuario.reseña.puntuacion}/10</h6>
+						</div>
+						<div class="col-2">
+							<button class="boton">
+								<i class="fas fa-pen"></i>
+							</button>
+							<button class="boton">
+								<i class="fas fa-trash"></i>
+							</button>
+						</div>
+					</div>
+					<div class="row" style="height: 80%;">
+						<p>${reseñaViewUsuario.reseña.descripcion}</p>
+						<p>Reseña por: ${reseñaViewUsuario.usuario.nombreUsuario}</p>
+					</div>
+				</div>
+			</c:if>
+
+
+			<c:if
+				test="${(reseñaViewUsuario.reseña == null) && (tieneGame == true)}">
+
+				<div class="shadow-lg p-4 bg-white rounded">
+					<form action="ReseñarJuego">
+						<div class="form-group row">
+							<label for="idTitulo" class="col-auto col-form-label">Título:</label>
+							<div class="col-auto">
+								<input type="text" class="form-control" id="idTitulo"
+									name="tituloReseña" placeholder="Ingrese título reseña.">
+							</div>
+							<label for="idPuntuacion" class="col-auto col-form-label">Puntuación:</label>
+							<div class="col-auto">
+								<input type="number" class="form-control" id="idPuntuacion"
+									name="puntuacionReseña" min="1" max="10" placeholder="1-10">
+							</div>
+						</div>
+						<div class="form-group row mb-4">
+							<label for="idDescripcion" class="col-auto col-form-label">Descripción:</label>
+							<div class="col-12">
+								<textarea class="form-control" id="idDescripcion"
+									name="descripcionReseña" placeholder="Ingrese reseña." rows="4"></textarea>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-4 offset-9">
+								<button class="boton" type="submit">Enviar reseña</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</c:if>
+
+		</div>
 	</div>
+	<c:forEach items="${reseñasJuego}" var="r">
+		<c:if test="${reseñaViewUsuario.usuario.id != r.usuario.id}">
+			<div class="row">
+				<div class="col-4 align-items-center"></div>
+				<div class="col-8 align-items-center">
+					<div class="shadow-lg mt-4 p-4 bg-white rounded">
+						<h6 class="text-start">Título: ${r.reseña.titulo}
+							${r.reseña.puntuacion}/10</h6>
+						<p>${r.reseña.descripcion}</p>
+						<p>Reseña por: ${r.usuario.nombreUsuario}</p>
+					</div>
+				</div>
+			</div>
+		</c:if>
+
+	</c:forEach>
+
+
 
 
 
