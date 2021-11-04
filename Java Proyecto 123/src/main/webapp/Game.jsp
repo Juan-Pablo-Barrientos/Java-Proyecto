@@ -312,13 +312,13 @@ img {
 		
 		
 		
-		/*const url = new URL(window.location.href)
+		const url = new URL(window.location.href)
 	      const params = new URLSearchParams(url.search.slice(1))
 	      window.history.replaceState(
 	        {},
 	        '',
 	        `${window.location.pathname}?${"s=6"}${window.location.hash}`,
-	      )*/
+	      )
 		</script>
 </body>
 </html>
