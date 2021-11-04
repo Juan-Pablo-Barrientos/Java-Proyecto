@@ -165,10 +165,10 @@ public class DataUsuario
 	ResultSet rs = null;
 	try
 	{
-	    stmt = DbConnector.getInstancia().getConn().prepareStatement("select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo,contraseña,saldo"
-		    + " from usuario where contraseña=? AND (email=? OR nombre_usuario=?) AND habilitado=1");
+	    stmt = DbConnector.getInstancia().getConn().prepareStatement("select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo,contraseÃ±a,saldo"
+		    + " from usuario where contraseÃ±a=? AND (email=? OR nombre_usuario=?) AND habilitado=1");
 
-	    stmt.setString(1, us.getContraseña());
+	    stmt.setString(1, us.getContraseÃ±a());
 	    stmt.setString(2, us.getEmail());
 	    stmt.setString(3, us.getNombreUsuario());
 	    rs = stmt.executeQuery();
@@ -182,7 +182,7 @@ public class DataUsuario
 		u.setFechaNacimiento(rs.getObject("fecha_nacimiento", LocalDate.class));
 		u.setTelefono(rs.getString("telefono"));
 		u.setTipo(rs.getString("tipo"));
-		u.setContraseña(rs.getString("contraseña"));
+		u.setContraseÃ±a(rs.getString("contraseÃ±a"));
 		u.setSaldo(rs.getDouble("saldo"));
 	    }
 	}
@@ -307,12 +307,12 @@ public class DataUsuario
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "insert into usuario(nombre_usuario,email,contraseña,nickname,fecha_nacimiento,telefono,tipo,saldo) " + "values(?,?,?,?,?,?,?,?)",
+		    "insert into usuario(nombre_usuario,email,contraseÃ±a,nickname,fecha_nacimiento,telefono,tipo,saldo) " + "values(?,?,?,?,?,?,?,?)",
 		    PreparedStatement.RETURN_GENERATED_KEYS);
 
 	    stmt.setString(1, u.getNombreUsuario());
 	    stmt.setString(2, u.getEmail());
-	    stmt.setString(3, u.getContraseña());
+	    stmt.setString(3, u.getContraseÃ±a());
 	    stmt.setString(4, u.getNickname());
 	    stmt.setObject(5, u.getFechaNacimiento());
 	    stmt.setString(6, u.getTelefono());
@@ -394,9 +394,9 @@ public class DataUsuario
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "update usuario set contraseña=? where id=?");
+		    "update usuario set contraseÃ±a=? where id=?");
 
-	    stmt.setString(1, u.getContraseña());	  
+	    stmt.setString(1, u.getContraseÃ±a());	  
 	    stmt.setInt(2, u.getId());	
 	    stmt.executeUpdate();
 	}

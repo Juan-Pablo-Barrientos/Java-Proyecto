@@ -44,6 +44,8 @@
 </head>
 <body>
 	<jsp:include page="/Navbar.jsp" />
+	<div id="liveAlertPlaceholder"></div>
+
 	<c:if test="${not empty result}">
 		<div class="modal fade" id="modalExito" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -141,7 +143,7 @@
 						<thead>
 							<tr>
 								<th data-field="idCompra" class="hidecol">Id Compra</th>
-								<th data-field="linkJuego" class="hidecol">Id Compra</th>
+								<th data-field="linkJuego" class="hidecol">Url</th>
 								<th data-field="nombreJuego">Nombre del juego</th>
 								<th data-field="hsJugadas">Horas jugadas</th>
 								<th data-field="operate" data-formatter="operateFormatter"
@@ -187,25 +189,39 @@
 	}
 	
 	window.operateEvents = {
-		'click .jugar' : function(e, value, row, index) {			
-			$('#modalJugando').modal('show');
-		    $("#game").attr("src", ([row.linkJuego]));
-			$('#nroCompra').val([ row.idCompra ]);
-			var intervaloTiempo=30000
-			   timerInterval = setInterval(function printTime() {
-		       $.ajax
-		        (
-		            {
-		                url:'BibliotecaHoras',
-		                data:{"segundos":intervaloTiempo,"nroCompra":row.idCompra},
-		                type:'get',
-		                cache:false,
-		                success:function(){
-		                },
-		                error:function(){alert('Ajax a fallado');}
-		            }
-		        );
-				  }, intervaloTiempo);	
+		'click .jugar' : function(e, value, row, index) {
+			if(([row.linkJuego])==0){
+				var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+
+				function alert(message, type) {
+				  var wrapper = document.createElement('div')
+				  wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+
+				  alertPlaceholder.append(wrapper)
+				}
+
+				alert('Este juego no tiene version online', 'danger');
+			}
+			else{
+				$('#modalJugando').modal('show');
+				$("#game").attr("src", ([row.linkJuego]));
+				$('#nroCompra').val([ row.idCompra ]);
+				var intervaloTiempo=30000
+				   timerInterval = setInterval(function printTime() {
+			       $.ajax
+			        (
+			            {
+			                url:'BibliotecaHoras',
+			                data:{"segundos":intervaloTiempo,"nroCompra":row.idCompra},
+			                type:'get',
+			                cache:false,
+			                success:function(){
+			                },
+			                error:function(){alert('Ajax a fallado');}
+			            }
+			        );
+					  }, intervaloTiempo);
+			}
 			  
 			
 		},

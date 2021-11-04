@@ -33,7 +33,7 @@ public class DataCompraView {
 					c.setId_juego(rs.getInt("id_juego"));
 					c.setId_usuario(rs.getInt("id_usuario"));
 					c.setId_reembolso(rs.getInt("id_reembolso"));
-					c.setId_reseña(rs.getInt("id_reseña"));
+					c.setId_reseÃ±a(rs.getInt("id_reseÃ±a"));
 					c.setHoras_jugadas(rs.getDouble("horas_jugadas"));
 					c.setDateFechaHora(rs.getObject("fecha_compra",LocalDateTime.class));								
 				    compraView.setCompra(c);
@@ -111,7 +111,7 @@ public class DataCompraView {
 					c.setId_juego(rs.getInt("id_juego"));
 					c.setId_usuario(rs.getInt("id_usuario"));
 					c.setId_reembolso(rs.getInt("id_reembolso"));
-					c.setId_reseña(rs.getInt("id_reseña"));
+					c.setId_reseÃ±a(rs.getInt("id_reseÃ±a"));
 					c.setHoras_jugadas(rs.getDouble("horas_jugadas"));
 					c.setDateFechaHora(rs.getObject("fecha_compra",LocalDateTime.class));								
 				    compraView.setCompra(c);

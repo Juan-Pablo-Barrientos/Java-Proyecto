@@ -40,23 +40,23 @@ public class Game extends HttpServlet {
 	boolean tieneGame = false;
 	jgo = jgoLogic.getOne(Integer.parseInt(request.getParameter("game")));
 
-	// Busqueda de reseñas del juego
-	ReseñaViewLogic reseñaViewLogic = new ReseñaViewLogic();
-	LinkedList<ReseñaView> reseñasViewJuego;
+	// Busqueda de reseÃ±as del juego
+	ReseÃ±aViewLogic reseÃ±aViewLogic = new ReseÃ±aViewLogic();
+	LinkedList<ReseÃ±aView> reseÃ±asViewJuego;
 	try {
-	    reseñasViewJuego = reseñaViewLogic.getAllByJuego(jgo.getJuego());
+	    reseÃ±asViewJuego = reseÃ±aViewLogic.getAllByJuego(jgo.getJuego());
 	} catch (SQLException e) {
 	    throw new ServletException(e);
 	}
 
-	// Comprobación - Si el usuario tiene el juego comprado e hizo reseña
-	ReseñaView reseñaViewUsuario = null;
+	// ComprobaciÃ±n - Si el usuario tiene el juego comprado e hizo reseÃ±a
+	ReseÃ±aView reseÃ±aViewUsuario = null;
 	if (request.getSession().getAttribute("usuario") != null) {
 	    Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 	    if (compraLogic.NumeroDeComprasHabilitadas(usuario.getId(), jgo.getJuego().getId()) == 1) {
 		tieneGame = true;
 		try {
-		    reseñaViewUsuario = reseñaViewLogic.getByJuegoYUsuario(jgo.getJuego(), usuario);
+		    reseÃ±aViewUsuario = reseÃ±aViewLogic.getByJuegoYUsuario(jgo.getJuego(), usuario);
 		} catch (SQLException e) {
 		    throw new ServletException(e);
 		}
@@ -65,8 +65,8 @@ public class Game extends HttpServlet {
 
 	request.setAttribute("tieneGame", tieneGame);
 	request.setAttribute("game", jgo);
-	request.setAttribute("reseñasJuego", reseñasViewJuego);
-	request.setAttribute("reseñaViewUsuario", reseñaViewUsuario);
+	request.setAttribute("reseÃ±asJuego", reseÃ±asViewJuego);
+	request.setAttribute("reseÃ±aViewUsuario", reseÃ±aViewUsuario);
 	request.getRequestDispatcher("/Game.jsp").forward(request, response);
 
     }

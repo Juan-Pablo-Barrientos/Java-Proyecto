@@ -5,23 +5,23 @@ import entities.*;
 import java.sql.*;
 import java.util.LinkedList;
 
-public class DataReseña {
+public class DataReseÃ±a {
 
-	public Reseña getOne(int res) {
+	public ReseÃ±a getOne(int res) {
 		
-		Reseña r=null;
+		ReseÃ±a r=null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select id,titulo,descripcion,puntuacion"
-					+ " from reseña where id=? and habilitado=1"
+					+ " from reseÃ±a where id=? and habilitado=1"
 					);
 			
 			stmt.setInt(1, res);			
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
-				r=new Reseña();		
+				r=new ReseÃ±a();		
 				r.setId(rs.getInt("id"));
 				r.setTitulo(rs.getString("titulo"));
 				r.setDescripcion(rs.getString("descripcion"));
@@ -43,17 +43,17 @@ public class DataReseña {
 		return r;
 	}
 	
-	public LinkedList<Reseña> getAll(){		
+	public LinkedList<ReseÃ±a> getAll(){		
 		Statement stmt=null;
 		ResultSet rs=null;
-		LinkedList<Reseña> rems= new LinkedList<>();
+		LinkedList<ReseÃ±a> rems= new LinkedList<>();
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select id,titulo,descripcion,puntuacion from reseña where habilitado=1");			
+			rs= stmt.executeQuery("select id,titulo,descripcion,puntuacion from reseÃ±a where habilitado=1");			
 			if(rs!=null) {
 				while(rs.next()) {
-					Reseña r=new Reseña();
+					ReseÃ±a r=new ReseÃ±a();
 					r.setId(rs.getInt("id"));
 					r.setTitulo(rs.getString("titulo"));
 					r.setDescripcion(rs.getString("descripcion"));
@@ -78,7 +78,7 @@ public class DataReseña {
 		return rems;
 	}
 
-	public Reseña add(Reseña r) {
+	public ReseÃ±a add(ReseÃ±a r) {
 
 
 		PreparedStatement stmt= null;
@@ -86,7 +86,7 @@ public class DataReseña {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into reseña(titulo,descripcion,puntuacion) "
+							"insert into reseÃ±a(titulo,descripcion,puntuacion) "
 							+ "values(?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
@@ -117,12 +117,12 @@ public class DataReseña {
 		  return r; 
     }
 
-	public void update(Reseña r) {
+	public void update(ReseÃ±a r) {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update reseña set titulo=?,descripcion=?,puntuacion=?"
+							"update reseÃ±a set titulo=?,descripcion=?,puntuacion=?"
 							+ "where id=?");
 			
 			stmt.setString(1, r.getTitulo());
@@ -143,12 +143,12 @@ public class DataReseña {
 		}
 	}
 	
-	public void delete(Reseña r) {
+	public void delete(ReseÃ±a r) {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update reseña set habilitado=0 where id=?");
+							"update reseÃ±a set habilitado=0 where id=?");
 			stmt.setInt(1, r.getId());
 			stmt.executeUpdate();
 		} catch (SQLException e) {

@@ -5,34 +5,34 @@ import java.util.LinkedList;
 import data.*;
 import entities.*;
 
-public class ReseñaLogic {
+public class ReseÃ±aLogic {
 	
-	private DataReseña db= new DataReseña();
+	private DataReseÃ±a db= new DataReseÃ±a();
 	
-	public LinkedList<Reseña> getAll(){
+	public LinkedList<ReseÃ±a> getAll(){
 		return db.getAll();
 	}
 	
-	public Reseña getOne(Reseña obj) {
+	public ReseÃ±a getOne(ReseÃ±a obj) {
 		return this.getOne(obj.getId());
 		
 	} 
 	
-	public Reseña getOne(int i) {
+	public ReseÃ±a getOne(int i) {
 		return db.getOne(i);
 		
 	} 
 		
-	public Reseña add(Reseña obj) {
+	public ReseÃ±a add(ReseÃ±a obj) {
 			return db.add(obj);
 		
 	}
 	
-	public void update(Reseña obj) {
+	public void update(ReseÃ±a obj) {
 		 db.update(obj);
 		
 	}
-	public void delete(Reseña obj) {
+	public void delete(ReseÃ±a obj) {
 		 db.delete(obj);
 		
 	}

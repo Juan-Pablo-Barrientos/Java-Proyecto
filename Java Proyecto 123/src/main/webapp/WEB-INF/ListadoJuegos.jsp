@@ -166,11 +166,11 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="juegoUrlId" id="lblUrl">Url</label>
+							<label for="juegoUrlId" id="lblUrl">Version online(Opcional)</label>
 							<div class="mb-3">
 								<input type="text" class="form-control" id="juegoUrlId"
-									placeholder="Ingrese url del juego (Iframe)"
-									name="juegoUrlId" required>
+									placeholder="Ingrese version online del juego (Iframe)"
+									name="juegoUrlId">
 							</div>
 						</div>
 					</div>

@@ -14,16 +14,16 @@ import entities.*;
 import logic.*;
 
 /**
- * Servlet implementation class Reseña
+ * Servlet implementation class ReseÃ±a
  */
-@WebServlet("/Reseñas")
-public class Reseñas extends HttpServlet {
+@WebServlet("/ReseÃ±as")
+public class ReseÃ±as extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Reseñas() {
+	public ReseÃ±as() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -47,53 +47,53 @@ public class Reseñas extends HttpServlet {
 		int success = 0;
 		Usuario usr;
 		CompraLogic clogic = new CompraLogic();
-		ReseñaViewLogic rvlogic = new ReseñaViewLogic();
+		ReseÃ±aViewLogic rvlogic = new ReseÃ±aViewLogic();
 
-		// Verifica que el usuario esté logueado
+		// Verifica que el usuario estÃ± logueado
 		if (request.getSession().getAttribute("usuario") != null) {
 			usr = (Usuario) request.getSession().getAttribute("usuario");
-			// ReseñaView reseñaView = (ReseñaView)
-			// request.getAttribute("reseñaViewUsuario");
+			// ReseÃ±aView reseÃ±aView = (ReseÃ±aView)
+			// request.getAttribute("reseÃ±aViewUsuario");
 			Compra compra;
 			//Juego juego = ((JuegoView) request.getAttribute("game")).getJuego();
 			JuegoLogic jlogic = new JuegoLogic();
 			Juego juego = jlogic.getOne(Integer.parseInt(request.getParameter("hiddenIdJuego")));
 			
 
-			// Busqueda de una posible reseña del usuario
-			Reseña reseñaUsuario;
+			// Busqueda de una posible reseÃ±a del usuario
+			ReseÃ±a reseÃ±aUsuario;
 			try {
-				reseñaUsuario = rvlogic.getByJuegoYUsuario(juego, usr).getReseña();
+				reseÃ±aUsuario = rvlogic.getByJuegoYUsuario(juego, usr).getReseÃ±a();
 			} catch (SQLException e) {
 				throw new ServletException(e);
 			}
 
-			// Verifica que la compra siga siendo válida y no haya review
-			if ((clogic.NumeroDeCompras(usr.getId(), juego.getId()) == 1) && (reseñaUsuario.getId() == 0)) {
-				// Si la acción es crear
+			// Verifica que la compra siga siendo vÃ±lida y no haya review
+			if ((clogic.NumeroDeCompras(usr.getId(), juego.getId()) == 1) && (reseÃ±aUsuario.getId() == 0)) {
+				// Si la acciÃ±n es crear
 				if ("create".equals(request.getParameter("hiddenAction"))) {
 					try {
-						// Reseña
-						ReseñaLogic rLogic = new ReseñaLogic();
-						reseñaUsuario = new Reseña();
-						reseñaUsuario.setTitulo(request.getParameter("inputTitulo"));
-						reseñaUsuario.setDescripcion(request.getParameter("inputDescripcion"));
-						reseñaUsuario.setPuntuacion(Integer.parseInt(request.getParameter("inputPuntuacion")));
+						// ReseÃ±a
+						ReseÃ±aLogic rLogic = new ReseÃ±aLogic();
+						reseÃ±aUsuario = new ReseÃ±a();
+						reseÃ±aUsuario.setTitulo(request.getParameter("inputTitulo"));
+						reseÃ±aUsuario.setDescripcion(request.getParameter("inputDescripcion"));
+						reseÃ±aUsuario.setPuntuacion(Integer.parseInt(request.getParameter("inputPuntuacion")));
 
-						reseñaUsuario = rLogic.add(reseñaUsuario);
+						reseÃ±aUsuario = rLogic.add(reseÃ±aUsuario);
 
 						// Compra
 						compra = clogic.getOne(Integer.parseInt(request.getParameter("hiddenNroSerieCompra")));
-						// reseñaView.getCompra().setId_reseña(reseñaUsuario.getId());
-						compra.setId_reseña(reseñaUsuario.getId());
-						clogic.updateIdReseña(compra);
+						// reseÃ±aView.getCompra().setId_reseÃ±a(reseÃ±aUsuario.getId());
+						compra.setId_reseÃ±a(reseÃ±aUsuario.getId());
+						clogic.updateIdReseÃ±a(compra);
 						success = 1;
 					} catch (Exception e) {
 						request.setAttribute("error", e.getMessage());
 						success = 0;
 					}
 				}
-				// Si la acción es editar
+				// Si la acciÃ±n es editar
 				if ("edit".equals(request.getParameter("action2"))) {
 					try {
 						UsuarioLogic usrLogic = new UsuarioLogic();
@@ -108,7 +108,7 @@ public class Reseñas extends HttpServlet {
 						success = 0;
 					}
 				}
-				// Redirección a la página que muestra si la acción fue exitosa o fallida
+				// RedirecciÃ±n a la pÃ±gina que muestra si la acciÃ±n fue exitosa o fallida
 				// response.sendRedirect("ListadoUsuariosDisplay.do?s=" + success);
 				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 			} else {
@@ -117,7 +117,7 @@ public class Reseñas extends HttpServlet {
 
 			}
 		} else {
-			// Redireccion si el usuario no está logueado
+			// Redireccion si el usuario no estÃ± logueado
 			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 		}
 	}

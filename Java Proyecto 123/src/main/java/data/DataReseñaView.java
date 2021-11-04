@@ -7,38 +7,38 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 
-import entities.ReseñaView;
+import entities.ReseÃ±aView;
 import entities.Compra;
 import entities.Juego;
-import entities.Reseña;
+import entities.ReseÃ±a;
 import entities.Usuario;
 
-public class DataReseñaView {
+public class DataReseÃ±aView {
 
-    public LinkedList<ReseñaView> getAllByJuego(Juego juego) throws SQLException {
+    public LinkedList<ReseÃ±aView> getAllByJuego(Juego juego) throws SQLException {
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
-	LinkedList<ReseñaView> reseñaViewList = new LinkedList<>();
+	LinkedList<ReseÃ±aView> reseÃ±aViewList = new LinkedList<>();
 
 	try {
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "SELECT c.*, r.*, u.* FROM compra c JOIN reseña r ON c.id_reseña = r.id JOIN usuario u ON c.id_usuario = u.id WHERE c.id_juego = ?;");
+		    "SELECT c.*, r.*, u.* FROM compra c JOIN reseÃ±a r ON c.id_reseÃ±a = r.id JOIN usuario u ON c.id_usuario = u.id WHERE c.id_juego = ?;");
 	    stmt.setInt(1, juego.getId());
 	    rs = stmt.executeQuery();
 
 	    if (rs != null) {
 		while (rs.next()) {
-		    ReseñaView reseñaView = new ReseñaView();
+		    ReseÃ±aView reseÃ±aView = new ReseÃ±aView();
 		    // Compra
 		    Compra c = new Compra();
 		    c.setNroSerie(rs.getInt("nroSerie"));
 		    c.setId_juego(rs.getInt("id_juego"));
 		    c.setId_usuario(rs.getInt("id_usuario"));
 		    c.setId_reembolso(rs.getInt("id_reembolso"));
-		    c.setId_reseña(rs.getInt("id_reseña"));
+		    c.setId_reseÃ±a(rs.getInt("id_reseÃ±a"));
 		    c.setHoras_jugadas(rs.getDouble("horas_jugadas"));
 		    c.setDateFechaHora(rs.getObject("fecha_compra", LocalDateTime.class));
-		    reseñaView.setCompra(c);
+		    reseÃ±aView.setCompra(c);
 
 		    // Usuario
 		    Usuario u = new Usuario();
@@ -49,17 +49,17 @@ public class DataReseñaView {
 		    u.setFechaNacimiento(rs.getObject("fecha_nacimiento", LocalDate.class));
 		    u.setTelefono(rs.getString("telefono"));
 		    u.setTipo(rs.getString("tipo"));
-		    reseñaView.setUsuario(u);
+		    reseÃ±aView.setUsuario(u);
 
-		    // Reseña
-		    Reseña r = new Reseña();
-		    r.setId(rs.getInt("id_reseña"));
+		    // ReseÃ±a
+		    ReseÃ±a r = new ReseÃ±a();
+		    r.setId(rs.getInt("id_reseÃ±a"));
 		    r.setTitulo(rs.getString("titulo"));
 		    r.setDescripcion(rs.getString("descripcion"));
 		    r.setPuntuacion(rs.getInt("puntuacion"));
-		    reseñaView.setReseña(r);
+		    reseÃ±aView.setReseÃ±a(r);
 
-		    reseñaViewList.add(reseñaView);
+		    reseÃ±aViewList.add(reseÃ±aView);
 		}
 	    }
 
@@ -80,17 +80,17 @@ public class DataReseñaView {
 	    }
 	}
 
-	return reseñaViewList;
+	return reseÃ±aViewList;
     }
 
-    public ReseñaView getByJuegoYUsuario(Juego juego, Usuario usuario) throws SQLException {
+    public ReseÃ±aView getByJuegoYUsuario(Juego juego, Usuario usuario) throws SQLException {
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
-	ReseñaView reseñaView = new ReseñaView();
+	ReseÃ±aView reseÃ±aView = new ReseÃ±aView();
 
 	try {
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "SELECT c.*, r.*, u.* FROM compra c LEFT JOIN reseña r ON c.id_reseña = r.id LEFT JOIN usuario u ON c.id_usuario = u.id WHERE c.id_usuario = ? AND c.id_juego = ?;");
+		    "SELECT c.*, r.*, u.* FROM compra c LEFT JOIN reseÃ±a r ON c.id_reseÃ±a = r.id LEFT JOIN usuario u ON c.id_usuario = u.id WHERE c.id_usuario = ? AND c.id_juego = ?;");
 	    stmt.setInt(1, usuario.getId());
 	    stmt.setInt(2, juego.getId());
 	    rs = stmt.executeQuery();
@@ -102,10 +102,10 @@ public class DataReseñaView {
 		    c.setId_juego(rs.getInt("id_juego"));
 		    c.setId_usuario(rs.getInt("id_usuario"));
 		    c.setId_reembolso(rs.getInt("id_reembolso"));
-		    c.setId_reseña(rs.getInt("id_reseña"));
+		    c.setId_reseÃ±a(rs.getInt("id_reseÃ±a"));
 		    c.setHoras_jugadas(rs.getDouble("horas_jugadas"));
 		    c.setDateFechaHora(rs.getObject("fecha_compra", LocalDateTime.class));
-		    reseñaView.setCompra(c);
+		    reseÃ±aView.setCompra(c);
 
 		    // Usuario
 		    Usuario u = new Usuario();
@@ -116,15 +116,15 @@ public class DataReseñaView {
 		    u.setFechaNacimiento(rs.getObject("fecha_nacimiento", LocalDate.class));
 		    u.setTelefono(rs.getString("telefono"));
 		    u.setTipo(rs.getString("tipo"));
-		    reseñaView.setUsuario(u);
+		    reseÃ±aView.setUsuario(u);
 
-		    // Reseña
-		    Reseña r = new Reseña();
-		    r.setId(rs.getInt("id_reseña"));
+		    // ReseÃ±a
+		    ReseÃ±a r = new ReseÃ±a();
+		    r.setId(rs.getInt("id_reseÃ±a"));
 		    r.setTitulo(rs.getString("titulo"));
 		    r.setDescripcion(rs.getString("descripcion"));
 		    r.setPuntuacion(rs.getInt("puntuacion"));
-		    reseñaView.setReseña(r);
+		    reseÃ±aView.setReseÃ±a(r);
 	    }
 
 	} catch (SQLException e) {
@@ -144,7 +144,7 @@ public class DataReseñaView {
 	    }
 	}
 
-	return reseñaView;
+	return reseÃ±aView;
     }
 
 }

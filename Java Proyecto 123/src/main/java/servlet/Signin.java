@@ -49,7 +49,7 @@ public class Signin extends HttpServlet
 	String password = request.getParameter("InputPass");
 
 	// Valida email y password
-	usr.setContraseña(password);
+	usr.setContraseÃ±a(password);
 	usr.setEmail(email);
 	usr.setNombreUsuario(email);
 	

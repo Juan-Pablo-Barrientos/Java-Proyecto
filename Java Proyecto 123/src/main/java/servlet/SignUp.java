@@ -44,7 +44,7 @@ public class SignUp extends HttpServlet {
 		Usuario usr= new Usuario();		
 		UsuarioLogic usrLogic = new UsuarioLogic();				
 		usr.setEmail(request.getParameter("InputEmail"));
-		usr.setContraseña(request.getParameter("InputPassword"));
+		usr.setContraseÃ±a(request.getParameter("InputPassword"));
 		usr.setNickname(request.getParameter("InputNickname"));
 		usr.setTelefono(request.getParameter("InputTelefono"));
 		usr.setNombreUsuario(request.getParameter("InputUsuario"));

@@ -77,7 +77,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select nroSerie,id_juego,id_usuario,id_reembolso,id_reseña,horas_jugadas,fecha_compra,importe"
+					"select nroSerie,id_juego,id_usuario,id_reembolso,id_reseÃ±a,horas_jugadas,fecha_compra,importe"
 					+ " from compra where nroSerie=?"
 					);
 			
@@ -89,7 +89,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 				c.setId_juego(rs.getInt("id_juego"));
 				c.setId_usuario(rs.getInt("id_usuario"));
 				c.setId_reembolso(rs.getInt("id_reembolso"));
-				c.setId_reseña(rs.getInt("id_reseña"));
+				c.setId_reseÃ±a(rs.getInt("id_reseÃ±a"));
 				c.setHoras_jugadas(rs.getDouble("horas_jugadas"));
 				c.setDateFechaHora(rs.getObject("fecha_compra",LocalDateTime.class));
 				c.setImporte(rs.getDouble("importe"));
@@ -116,7 +116,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select nroSerie,id_juego,id_usuario,id_reembolso,id_reseña,horas_jugadas,fecha_compra,importe"
+					"select nroSerie,id_juego,id_usuario,id_reembolso,id_reseÃ±a,horas_jugadas,fecha_compra,importe"
 					+ " from compra where id_reembolso=?"
 					);
 			
@@ -128,7 +128,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 				c.setId_juego(rs.getInt("id_juego"));
 				c.setId_usuario(rs.getInt("id_usuario"));
 				c.setId_reembolso(rs.getInt("id_reembolso"));
-				c.setId_reseña(rs.getInt("id_reseña"));
+				c.setId_reseÃ±a(rs.getInt("id_reseÃ±a"));
 				c.setHoras_jugadas(rs.getDouble("horas_jugadas"));
 				c.setDateFechaHora(rs.getObject("fecha_compra",LocalDateTime.class));
 				c.setImporte(rs.getDouble("importe"));
@@ -156,7 +156,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select nroSerie,id_juego,id_usuario,id_reembolso,id_reseña,horas_jugadas,fecha_compra,importe from compra");			
+			rs= stmt.executeQuery("select nroSerie,id_juego,id_usuario,id_reembolso,id_reseÃ±a,horas_jugadas,fecha_compra,importe from compra");			
 			if(rs!=null) {
 				while(rs.next()) {
 					Compra c=new Compra();
@@ -164,7 +164,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 					c.setId_juego(rs.getInt("id_juego"));
 					c.setId_usuario(rs.getInt("id_usuario"));
 					c.setId_reembolso(rs.getInt("id_reembolso"));
-					c.setId_reseña(rs.getInt("id_reseña"));
+					c.setId_reseÃ±a(rs.getInt("id_reseÃ±a"));
 					c.setHoras_jugadas(rs.getDouble("horas_jugadas"));
 					c.setDateFechaHora(rs.getObject("fecha_compra",LocalDateTime.class));	
 					c.setImporte(rs.getInt("importe"));
@@ -256,14 +256,14 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 		}
 	}
 	
-	public void updateIdReseña(Compra c) {
+	public void updateIdReseÃ±a(Compra c) {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update compra set id_reseña=?"
+							"update compra set id_reseÃ±a=?"
 							+ " where nroSerie=?");			
-			stmt.setInt(1, c.getId_reseña());	
+			stmt.setInt(1, c.getId_reseÃ±a());	
 			stmt.setInt(2, c.getNroSerie());		
 			stmt.executeUpdate();
 		} catch (SQLException e) {
