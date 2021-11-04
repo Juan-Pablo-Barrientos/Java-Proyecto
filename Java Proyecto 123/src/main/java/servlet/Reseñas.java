@@ -55,10 +55,9 @@ public class Reseñas extends HttpServlet {
 			// ReseñaView reseñaView = (ReseñaView)
 			// request.getAttribute("reseñaViewUsuario");
 			Compra compra;
-			//Juego juego = ((JuegoView) request.getAttribute("game")).getJuego();
+			// Juego juego = ((JuegoView) request.getAttribute("game")).getJuego();
 			JuegoLogic jlogic = new JuegoLogic();
 			Juego juego = jlogic.getOne(Integer.parseInt(request.getParameter("hiddenIdJuego")));
-			
 
 			// Busqueda de una posible reseña del usuario
 			Reseña reseñaUsuario;
@@ -93,31 +92,35 @@ public class Reseñas extends HttpServlet {
 						success = 0;
 					}
 				}
-				// Si la acciñn es editar
-				if ("edit".equals(request.getParameter("action2"))) {
-					try {
-						UsuarioLogic usrLogic = new UsuarioLogic();
-						Usuario usrEdit = new Usuario();
-
-						usrEdit.setTipo(request.getParameter("InputUsuarioTipo"));
-
-						usrLogic.update(usrEdit);
-						success = 2;
-					} catch (Exception e) {
-						request.setAttribute("error", e.getMessage());
-						success = 0;
-					}
-				}
 				// Redirecciñn a la pñgina que muestra si la acciñn fue exitosa o fallida
 				// response.sendRedirect("ListadoUsuariosDisplay.do?s=" + success);
 				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+			} else
+				
+				
+			// Si la compra es valida, hay reseña y la accion es editar
+			if ((clogic.NumeroDeCompras(usr.getId(), juego.getId()) == 1) && (reseñaUsuario.getId() != 0)
+					&& ("edit".equals(request.getParameter("action2")))) {
+				try {
+					ReseñaLogic rLogic = new ReseñaLogic();
+					reseñaUsuario.setTitulo(request.getParameter("inputTitulo"));
+					reseñaUsuario.setDescripcion(request.getParameter("inputDescripcion"));
+					reseñaUsuario.setPuntuacion(Integer.parseInt(request.getParameter("inputPuntuacion")));
+
+					rLogic.update(reseñaUsuario);
+					success = 2;
+					response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+				} catch (Exception e) {
+					request.setAttribute("error", e.getMessage());
+					success = 0;
+				}
 			} else {
-				// Redireccion si el usuario no es admin
+				// Redireccion si no se dan las condiciones para editar o crear reseña
 				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 
 			}
 		} else {
-			// Redireccion si el usuario no estñ logueado
+			// Redireccion si el usuario no esta logueado
 			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 		}
 	}

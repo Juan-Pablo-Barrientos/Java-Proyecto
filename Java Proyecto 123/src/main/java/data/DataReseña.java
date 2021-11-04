@@ -122,7 +122,7 @@ public class DataReseña {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update reseña set titulo=?,descripcion=?,puntuacion=?"
+							"update reseña set titulo=?,descripcion=?,puntuacion=? "
 							+ "where id=?");
 			
 			stmt.setString(1, r.getTitulo());

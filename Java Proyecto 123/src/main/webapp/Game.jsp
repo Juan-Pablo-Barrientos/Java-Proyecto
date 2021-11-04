@@ -50,6 +50,55 @@ img {
 			</div>
 		</div>
 	</c:if>
+	<!-- Modal para editar reseña -->
+	<div class="modal fade" id="modalEditar" tabindex="-1"
+		data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="EditarDesarrolladorNombrelbl">Editar
+						reseña</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<form action="Reseñas" method="post" onSubmit="">
+					<input type="hidden" name="action2" value="edit" />
+					<input type="hidden" name="hiddenIdJuego" value="${game.juego.id}" />
+					<div class="modal-body">
+						<div class="form-group">
+							<input type="hidden" class="form-control" id="idResenaId"
+								name="resenaId">
+						</div>
+						<div class="form-group">
+							<label for="inputResenaId">Título de reseña</label> <input
+								type="text" class="form-control my-1" id="inputResenaId"
+								placeholder="Ingrese título de reseña" name="inputTitulo"
+								value="${reseñaViewUsuario.reseña.titulo}" required>
+						</div>
+						<div class="form-group">
+							<label for="idPuntuacion">Puntuación</label> <input type="number"
+								class="form-control my-1" id="idPuntuacion"
+								name="inputPuntuacion" min="1" max="10" placeholder="1-10" value="${reseñaViewUsuario.reseña.puntuacion}"
+								required>
+						</div>
+						<div class="form-group">
+							<label for="inputResenaId">Descripcion</label>
+							<textarea class="form-control my-1" id="idDescripcion"
+								name="inputDescripcion" placeholder="Ingrese reseña." rows="4" 
+								required>${reseñaViewUsuario.reseña.descripcion}"</textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Regresar</button>
+						<button type="submit" class="btn btn-primary">Guardar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!--  Modal de compra -->
 	<div class="modal fade" id="modalComprar" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -123,7 +172,7 @@ img {
 				<c:choose>
 					<c:when test="${usuario==null}">
 						<form action="index.jsp" method="get">
-							<input type="hidden" name="game" value="${game.juego.id}"/>
+							<input type="hidden" name="game" value="${game.juego.id}" />
 							<button type="submit" class="btn btn-primary mx-2">Iniciar
 								sesion para comprar</button>
 						</form>
@@ -140,7 +189,8 @@ img {
 			</div>
 		</div>
 		<div class="col-8 align-items-center">
-			<c:if test="${(reseñaViewUsuario.reseña.id != 0) && (tieneGame == true)}">
+			<c:if
+				test="${(reseñaViewUsuario.reseña.id != 0) && (tieneGame == true)}">
 				<div class="shadow-lg p-4 bg-white rounded">
 					<div class="row" style="height: 20%;">
 						<div class="col-10">
@@ -149,7 +199,7 @@ img {
 								${reseñaViewUsuario.reseña.puntuacion}/10</h6>
 						</div>
 						<div class="col-2">
-							<button class="boton">
+							<button class="boton" onclick="showModalEditar()">
 								<i class="fas fa-pen"></i>
 							</button>
 							<button class="boton">
@@ -169,9 +219,10 @@ img {
 				test="${(reseñaViewUsuario.reseña.id == 0) && (tieneGame == true)}">
 				<div class="shadow-lg p-4 bg-white rounded">
 					<form action="Reseñas" method="post">
-						<input type="hidden" name="hiddenAction" value="create" />
-						<input type="hidden" name="hiddenIdJuego" value="${game.juego.id}" />
-						<input type="hidden" name="hiddenNroSerieCompra" value="${reseñaViewUsuario.compra.nroSerie}" />
+						<input type="hidden" name="hiddenAction" value="create" /> <input
+							type="hidden" name="hiddenIdJuego" value="${game.juego.id}" /> <input
+							type="hidden" name="hiddenNroSerieCompra"
+							value="${reseñaViewUsuario.compra.nroSerie}" />
 						<div class="form-group row">
 							<label for="idTitulo" class="col-auto col-form-label">Título:</label>
 							<div class="col-auto">
@@ -182,16 +233,16 @@ img {
 							<label for="idPuntuacion" class="col-auto col-form-label">Puntuación:</label>
 							<div class="col-auto">
 								<input type="number" class="form-control" id="idPuntuacion"
-									name="inputPuntuacion" min="1" max="10"
-									placeholder="1-10" required>
+									name="inputPuntuacion" min="1" max="10" placeholder="1-10"
+									required>
 							</div>
 						</div>
 						<div class="form-group row mb-4">
 							<label for="idDescripcion" class="col-auto col-form-label">Descripción:</label>
 							<div class="col-12">
 								<textarea class="form-control" id="idDescripcion"
-									name="inputDescripcion" placeholder="Ingrese reseña."
-									rows="4" required></textarea>
+									name="inputDescripcion" placeholder="Ingrese reseña." rows="4"
+									required></textarea>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -254,6 +305,12 @@ img {
 			console.log($("#idJuego").val());
 			$('#modalComprarlbl').text("Esta seguro de que desea comprar el juego: "+ $('#gameNombre').text()+"?");
 		}
+		
+		function showModalEditar(){
+			$('#modalEditar').modal('show');
+		}
+		
+		
 		
 		/*const url = new URL(window.location.href)
 	      const params = new URLSearchParams(url.search.slice(1))
