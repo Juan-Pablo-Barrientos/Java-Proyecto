@@ -49,7 +49,7 @@ public class Game extends HttpServlet {
 	    throw new ServletException(e);
 	}
 
-	// Comprobación - Si el usuario tiene el juego visitado e hizo reseña
+	// Comprobación - Si el usuario tiene el juego comprado e hizo reseña
 	ReseñaView reseñaViewUsuario = null;
 	if (request.getSession().getAttribute("usuario") != null) {
 	    Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");

@@ -90,7 +90,7 @@ public class DataReseñaView {
 
 	try {
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "SELECT c.*, r.*, u.* FROM compra c JOIN reseña r ON c.id_reseña = r.id JOIN usuario u ON c.id_usuario = u.id WHERE c.id_usuario = ? AND c.id_juego = ?;");
+		    "SELECT c.*, r.*, u.* FROM compra c LEFT JOIN reseña r ON c.id_reseña = r.id LEFT JOIN usuario u ON c.id_usuario = u.id WHERE c.id_usuario = ? AND c.id_juego = ?;");
 	    stmt.setInt(1, usuario.getId());
 	    stmt.setInt(2, juego.getId());
 	    rs = stmt.executeQuery();

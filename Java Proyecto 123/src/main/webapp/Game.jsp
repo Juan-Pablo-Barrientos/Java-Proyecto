@@ -117,30 +117,30 @@ img {
 			</c:if>
 			<div class="input-group" style="justify-content: center">
 				<div class="input-group-prepend">
-					<span class="input-group-text" id="">Precio:
+					<span class="input-group-text mx-2" id="">Precio:
 						$${game.juego.precioBase-(game.juego.precioBase*game.juego.descuento)}</span>
 				</div>
 				<c:choose>
 					<c:when test="${usuario==null}">
 						<form action="index.jsp" method="get">
-							<input type="hidden" name="game" value="${game.juego.id}" />
-							<button type="submit" class="btn btn-primary">Iniciar
+							<input type="hidden" name="game" value="${game.juego.id}"/>
+							<button type="submit" class="btn btn-primary mx-2">Iniciar
 								sesion para comprar</button>
 						</form>
 					</c:when>
 					<c:when test="${tieneGame==false }">
-						<button class="btn btn-primary" onclick=showModal()>Comprar</button>
+						<button class="btn btn-primary mx-2" onclick=showModal()>Comprar</button>
 					</c:when>
 					<c:when test="${tieneGame==true }">
 						<form action="Biblioteca" method="get">
-							<button type="submit" class="btn btn-primary">Jugar</button>
+							<button type="submit" class="btn btn-primary mx-2">Jugar</button>
 						</form>
 					</c:when>
 				</c:choose>
 			</div>
 		</div>
 		<div class="col-8 align-items-center">
-			<c:if test="${reseñaViewUsuario.reseña != null}">
+			<c:if test="${(reseñaViewUsuario.reseña.id != 0) && (tieneGame == true)}">
 				<div class="shadow-lg p-4 bg-white rounded">
 					<div class="row" style="height: 20%;">
 						<div class="col-10">
@@ -159,34 +159,39 @@ img {
 					</div>
 					<div class="row" style="height: 80%;">
 						<p>${reseñaViewUsuario.reseña.descripcion}</p>
-						<p>Reseña por: ${reseñaViewUsuario.usuario.nombreUsuario}</p>
+						<p align="right">Mi reseña.</p>
 					</div>
 				</div>
 			</c:if>
 
 
 			<c:if
-				test="${(reseñaViewUsuario.reseña == null) && (tieneGame == true)}">
-
+				test="${(reseñaViewUsuario.reseña.id == 0) && (tieneGame == true)}">
 				<div class="shadow-lg p-4 bg-white rounded">
-					<form action="ReseñarJuego">
+					<form action="Reseñas" method="post">
+						<input type="hidden" name="hiddenAction" value="create" />
+						<input type="hidden" name="hiddenIdJuego" value="${game.juego.id}" />
+						<input type="hidden" name="hiddenNroSerieCompra" value="${reseñaViewUsuario.compra.nroSerie}" />
 						<div class="form-group row">
 							<label for="idTitulo" class="col-auto col-form-label">Título:</label>
 							<div class="col-auto">
 								<input type="text" class="form-control" id="idTitulo"
-									name="tituloReseña" placeholder="Ingrese título reseña.">
+									name="inputTitulo" placeholder="Ingrese título reseña."
+									required>
 							</div>
 							<label for="idPuntuacion" class="col-auto col-form-label">Puntuación:</label>
 							<div class="col-auto">
 								<input type="number" class="form-control" id="idPuntuacion"
-									name="puntuacionReseña" min="1" max="10" placeholder="1-10">
+									name="inputPuntuacion" min="1" max="10"
+									placeholder="1-10" required>
 							</div>
 						</div>
 						<div class="form-group row mb-4">
 							<label for="idDescripcion" class="col-auto col-form-label">Descripción:</label>
 							<div class="col-12">
 								<textarea class="form-control" id="idDescripcion"
-									name="descripcionReseña" placeholder="Ingrese reseña." rows="4"></textarea>
+									name="inputDescripcion" placeholder="Ingrese reseña."
+									rows="4" required></textarea>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -200,6 +205,8 @@ img {
 
 		</div>
 	</div>
+
+	<!-- Listado de todas las reviews -->
 	<c:forEach items="${reseñasJuego}" var="r">
 		<c:if test="${reseñaViewUsuario.usuario.id != r.usuario.id}">
 			<div class="row">
@@ -214,9 +221,7 @@ img {
 				</div>
 			</div>
 		</c:if>
-
 	</c:forEach>
-
 
 
 
