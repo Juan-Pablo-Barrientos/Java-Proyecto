@@ -54,22 +54,23 @@ public class Reseñas extends HttpServlet {
 			usr = (Usuario) request.getSession().getAttribute("usuario");
 			Compra compra = null;
 			JuegoLogic jlogic = new JuegoLogic();
-			Juego juego = jlogic.getOne(Integer.parseInt(request.getParameter("hiddenIdJuego")));
+			String game =  request.getParameter("hiddenIdJuego");
+			Juego juego = jlogic.getOne(Integer.parseInt(game));
 
-			// Busqueda de una posible reseña del usuario
-			Reseña reseñaUsuario;
-			try {
-				reseñaUsuario = rvlogic.getByJuegoYUsuario(juego, usr).getReseña();
-			} catch (SQLException e) {
-				request.setAttribute("error", e.getMessage());
-				success = 0;
-				throw new ServletException(e);
-			}
+			// Si la compra sigue siendo valida
+			if ((clogic.NumeroDeCompras(usr.getId(), juego.getId()) == 1)) {
+				// Busqueda de una posible reseña del usuario
+				Reseña reseñaUsuario;
+				try {
+					reseñaUsuario = rvlogic.getByJuegoYUsuario(juego, usr).getReseña();
+				} catch (SQLException e) {
+					request.setAttribute("error", e.getMessage());
+					success = 0;
+					throw new ServletException(e);
+				}
 
-			// Verifica que la compra siga siendo vñlida y no haya review
-			if ((clogic.NumeroDeCompras(usr.getId(), juego.getId()) == 1) && (reseñaUsuario.getId() == 0)) {
-				// Si la acciñn es crear
-				if ("create".equals(request.getParameter("hiddenAction"))) {
+				// Si la accion es crear y no hay reseña para esa compra
+				if (("create".equals(request.getParameter("action"))) && (reseñaUsuario.getId() == 0)) {
 					try {
 						// Reseña
 						ReseñaLogic rLogic = new ReseñaLogic();
@@ -84,62 +85,52 @@ public class Reseñas extends HttpServlet {
 						compra = clogic.getOne(Integer.parseInt(request.getParameter("hiddenNroSerieCompra")));
 						compra.setId_reseña(reseñaUsuario.getId());
 						clogic.updateIdReseña(compra);
-						success = 1;
+						success = 4;
+					} catch (Exception e) {
+						request.setAttribute("error", e.getMessage());
+						success = 0;
+					}
+				} else
+
+				// Si la la accion es editar y hay reseña
+				if ((reseñaUsuario.getId() != 0) && ("edit".equals(request.getParameter("action")))) {
+					try {
+						ReseñaLogic rLogic = new ReseñaLogic();
+						reseñaUsuario.setTitulo(request.getParameter("inputTitulo"));
+						reseñaUsuario.setDescripcion(request.getParameter("inputDescripcion"));
+						reseñaUsuario.setPuntuacion(Integer.parseInt(request.getParameter("inputPuntuacion")));
+
+						rLogic.update(reseñaUsuario);
+						success = 5;
+					} catch (Exception e) {
+						request.setAttribute("error", e.getMessage());
+						success = 0;
+					}
+				} else
+
+				// Si la accion es borrar y hay reseña
+				if ((reseñaUsuario.getId() != 0) && ("delete".equals(request.getParameter("action")))) {
+					try {
+						ReseñaLogic rLogic = new ReseñaLogic();
+						// Seteo en null de id_reseña en la compra
+						compra = clogic.getOne(Integer.parseInt(request.getParameter("hiddenNroSerieCompra")));
+						compra.setId_reseña(0);
+						clogic.updateIdReseña(compra);
+						rLogic.delete(reseñaUsuario);
+						success = 6;
 					} catch (Exception e) {
 						request.setAttribute("error", e.getMessage());
 						success = 0;
 					}
 				}
-				// Redirecciñn a la pñgina que muestra si la acciñn fue exitosa o fallida
-				// response.sendRedirect("ListadoUsuariosDisplay.do?s=" + success);
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
-			} else
-				
-				
-			// Si la compra es valida, hay reseña y la accion es editar
-			if ((clogic.NumeroDeCompras(usr.getId(), juego.getId()) == 1) && (reseñaUsuario.getId() != 0)
-					&& ("edit".equals(request.getParameter("action")))) {
-				try {
-					ReseñaLogic rLogic = new ReseñaLogic();
-					reseñaUsuario.setTitulo(request.getParameter("inputTitulo"));
-					reseñaUsuario.setDescripcion(request.getParameter("inputDescripcion"));
-					reseñaUsuario.setPuntuacion(Integer.parseInt(request.getParameter("inputPuntuacion")));
-
-					rLogic.update(reseñaUsuario);
-					success = 2;
-					response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
-				} catch (Exception e) {
-					request.setAttribute("error", e.getMessage());
-					success = 0;
-				}
+				// Redirección a la página que muestra si la acción fue exitosa o fallida
+				response.sendRedirect("CompraGameDisplay.do?s=" + success + "&game=" + game);
+				// response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 			} else {
-				// Redireccion si no se dan las condiciones para editar o crear reseña
-				//response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
-
-			}
-				
-		// Si la compra es valida, hay reseña y la accion es borrar
-		if ((clogic.NumeroDeCompras(usr.getId(), juego.getId()) == 1) && (reseñaUsuario.getId() != 0)
-				&& ("delete".equals(request.getParameter("action")))) {
-			try {
-				ReseñaLogic rLogic = new ReseñaLogic();
-				//Seteo en null de id_reseña en la compra
-				compra = clogic.getOne(Integer.parseInt(request.getParameter("hiddenNroSerieCompra")));
-				compra.setId_reseña(0);
-				clogic.updateIdReseña(compra);
-				rLogic.delete(reseñaUsuario);
-				success = 3;
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
-			} catch (Exception e) {
-				request.setAttribute("error", e.getMessage());
+				request.setAttribute("error", "El usuario no posee una compra válida del juego");
 				success = 0;
 			}
-		} else {
-			// Redireccion si no se dan las condiciones para editar o crear reseña
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 
-		}
-			
 		} else {
 			// Redireccion si el usuario no esta logueado
 			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");

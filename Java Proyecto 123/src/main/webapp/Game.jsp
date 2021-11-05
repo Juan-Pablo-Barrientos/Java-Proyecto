@@ -247,7 +247,7 @@ img {
 				test="${(reseñaViewUsuario.reseña.id == 0) && (tieneGame == true)}">
 				<div class="shadow-lg p-4 bg-white rounded">
 					<form action="Reseñas" method="post">
-						<input type="hidden" name="hiddenAction" value="create" /> <input
+						<input type="hidden" name="action" value="create" /> <input
 							type="hidden" name="hiddenIdJuego" value="${game.juego.id}" /> <input
 							type="hidden" name="hiddenNroSerieCompra"
 							value="${reseñaViewUsuario.compra.nroSerie}" />
@@ -342,15 +342,15 @@ img {
 			$('#modalBorrar').modal('show');
 		}
 		
-		
-		
-		/*const url = new URL(window.location.href)
-	      const params = new URLSearchParams(url.search.slice(1))
-	      window.history.replaceState(
-	        {},
-	        '',
-	        `${window.location.pathname}?${"s=6"}${window.location.hash}`,
-	      )*/
+		   const url = new URL(window.location.href)
+		      const params = new URLSearchParams(url.search.slice(1))
+		      window.history.replaceState(
+		        {},
+		        '',
+		        `${window.location.pathname}?${"s=7"}${window.location.hash}`,
+		      );
+		      
+		      
 		</script>
 </body>
 </html>
