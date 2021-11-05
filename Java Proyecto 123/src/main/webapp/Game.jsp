@@ -34,7 +34,8 @@ img {
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Operación exitosa!</h5>
+						<h5 class="modal-title" id="exampleModalLabel">Operación
+							exitosa!</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
@@ -340,14 +341,16 @@ img {
 		function showModalBorrar(){
 			$('#modalBorrar').modal('show');
 		}
-		
-		   const url = new URL(window.location.href)
-		      const params = new URLSearchParams(url.search.slice(1))
+
+		   const url = new URL(window.location.href);
+		   const params = new URLSearchParams(url.search.slice(1));
 		      window.history.replaceState(
 		        {},
 		        '',
-		        `${window.location.pathname}?${"s=7"}${window.location.hash}`,
+		        '${window.location.pathname}?${"game="}'+$("#idJuego").val()+'&${"s=7"}',
 		      );
+		      
+		   
 		      
 		      
 		</script>
