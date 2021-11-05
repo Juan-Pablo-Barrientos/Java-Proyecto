@@ -62,8 +62,8 @@ img {
 						aria-label="Close"></button>
 				</div>
 				<form action="Reseñas" method="post" onSubmit="">
-					<input type="hidden" name="action2" value="edit" />
-					<input type="hidden" name="hiddenIdJuego" value="${game.juego.id}" />
+					<input type="hidden" name="action" value="edit" /> <input
+						type="hidden" name="hiddenIdJuego" value="${game.juego.id}" />
 					<div class="modal-body">
 						<div class="form-group">
 							<input type="hidden" class="form-control" id="idResenaId"
@@ -78,14 +78,14 @@ img {
 						<div class="form-group">
 							<label for="idPuntuacion">Puntuación</label> <input type="number"
 								class="form-control my-1" id="idPuntuacion"
-								name="inputPuntuacion" min="1" max="10" placeholder="1-10" value="${reseñaViewUsuario.reseña.puntuacion}"
-								required>
+								name="inputPuntuacion" min="1" max="10" placeholder="1-10"
+								value="${reseñaViewUsuario.reseña.puntuacion}" required>
 						</div>
 						<div class="form-group">
 							<label for="inputResenaId">Descripcion</label>
 							<textarea class="form-control my-1" id="idDescripcion"
-								name="inputDescripcion" placeholder="Ingrese reseña." rows="4" 
-								required>${reseñaViewUsuario.reseña.descripcion}"</textarea>
+								name="inputDescripcion" placeholder="Ingrese reseña." rows="4"
+								required>${reseñaViewUsuario.reseña.descripcion}</textarea>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -94,6 +94,34 @@ img {
 						<button type="submit" class="btn btn-primary">Guardar</button>
 					</div>
 				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal para eliminar reseña  -->
+	<div class="modal fade" id="modalBorrar" tabindex="-1"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Borrar reseña</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<label id="modalBorrarlbl"> </label>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Regresar</button>
+					<form method="post" action="Reseñas">
+						<input type="hidden" name="action" value="delete" /> <input
+							type="hidden" name="hiddenIdJuego" value="${game.juego.id}" /> <input
+							type="hidden" name="hiddenNroSerieCompra"
+							value="${reseñaViewUsuario.compra.nroSerie}" />
+						<button type="submit" class="btn btn-danger">Borrar</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -202,7 +230,7 @@ img {
 							<button class="boton" onclick="showModalEditar()">
 								<i class="fas fa-pen"></i>
 							</button>
-							<button class="boton">
+							<button class="btn btn-danger" onclick="showModalBorrar()">
 								<i class="fas fa-trash"></i>
 							</button>
 						</div>
@@ -310,15 +338,19 @@ img {
 			$('#modalEditar').modal('show');
 		}
 		
+		function showModalBorrar(){
+			$('#modalBorrar').modal('show');
+		}
 		
 		
-		const url = new URL(window.location.href)
+		
+		/*const url = new URL(window.location.href)
 	      const params = new URLSearchParams(url.search.slice(1))
 	      window.history.replaceState(
 	        {},
 	        '',
 	        `${window.location.pathname}?${"s=6"}${window.location.hash}`,
-	      )
+	      )*/
 		</script>
 </body>
 </html>

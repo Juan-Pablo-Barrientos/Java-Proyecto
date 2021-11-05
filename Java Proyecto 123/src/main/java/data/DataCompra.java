@@ -263,7 +263,13 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 					prepareStatement(
 							"update compra set id_reseña=?"
 							+ " where nroSerie=?");			
-			stmt.setInt(1, c.getId_reseña());	
+			
+			if (c.getId_reseña() == 0) {
+				stmt.setNull(1, Types.INTEGER);
+			}
+			else {
+				stmt.setInt(1, c.getId_reseña());
+			}
 			stmt.setInt(2, c.getNroSerie());		
 			stmt.executeUpdate();
 		} catch (SQLException e) {

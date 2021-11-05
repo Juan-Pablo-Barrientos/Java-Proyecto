@@ -52,10 +52,7 @@ public class Reseñas extends HttpServlet {
 		// Verifica que el usuario estñ logueado
 		if (request.getSession().getAttribute("usuario") != null) {
 			usr = (Usuario) request.getSession().getAttribute("usuario");
-			// ReseñaView reseñaView = (ReseñaView)
-			// request.getAttribute("reseñaViewUsuario");
-			Compra compra;
-			// Juego juego = ((JuegoView) request.getAttribute("game")).getJuego();
+			Compra compra = null;
 			JuegoLogic jlogic = new JuegoLogic();
 			Juego juego = jlogic.getOne(Integer.parseInt(request.getParameter("hiddenIdJuego")));
 
@@ -64,6 +61,8 @@ public class Reseñas extends HttpServlet {
 			try {
 				reseñaUsuario = rvlogic.getByJuegoYUsuario(juego, usr).getReseña();
 			} catch (SQLException e) {
+				request.setAttribute("error", e.getMessage());
+				success = 0;
 				throw new ServletException(e);
 			}
 
@@ -83,7 +82,6 @@ public class Reseñas extends HttpServlet {
 
 						// Compra
 						compra = clogic.getOne(Integer.parseInt(request.getParameter("hiddenNroSerieCompra")));
-						// reseñaView.getCompra().setId_reseña(reseñaUsuario.getId());
 						compra.setId_reseña(reseñaUsuario.getId());
 						clogic.updateIdReseña(compra);
 						success = 1;
@@ -100,7 +98,7 @@ public class Reseñas extends HttpServlet {
 				
 			// Si la compra es valida, hay reseña y la accion es editar
 			if ((clogic.NumeroDeCompras(usr.getId(), juego.getId()) == 1) && (reseñaUsuario.getId() != 0)
-					&& ("edit".equals(request.getParameter("action2")))) {
+					&& ("edit".equals(request.getParameter("action")))) {
 				try {
 					ReseñaLogic rLogic = new ReseñaLogic();
 					reseñaUsuario.setTitulo(request.getParameter("inputTitulo"));
@@ -116,9 +114,32 @@ public class Reseñas extends HttpServlet {
 				}
 			} else {
 				// Redireccion si no se dan las condiciones para editar o crear reseña
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+				//response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 
 			}
+				
+		// Si la compra es valida, hay reseña y la accion es borrar
+		if ((clogic.NumeroDeCompras(usr.getId(), juego.getId()) == 1) && (reseñaUsuario.getId() != 0)
+				&& ("delete".equals(request.getParameter("action")))) {
+			try {
+				ReseñaLogic rLogic = new ReseñaLogic();
+				//Seteo en null de id_reseña en la compra
+				compra = clogic.getOne(Integer.parseInt(request.getParameter("hiddenNroSerieCompra")));
+				compra.setId_reseña(0);
+				clogic.updateIdReseña(compra);
+				rLogic.delete(reseñaUsuario);
+				success = 3;
+				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+			} catch (Exception e) {
+				request.setAttribute("error", e.getMessage());
+				success = 0;
+			}
+		} else {
+			// Redireccion si no se dan las condiciones para editar o crear reseña
+			response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+
+		}
+			
 		} else {
 			// Redireccion si el usuario no esta logueado
 			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");

@@ -148,7 +148,7 @@ public class DataReseña {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update reseña set habilitado=0 where id=?");
+							"DELETE FROM reseña where id=?");
 			stmt.setInt(1, r.getId());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
