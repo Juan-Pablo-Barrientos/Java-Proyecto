@@ -22,15 +22,15 @@
 <body style="background-color: black">
 	<jsp:include page="/Navbar.jsp" />
 	<div class="row ">
-		<div class="col ">1 of 3</div>
 		<div class="col "></div>
-		<div class="col ">3 of 3</div>
+		<div class="col "></div>
+		<div class="col "></div>
 	</div>
 	<div class="row">
-		<div class="col ">1 of 3</div>
+		<div class="col "></div>
 		<div class="col" style="justify-content: center">
 
-			<div class="col " style="">3 of 3</div>
+			<div class="col " style=""></div>
 		</div>
 	</div>
 	<div class="row  " style="height: 50vh">
@@ -47,7 +47,7 @@
 
 			</form>
 		</div>
-		<div class="col" style="padding: 5px;">3 of 3</div>
+		<div class="col" style="padding: 5px;"></div>
 		<div class="col" style="padding: 5px;">
 			<form action="ListadoJuegos" method="get">
 				<button class="boton" type="submit">Listado de

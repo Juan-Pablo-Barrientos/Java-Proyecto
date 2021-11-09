@@ -23,15 +23,15 @@
 <body style="background-color: black">
 <jsp:include page="Navbar.jsp"/>
 			<div class="row ">
-				<div class="col ">1 of 3</div>
+				<div class="col "></div>
 				<div class="col ">
 					
 						
 				</div>
-				<div class="col ">3 of 3</div>
+				<div class="col "></div>
 			</div>
 			<div class="row">
-				<div class="col ">1 of 3</div>
+				<div class="col "></div>
 				<div class="col" style="justify-content: center">
 					<div class="center2">
 
@@ -66,16 +66,16 @@
 						</div>
 					</div>
 				</div>
-				<div class="col " style="">3 of 3</div>
+				<div class="col " style=""></div>
 			</div>
 			<div class="row  " style="height: 50vh">
 				<div class="col" style="padding: 5px;">
-					fdjfj
+					
 				</div>
 				<div class="col" style="padding: 5px;">
-					fyj
+									
 				</div>
-				<div class="col" style="padding: 5px;">3 of 3</div>
+				<div class="col" style="padding: 5px;"></div>
 			</div>
 <jsp:include page="Footer.jsp"/>
 	<script src="bootstrap/js/bootstrap.bundle.js"></script>
