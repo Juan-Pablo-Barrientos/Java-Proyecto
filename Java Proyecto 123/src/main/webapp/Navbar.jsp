@@ -73,9 +73,7 @@
 
 					</c:if>
 
-					<li class="nav-item">
-					<li><a class="nav-link" style="color: black" href="#">Placeholder</a>
-					</li>
+				
 
 					<li class="nav-item"><c:choose>
 							<c:when test="${usuario.tipo==('admin')}">

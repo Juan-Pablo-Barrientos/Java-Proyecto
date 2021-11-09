@@ -25,19 +25,16 @@ import logic.UsuarioLogic;
  */
 @WebServlet("/Biblioteca")
 public class Biblioteca extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+	private static final long serialVersionUID = 1L; 
+    private ReembolsoLogic remLogic =new ReembolsoLogic();
+    private UsuarioLogic usrLogic = new UsuarioLogic();
+    private CompraLogic comLogic = new CompraLogic();
+  
     public Biblioteca() {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
@@ -47,60 +44,73 @@ public class Biblioteca extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/Biblioteca.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int success=0;
-		
-		if ("create".equals(request.getParameter("action1"))) {			
-				ReembolsoLogic remLogic = new ReembolsoLogic();
-				Reembolso reembolso =new Reembolso();
-				
-				Usuario usuario= (Usuario) request.getSession().getAttribute("usuario");
-		 		CompraLogic comLogic = new CompraLogic();
-				Compra compra = new Compra();
-				compra = comLogic.getOne(Integer.parseInt(request.getParameter("idCompra")));
-				UsuarioLogic usrLogic = new UsuarioLogic();
-				
-				if (comLogic.NumeroDeCompras(compra.getId_usuario(), compra.getId_juego())==1) 
-				{													 
-				if (compra.getId_reembolso()!=0) 
-				{
-					try {				
-					reembolso = remLogic.getOne(compra.getId_reembolso());
-					if (reembolso.getEstado().equals("Rechazado")) {success = 2;} //El reembolso fue rechazado
-					else success=3; //El reembolso esta Pendiente	
-					}catch (Exception e) {
-					request.setAttribute("error", e.getMessage());
-					success = 0;}
-									
-				}
-				if (compra.getId_reembolso()==0)  //Crear el reembolso si no existe
-				{	try {					
-					reembolso.setRazon(request.getParameter("razon"));
-					if (compra.getHoras_jugadas()<2) 
-					{					
-					reembolso.setEstado("Aprobado");				
-					success = 6;
-					comLogic.delete(compra);
-					usuario.setSaldo(usuario.getSaldo() + compra.getImporte());
-					usrLogic.update(usuario);
-					}
-					else {reembolso.setEstado("Pendiente");success = 1;}
-					reembolso = remLogic.add(reembolso);
-					compra.setId_reembolso(reembolso.getId());
-					comLogic.updateIdReembolso(compra);					
-						}catch (Exception e) {
-							request.setAttribute("error", e.getMessage());
-							success = 0; }
-				}
-				}
-				else {success=5;} //El juego fue comprado y reembolsado anteriormente.
-				
-				
-		response.sendRedirect("BibliotecaDisplay.do?s=" + success);
-		}
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (!"create".equals(request.getParameter("action1"))) {
+            return;
+        }
+        
+        Usuario usuario= (Usuario) request.getSession().getAttribute("usuario");
+        Compra compra = this.comLogic.getOne(Integer.parseInt(request.getParameter("idCompra")));
+        String razon = request.getParameter("razon");
+        if (this.comLogic.NumeroDeCompras(compra.getId_usuario(), compra.getId_juego()) == 1) 
+        {
+            try {
+                int result = compra.fueReembolsado() 
+                    ? this.informarCompraYaReembolsada(compra)
+                    : this.reembolsarCompra(compra, usuario,razon);
+
+                sendResponseRedirect(response, result);
+            }
+            catch (Exception e) {
+                request.setAttribute("error", e.getMessage());
+                sendResponseRedirect(response, 0);
+            }
+        }
+        else {
+            //El juego fue comprado y reembolsado anteriormente.
+            sendResponseRedirect(response, 5);
+        } 
+    }
+
+    private int informarCompraYaReembolsada(Compra compra) {
+        Reembolso reembolso = this.remLogic.getOne(compra.getId_reembolso());
+
+        if (reembolso.getEstado().equals("Rechazado")) {
+            return 2;
+        } 
+        
+        //El reembolso esta Pendiente
+        return 3; 
+    }
+
+    private int reembolsarCompra(Compra compra, Usuario usuario, String razon){
+        int success;
+
+        Reembolso reembolso = new Reembolso();
+        
+        reembolso.setRazon(razon);
+
+        if (compra.getHoras_jugadas()<2) {					
+            reembolso.setEstado("Aprobado");				
+            usuario.setSaldo(usuario.getSaldo() + compra.getImporte());
+			usrLogic.update(usuario);
+            this.comLogic.delete(compra);
+            success = 6;
+        }
+        else {
+            reembolso.setEstado("Pendiente");
+            success = 1;
+        }
+        reembolso = this.remLogic.add(reembolso);
+        compra.setId_reembolso(reembolso.getId());
+        this.comLogic.updateIdReembolso(compra);
+
+        return success;
+    }
+
+    private void sendResponseRedirect(HttpServletResponse response, int success) throws IOException {
+        response.sendRedirect("BibliotecaDisplay.do?s=" + success);
+    }
 
 }
+

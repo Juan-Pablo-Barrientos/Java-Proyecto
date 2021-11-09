@@ -40,7 +40,7 @@
 							style="border: 5px solid black" data-bs-ride="carousel">
 							<div class="carousel-inner">
 								<div class="carousel-item active">
-									<img src="img/1.jpg" class="d-block w-100" alt="...">
+									<img src="img/1/1.jpg" class="d-block w-100" alt="...">
 									<h3>Sven Coop</h3>
 								</div>
 								<div class="carousel-item" data-bs-interval="2000">

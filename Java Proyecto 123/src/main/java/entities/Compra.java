@@ -61,5 +61,8 @@ public class Compra implements java.io.Serializable{
 	public void setImporte(double importe) {
 		this.importe = importe;
 	}
+	public boolean fueReembolsado() {
+        return this.getId_reembolso() != 0;
+    }
 
 }
