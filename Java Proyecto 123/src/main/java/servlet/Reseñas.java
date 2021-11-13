@@ -58,7 +58,7 @@ public class Reseñas extends HttpServlet {
 			Juego juego = jlogic.getOne(Integer.parseInt(game));
 
 			// Si la compra sigue siendo valida
-			if ((clogic.NumeroDeCompras(usr.getId(), juego.getId()) == 1)) {
+			if ((clogic.NumeroDeComprasHabilitadas(usr.getId(), juego.getId()) == 1)) {
 				// Busqueda de una posible reseña del usuario
 				Reseña reseñaUsuario;
 				try {

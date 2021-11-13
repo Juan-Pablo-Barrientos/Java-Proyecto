@@ -118,7 +118,7 @@
 						<div class="form-group">
 							<label for="juegoPrecioBaseId">Precio base</label>
 							<div class="input-group mb-3">
-								<span class="input-group-text">$</span> <input type="text"
+								<span class="input-group-text">$</span> <input type="number"
 									id="juegoPrecioBaseId" name="juegoPrecioBaseId"
 									placeholder="Ingrese precio base del juego"
 									class="form-control" required>
