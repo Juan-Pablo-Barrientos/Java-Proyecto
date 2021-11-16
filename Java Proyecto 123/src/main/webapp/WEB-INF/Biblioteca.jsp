@@ -206,7 +206,6 @@
 				alert('Este juego no tiene version online', 'danger');
 			}
 			else{
-				document.getElementById('error').remove()
 				$('#modalJugando').modal('show');
 				$("#game").attr("src", ([row.linkJuego]));
 				$('#nroCompra').val([ row.idCompra ]);
