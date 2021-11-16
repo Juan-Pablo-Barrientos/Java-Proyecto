@@ -194,8 +194,11 @@
 				var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
 
 				function alert(message, type) {
+					
+
+				  if (document.getElementById('error') != null){document.getElementById('error').remove()}
 				  var wrapper = document.createElement('div')
-				  wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+				  wrapper.innerHTML = '<div id="error" class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
 
 				  alertPlaceholder.append(wrapper)
 				}
@@ -203,6 +206,7 @@
 				alert('Este juego no tiene version online', 'danger');
 			}
 			else{
+				document.getElementById('error').remove()
 				$('#modalJugando').modal('show');
 				$("#game").attr("src", ([row.linkJuego]));
 				$('#nroCompra').val([ row.idCompra ]);
