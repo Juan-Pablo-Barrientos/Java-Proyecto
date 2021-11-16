@@ -30,15 +30,16 @@
 	href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
 <style>
 .modal-dialog {
-  position: relative;
-  display: table;
-  overflow: auto;
-  width: auto;
-  min-width: 300px;
+	position: relative;
+	display: table;
+	overflow: auto;
+	width: auto;
+	min-width: 300px;
 }
+
 .modal-body { /* Restrict Modal width to 90% */
-  overflow-x: auto !important;
-  max-width: 90vw !important;
+	overflow-x: auto !important;
+	max-width: 90vw !important;
 }
 </style>
 </head>
@@ -106,7 +107,7 @@
 	<div class="modal fade" id="modalJugando" tabindex="-1"
 		static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel"
 		aria-hidden="true">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-xl d-block">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="Jugar">Jugando</h5>
@@ -115,7 +116,7 @@
 					<input type="hidden" name="action2" value="update" />
 					<div class="modal-body">
 						<div id="#gameDiv" class="gameDiv">
-							<iframe id="game" width="560" height="315" src=""
+							<iframe id="game" width="75%" height="500" src=""
 								allow="fullscreen; autoplay; encrypted-media" frameborder="0"
 								allowfullscreen="true" msallowfullscreen="true"
 								mozallowfullscreen="true" webkitallowfullscreen="true"
@@ -124,7 +125,6 @@
 								scrolling="no"></iframe>
 
 						</div>
-						
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-primary">Dejar de
