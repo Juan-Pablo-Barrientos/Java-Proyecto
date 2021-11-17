@@ -244,6 +244,6 @@
         '',
         `${window.location.pathname}?${"s=4"}${window.location.hash}`,
       );
-			</script>
+			</script><>
 </body>
 </html>
