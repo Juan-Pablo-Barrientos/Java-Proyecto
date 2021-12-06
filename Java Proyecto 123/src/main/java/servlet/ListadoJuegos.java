@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import logic.*;
 import entities.*;
 import java.util.*;
+import javax.activation.*;
+import javax.mail.*;
+import javax.mail.internet.*;
 
 /**
  * Servlet implementation class ListadoJuegos
@@ -142,10 +146,63 @@ public class ListadoJuegos extends HttpServlet {
 						JuegoLogic jgoLogic = new JuegoLogic();
 						Juego jgoEdit = jgoLogic.getOne(Integer.parseInt(request.getParameter("juegoId")));
 						jgoEdit.setDescuento(Double.parseDouble(request.getParameter("juegoDescuentoId")) / 100);
-
+						UsuarioLogic usrLogic = new UsuarioLogic();
+						LinkedList<Usuario> usrs =usrLogic.getAll();
 						jgoLogic.update(jgoEdit);
 						success = 4;
-					} catch (Exception e) {
+					      // Get system properties
+					      Properties properties = System.getProperties();
+					 
+					      // Setup mail server
+					      properties.setProperty("mail.smtp.host", "smtp.gmail.com");
+					      properties.put("mail.smtp.auth", "true");
+					      properties.put("mail.smtp.user", "assacreed200@gmail.com");
+					      properties.put("mail.smtp.password", "momo0808");
+					      properties.put("mail.smtp.port", "587");
+					      properties.put("mail.smtp.starttls.enable", "true");
+					 
+					      // Get the default Session object.
+					      Session session = Session.getDefaultInstance(properties,
+					                new Authenticator() {
+					 
+					                    protected PasswordAuthentication getPasswordAuthentication() {
+					                        return new PasswordAuthentication(
+					                                "assacreed200@gmail.com", "momo0808");
+					                    }
+					                });
+					      
+					      // Set response content type
+					      response.setContentType("text/html");
+					      PrintWriter out = response.getWriter();
+
+					      try {
+					         // Create a default MimeMessage object.
+					         MimeMessage message = new MimeMessage(session);
+					         
+					         // Set From: header field of the header.
+					         message.setFrom(new InternetAddress("assacreed200@gmail.com"));
+						     message.addRecipient(Message.RecipientType.BCC, new InternetAddress("assacreed100@gmail.com"));
+					         
+					         for (Usuario u : usrs) {
+						     message.addRecipient(Message.RecipientType.BCC, new InternetAddress(u.getEmail()));
+							 }
+					         
+					         // Set Subject: header field
+					         message.setSubject("Nuevo descuento de "+jgoEdit.getNombre()+"!");
+					         String juegoDescuento=(Double.toString(jgoEdit.getDescuento()*100)).substring(0,1);
+					         // Now set the actual message
+					         message.setText(jgoEdit.getNombre()+" esta en con un descuento de "+juegoDescuento+"%, con un precio final de: $"+(jgoEdit.getPrecioBase()-(jgoEdit.getPrecioBase()*jgoEdit.getDescuento())));
+					         
+					         // Send message
+					         Transport.send(message);
+						
+					}catch (MessagingException mex) {
+						mex.printStackTrace();
+						request.setAttribute("error", mex.getMessage());
+						success = 0;
+					} 
+						
+					}catch (Exception e) {
 						request.setAttribute("error", e.getMessage());
 						success = 0;
 					}

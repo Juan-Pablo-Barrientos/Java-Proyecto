@@ -44,10 +44,8 @@
 			<form action="ListadoReembolsoPendiente" method="get">
 				<button class="boton" type="submit">Listado
 					Reembolso</button>
-
 			</form>
 		</div>
-		<div class="col" style="padding: 5px;"></div>
 		<div class="col" style="padding: 5px;">
 			<form action="ListadoJuegos" method="get">
 				<button class="boton" type="submit">Listado de

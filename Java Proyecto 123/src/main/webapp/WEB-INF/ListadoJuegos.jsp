@@ -139,7 +139,10 @@
 							<select  id="juegoGeneroId" name="juegoGeneroId" class="form-control" required >								
 								<option value="Mundo Abierto">Mundo Abierto</option>
 								<option value="Accion">Accion</option>
-								<option value="Estrategia">Estrategia</option>					
+								<option value="Rpg">Rpg</option>	
+								<option value="Simulacion">Simulacion</option>	
+								<option value="Deportes">Deportes</option>	
+								<option value="Pelea">Pelea</option>					
 							</select>
 							</div>
 						</div>

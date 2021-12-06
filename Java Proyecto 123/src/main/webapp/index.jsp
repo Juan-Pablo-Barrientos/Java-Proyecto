@@ -62,13 +62,6 @@
 							<div style="margin-top: 5px;"></div>
 							<a href="#">Olvidé mi contraseña</a>
 						</div>
-						<div class="col-12">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox"
-									id="checkboxRemember" name="checkboxRemember"> <label
-									class="form-check-label" for="rememberMe"> Recuérdame</label>
-							</div>
-						</div>
 						<input type="hidden" name="game" value="${param.game}" /> 
 						<div class="col-12">
 							<button type="submit" class="boton">Ingresar</button>

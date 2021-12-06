@@ -34,18 +34,26 @@ tr {
 }
 </style>
 </head>
-<body>
+<body >
 
 	<jsp:include page="/Navbar.jsp" />
 
 	<div class="row">
-		<h4>Juegos</h4>		
-	<div id="toolbar">
+		<h4>Juegos</h4>	
+	</div>	
+	<div class="row" style="text-align: center">
+		<div class="center">
   		<button id="Estrategia" class="boton">Estrategia</button>
    		<button id="MundoAbierto" class="boton">Mundo Abierto</button>
    		<button id="Accion" class="boton">Acción</button>
+   		<button id="Rpg" class="boton">Rpg</button>
+   		<button id="Simulacion" class="boton">Simulacion</button>
+   		<button id="Deportes" class="boton">Deportes</button>
+   		<button id="Pelea" class="boton">Pelea</button>
    		<button id="Todos" class="boton">Todos</button>
+   		</div>
 	</div>
+	<div class="row">
 		<div class="col-12 col-sm-12 col-lg-12">
 			<div class="table-responsive">
 				<table class="table hideFullColumn" id="table" data-toggle="table"
@@ -102,6 +110,10 @@ tr {
 		var $Estrategia = $('#Estrategia')
 		var $MundoAbierto = $('#MundoAbierto')
 		var $Accion = $('#Accion')
+		var $Rpg = $('#Rpg')
+		var $Simulacion = $('#Simulacion')
+		var $Deportes = $('#Deportes')
+		var $Pelea = $('#Pelea')
 		var $Todos = $('#Todos')
 		
 		jQuery(document).ready(function($) {
@@ -153,9 +165,41 @@ tr {
 		  })
 		  
 		  $(function() {
+		    $Rpg.click(function () {
+		      $table.bootstrapTable('filterBy', {
+		    	 genero: ["Rpg"]
+		      })
+		    })
+		  })
+		  
+		  $(function() {
+		    $Simulacion.click(function () {
+		      $table.bootstrapTable('filterBy', {
+		    	 genero: ["Simulacion"]
+		      })
+		    })
+		  })
+		  
+		  $(function() {
+		    $Deportes.click(function () {
+		      $table.bootstrapTable('filterBy', {
+		    	 genero: ["Deportes"]
+		      })
+		    })
+		  })
+		  
+		  $(function() {
+		    $Pelea.click(function () {
+		      $table.bootstrapTable('filterBy', {
+		    	 genero: ["Pelea"]
+		      })
+		    })
+		  })
+		  
+		  $(function() {
 		    $Todos.click(function () {
 		      $table.bootstrapTable('filterBy', {
-		    	 genero: ["Accion","Mundo Abierto","Estrategia"]
+		    	 genero: ["Accion","Mundo Abierto","Estrategia","Rpg","Simulacion","Deportes","Pelea"]
 		      })
 		    })
 		  })
