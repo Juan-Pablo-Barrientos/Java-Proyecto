@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -93,8 +94,13 @@ public class Biblioteca extends HttpServlet {
         if (compra.getHoras_jugadas()<2) {					
             reembolso.setEstado("Aprobado");				
             usuario.setSaldo(usuario.getSaldo() + compra.getImporte());
+            try {
 			usrLogic.update(usuario);
-            this.comLogic.delete(compra);
+            }
+            catch(SQLException e){
+            	e.printStackTrace();
+            }
+			this.comLogic.delete(compra);
             success = 6;
         }
         else {

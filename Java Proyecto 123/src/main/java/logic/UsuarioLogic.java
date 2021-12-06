@@ -55,7 +55,12 @@ public class UsuarioLogic
 	
 	public void updatePassword(Usuario obj)
 	{
-		db.updatePassword(obj);
+		try {
+			db.updatePassword(obj);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 		
 	public Usuario add(Usuario obj) {
@@ -64,10 +69,14 @@ public class UsuarioLogic
     }
     
 
-    public void update(Usuario obj)
+    public void update(Usuario obj) throws SQLException
     {
+    	try {
 	db.update(obj);
-
+    	}
+    	catch (SQLException e){
+    		throw e;
+    	}
     }
 
     public void delete(Usuario obj)

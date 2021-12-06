@@ -60,9 +60,9 @@ public class Signin extends HttpServlet
 	}
 	catch (SQLException e)
 	{
+		e.printStackTrace();
 		request.setAttribute("result", "Los servidores estan caidos");
 		request.getRequestDispatcher("/index.jsp").forward(request, response);
-	    throw new ServletException(e);
 	}
 	
 	if (usr!=null) { 

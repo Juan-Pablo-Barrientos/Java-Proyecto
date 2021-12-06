@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,7 +42,13 @@ public class CargarSaldo extends HttpServlet {
 		UsuarioLogic usrLogic = new UsuarioLogic();
 		Usuario usrCargarSaldo = (Usuario) request.getSession().getAttribute("usuario");
 		usrCargarSaldo.setSaldo(usrCargarSaldo.getSaldo()+Double.parseDouble(request.getParameter("Saldo")));
+		try {
 		usrLogic.update(usrCargarSaldo);
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			throw new ServletException(e);
+		}
 		response.sendRedirect(request.getParameter("URL"));
 	}
 

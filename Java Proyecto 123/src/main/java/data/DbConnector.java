@@ -58,12 +58,13 @@ public class DbConnector
 
     public void releaseConn() throws SQLException
     {
-	conectados--;
+	
 	try
 	{
-	    if (conectados <= 0)
+	    if (conectados > 0)
 	    {
 		conn.close();
+		conectados--;
 	    }
 	}
 	catch (SQLException e)
