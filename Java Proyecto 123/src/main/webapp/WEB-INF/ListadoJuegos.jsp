@@ -136,9 +136,11 @@
 						<div class="form-group">
 							<label for="juegoGeneroId">Genero</label>
 							<div class="input-group mb-3">
-								<input type="text" class="form-control" id="juegoGeneroId"
-									name="juegoGeneroId" placeholder="Ingrese genero del juego"
-									required />
+							<select  id="juegoGeneroId" name="juegoGeneroId" class="form-control" required >								
+								<option value="Mundo Abierto">Mundo Abierto</option>
+								<option value="Accion">Accion</option>
+								<option value="Estrategia">Estrategia</option>					
+							</select>
 							</div>
 						</div>
 						<div class="form-group">

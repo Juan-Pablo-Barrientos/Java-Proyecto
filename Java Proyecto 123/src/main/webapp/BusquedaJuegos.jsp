@@ -39,11 +39,18 @@ tr {
 	<jsp:include page="/Navbar.jsp" />
 
 	<div class="row">
-		<h4>Juegos</h4>
+		<h4>Juegos</h4>		
+	<div id="toolbar">
+  		<button id="Estrategia" class="boton">Estrategia</button>
+   		<button id="MundoAbierto" class="boton">Mundo Abierto</button>
+   		<button id="Accion" class="boton">Acción</button>
+   		<button id="Todos" class="boton">Todos</button>
+	</div>
 		<div class="col-12 col-sm-12 col-lg-12">
 			<div class="table-responsive">
 				<table class="table hideFullColumn" id="table" data-toggle="table"
-					data-checkbox-header="false">
+					data-checkbox-header="false" data-toolbar="#toolbar">
+					
 					<thead>
 						<tr>
 							<th data-field="id" class="hidecol">Id</th>
@@ -91,6 +98,12 @@ tr {
 		src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 
 	<script>
+	
+		var $Estrategia = $('#Estrategia')
+		var $MundoAbierto = $('#MundoAbierto')
+		var $Accion = $('#Accion')
+		var $Todos = $('#Todos')
+		
 		jQuery(document).ready(function($) {
 			$(".clickable-row").click(function() {
 				window.location = $(this).data("href");
@@ -98,7 +111,7 @@ tr {
 		});
 
 		var $table = $('#table')
-
+				
 		function stateFormatter(value, row, index) {
 			if ([ row.precio ] > 1000) {
 				return {
@@ -114,6 +127,38 @@ tr {
 			}
 			return value
 		}
+		
+		$(function() {
+		    $Estrategia.click(function () {
+		      $table.bootstrapTable('filterBy', {
+		    	 genero: ["Estrategia"]
+		      })
+		    })
+		  })
+		  
+		  $(function() {
+		    $MundoAbierto.click(function () {
+		      $table.bootstrapTable('filterBy', {
+		    	 genero: ["Mundo Abierto"]
+		      })
+		    })
+		  })
+		  
+		  $(function() {
+		    $Accion.click(function () {
+		      $table.bootstrapTable('filterBy', {
+		    	 genero: ["Accion"]
+		      })
+		    })
+		  })
+		  
+		  $(function() {
+		    $Todos.click(function () {
+		      $table.bootstrapTable('filterBy', {
+		    	 genero: ["Accion","Mundo Abierto","Estrategia"]
+		      })
+		    })
+		  })
 	</script>
 </body>
 </html>
