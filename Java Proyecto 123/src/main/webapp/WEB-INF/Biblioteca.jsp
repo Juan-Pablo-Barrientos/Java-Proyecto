@@ -137,6 +137,18 @@
 	<div class="container">
 		<div class="row">
 			<h4>Mis Juegos</h4>
+			<div class="row" style="text-align: center">
+		<div class="center">
+  			<button id="Estrategia" class="boton">Estrategia</button>
+   			<button id="MundoAbierto" class="boton">Mundo Abierto</button>
+   			<button id="Accion" class="boton">Acción</button>
+   			<button id="Rpg" class="boton">Rpg</button>
+   			<button id="Simulacion" class="boton">Simulacion</button>
+   			<button id="Deportes" class="boton">Deportes</button>
+   			<button id="Pelea" class="boton">Pelea</button>
+   			<button id="Todos" class="boton">Todos</button>
+   		</div>
+			</div>
 			<div class="col-12 col-sm-12 col-lg-12">
 				<div class="table-responsive">
 					<table class="table hideFullColumn" id="table" data-toggle="table">
@@ -146,6 +158,7 @@
 								<th data-field="linkJuego" class="hidecol">Url</th>
 								<th data-field="nombreJuego">Nombre del juego</th>
 								<th data-field="hsJugadas">Horas jugadas</th>
+								<th data-field="genero">Genero</th>
 								<th data-field="operate" data-formatter="operateFormatter"
 									data-events="operateEvents"></th>
 							</tr>
@@ -157,6 +170,7 @@
 									<td><c:out value="${c.juego.url}"></c:out></td>
 									<td><c:out value="${c.juego.nombre}"></c:out></td>
 									<td><c:out value="${c.compra.horas_jugadas}"></c:out></td>
+									<td><c:out value="${c.juego.genero}"></c:out></td>
 									<td></td>
 								</tr>
 							</c:forEach>
@@ -178,6 +192,14 @@
 	let startTime;
 	let elapsedTime = 0;
 	let timerInterval;
+	var $Estrategia = $('#Estrategia')
+	var $MundoAbierto = $('#MundoAbierto')
+	var $Accion = $('#Accion')
+	var $Rpg = $('#Rpg')
+	var $Simulacion = $('#Simulacion')
+	var $Deportes = $('#Deportes')
+	var $Pelea = $('#Pelea')
+	var $Todos = $('#Todos')
 
 	function operateFormatter(value, row, index) {
 		return [
@@ -247,6 +269,69 @@
         '',
         `${window.location.pathname}?${"s=4"}${window.location.hash}`,
       );
+	   $(function() {
+		    $Estrategia.click(function () {
+		      $table.bootstrapTable('filterBy', {
+		    	 genero: ["Estrategia"]
+		      })
+		    })
+		  })
+		  
+		  $(function() {
+		    $MundoAbierto.click(function () {
+		      $table.bootstrapTable('filterBy', {
+		    	 genero: ["Mundo Abierto"]
+		      })
+		    })
+		  })
+		  
+		  $(function() {
+		    $Accion.click(function () {
+		      $table.bootstrapTable('filterBy', {
+		    	 genero: ["Accion"]
+		      })
+		    })
+		  })
+		  
+		  $(function() {
+		    $Rpg.click(function () {
+		      $table.bootstrapTable('filterBy', {
+		    	 genero: ["Rpg"]
+		      })
+		    })
+		  })
+		  
+		  $(function() {
+		    $Simulacion.click(function () {
+		      $table.bootstrapTable('filterBy', {
+		    	 genero: ["Simulacion"]
+		      })
+		    })
+		  })
+		  
+		  $(function() {
+		    $Deportes.click(function () {
+		      $table.bootstrapTable('filterBy', {
+		    	 genero: ["Deportes"]
+		      })
+		    })
+		  })
+		  
+		  $(function() {
+		    $Pelea.click(function () {
+		      $table.bootstrapTable('filterBy', {
+		    	 genero: ["Pelea"]
+		      })
+		    })
+		  })
+		  
+		  $(function() {
+		    $Todos.click(function () {
+		      $table.bootstrapTable('filterBy', {
+		    	 genero: ["Accion","Mundo Abierto","Estrategia","Rpg","Simulacion","Deportes","Pelea"]
+		      })
+		    })
+		  })
 			</script><>
 </body>
 </html>
