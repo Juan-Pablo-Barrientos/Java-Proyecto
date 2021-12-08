@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class DataReembolso {
 
-	public Reembolso getOne(int rem) {
+	public Reembolso getOne(int rem) throws SQLException {
 		
 		Reembolso r=null;
 		PreparedStatement stmt=null;
@@ -30,6 +30,7 @@ public class DataReembolso {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
@@ -37,13 +38,14 @@ public class DataReembolso {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 		}
 		
 		return r;
 	}
 	
-	public LinkedList<Reembolso> getAll(){		
+	public LinkedList<Reembolso> getAll() throws SQLException{		
 		Statement stmt=null;
 		ResultSet rs=null;
 		LinkedList<Reembolso> rems= new LinkedList<>();
@@ -64,6 +66,7 @@ public class DataReembolso {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 			
 		} finally {
 			try {
@@ -72,13 +75,14 @@ public class DataReembolso {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 		}
 			
 		return rems;
 	}
 	
-	public LinkedList<Reembolso> getAllPendientes(){		
+	public LinkedList<Reembolso> getAllPendientes() throws SQLException{		
 		Statement stmt=null;
 		ResultSet rs=null;
 		LinkedList<Reembolso> rems= new LinkedList<>();
@@ -99,6 +103,7 @@ public class DataReembolso {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 			
 		} finally {
 			try {
@@ -107,13 +112,14 @@ public class DataReembolso {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 		}
 			
 		return rems;
 	}
 
-	public Reembolso add(Reembolso r) {
+	public Reembolso add(Reembolso r) throws SQLException {
 
 
 		PreparedStatement stmt= null;
@@ -140,6 +146,7 @@ public class DataReembolso {
 			
 		}  catch (SQLException e) {
             e.printStackTrace();
+            throw e;
 		} finally {
             try {
                 if(keyResultSet!=null)keyResultSet.close();
@@ -147,12 +154,13 @@ public class DataReembolso {
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
             	e.printStackTrace();
+                throw e;
             }        
 		}
 		  return r; 
     }
 
-	public void update(Reembolso r) {
+	public void update(Reembolso r) throws SQLException {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -168,17 +176,19 @@ public class DataReembolso {
 			stmt.executeUpdate();
 		} catch (SQLException e) {
             e.printStackTrace();
+            throw e;
 		} finally {
             try {
                 if(stmt!=null)stmt.close();
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
             	e.printStackTrace();
+                throw e;
             }
 		}
 	}
 
-	public void delete(Reembolso r) {
+	public void delete(Reembolso r) throws SQLException {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -188,12 +198,14 @@ public class DataReembolso {
 			stmt.executeUpdate();
 		} catch (SQLException e) {
             e.printStackTrace();
+            throw e;
 		} finally {
             try {
                 if(stmt!=null)stmt.close();
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
             	e.printStackTrace();
+                throw e;
             }
 		}
 	}

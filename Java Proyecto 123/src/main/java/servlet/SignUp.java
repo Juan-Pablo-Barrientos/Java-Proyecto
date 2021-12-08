@@ -64,7 +64,10 @@ public class SignUp extends HttpServlet {
 				}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			request.getSession().invalidate();
 			e.printStackTrace();
+			request.setAttribute("result", "Los servidores estan caidos");
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}			
 	}
 

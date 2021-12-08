@@ -12,7 +12,7 @@ import java.util.LinkedList;
 
 public class DataCompraView {
 		
-	public LinkedList<CompraView> getAll(){			
+	public LinkedList<CompraView> getAll() throws SQLException{			
 		Statement stmt=null;
 		ResultSet rs=null;
 		LinkedList<CompraView> compraViewList= new LinkedList<>();
@@ -74,7 +74,7 @@ public class DataCompraView {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
+			throw e;
 		} finally {
 			try {
 				if(rs!=null) {rs.close();}
@@ -82,13 +82,14 @@ public class DataCompraView {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) { 
 				e.printStackTrace();
+				throw e;
 			}
 		}
 			
 		return compraViewList;
 	}
 	
-	public LinkedList<CompraView> getAllByUserId(int id){			
+	public LinkedList<CompraView> getAllByUserId(int id) throws SQLException{			
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		LinkedList<CompraView> compraViewList= new LinkedList<>();
@@ -152,7 +153,7 @@ public class DataCompraView {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
+			throw e;
 		} finally {
 			try {
 				if(rs!=null) {rs.close();}
@@ -160,6 +161,7 @@ public class DataCompraView {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) { 
 				e.printStackTrace();
+				throw e;
 			}
 		}
 			

@@ -6,67 +6,101 @@ import java.util.LinkedList;
 import data.*;
 import entities.*;
 
-public class JuegoLogic
-{
+public class JuegoLogic {
 
-    private DataJuego db = new DataJuego();
+	private DataJuego db = new DataJuego();
 
-    public LinkedList<Juego> getAll()
-    {
-	return db.getAll();
-    }
-    
-    public LinkedList<Juego> getAllNotRelesed()
-    {
-	return db.getAllNotRelesed();
-    }
-    
-    
-    public LinkedList<Juego> search(String name) throws SQLException
-    {
-	try
-	{
-	    return db.search(name);
+	public LinkedList<Juego> getAll() throws SQLException {
+		try {
+			return db.getAll();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 	}
-	catch (SQLException e)
-	{
-	    throw e;
+
+	public LinkedList<Juego> getAllNotRelesed() throws SQLException {
+		try {
+			return db.getAllNotRelesed();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 	}
-	
-    }
 
-    public Juego getOne(Juego obj)
-    {
-	return this.getOne(obj.getId());
-    }
+	public LinkedList<Juego> search(String name) throws SQLException {
+		try {
+			return db.search(name);
+		} catch (SQLException e) {
+			throw e;
+		}
 
-    public Juego getOne(int i)
-    {
-	return db.getOne(i);
-    }
+	}
 
-    public Juego add(Juego obj)
-    {
-	return db.add(obj);
-    }
+	public Juego getOne(Juego obj) throws SQLException {
+		try {
+			return this.getOne(obj.getId());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+	}
 
-    public void update(Juego obj)
-    {
-	db.update(obj);
-    }
+	public Juego getOne(int i) throws SQLException {
+		try {
+			return db.getOne(i);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+	}
 
-    public void delete(Juego obj)
-    {
-	db.delete(obj);
-    }
+	public Juego add(Juego obj) throws SQLException {
+		try {
+			return db.add(obj);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+	}
 
-    public void delete(int id)
-    {
-	db.delete(this.getOne(id));
-    }
-    
-    public boolean GameNameExist(String nombre) throws SQLException { 
-		return	db.GameNameExist(nombre);	 
-    }
+	public void update(Juego obj) throws SQLException {
+		try {
+			db.update(obj);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	public void delete(Juego obj) throws SQLException {
+		try {
+			db.delete(obj);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	public void delete(int id) throws SQLException {
+		try {
+			db.delete(this.getOne(id));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	public boolean GameNameExist(String nombre) throws SQLException {
+		return db.GameNameExist(nombre);
+	}
 
 }

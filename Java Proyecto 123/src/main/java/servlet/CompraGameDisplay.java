@@ -36,6 +36,7 @@ public class CompraGameDisplay extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
 		if (request.getSession().getAttribute("usuario") != null) {			
 			int success = Integer.parseInt(request.getParameter("s"));
 			switch (success) {
@@ -75,22 +76,10 @@ public class CompraGameDisplay extends HttpServlet {
 					tieneGame=true;
 				}
 			}
-			
-			
-			
-			
-			
-			
-			
-			
 			// Busqueda de reseñas del juego
 			ReseñaViewLogic reseñaViewLogic = new ReseñaViewLogic();
 			LinkedList<ReseñaView> reseñasViewJuego;
-			try {
 			    reseñasViewJuego = reseñaViewLogic.getAllByJuego(jgo.getJuego());
-			} catch (SQLException e) {
-			    throw new ServletException(e);
-			}
 
 			// Comprobaciñn - Si el usuario tiene el juego comprado e hizo reseña
 			ReseñaView reseñaViewUsuario = null;
@@ -98,38 +87,23 @@ public class CompraGameDisplay extends HttpServlet {
 			    Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 			    if (compraLogic.NumeroDeComprasHabilitadas(usuario.getId(), jgo.getJuego().getId()) == 1) {
 				tieneGame = true;
-				try {
 				    reseñaViewUsuario = reseñaViewLogic.getByJuegoYUsuario(jgo.getJuego(), usuario);
-				} catch (SQLException e) {
-				    throw new ServletException(e);
-				}
 			    }
 			}
-
 			request.setAttribute("reseñasJuego", reseñasViewJuego);
 			request.setAttribute("reseñaViewUsuario", reseñaViewUsuario);
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			request.setAttribute("tieneGame", tieneGame);
 			request.setAttribute("game", jgo);
 			request.getRequestDispatcher("/Game.jsp").forward(request, response);			
 		}
 		else {
 			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");		
+		}
+		} catch (SQLException e) {
+			request.getSession().invalidate();
+			e.printStackTrace();
+			request.setAttribute("result", "Los servidores estan caidos");
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 	}
 

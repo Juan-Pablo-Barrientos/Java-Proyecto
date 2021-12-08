@@ -47,7 +47,16 @@ public class ListadoUsuarios extends HttpServlet {
 			usr = (Usuario) request.getSession().getAttribute("usuario");
 			if (usr.getTipo().equals("admin")) {
 				UsuarioLogic usrLogic = new UsuarioLogic();
-				LinkedList<Usuario> usrs = usrLogic.getAll();
+				LinkedList<Usuario> usrs = null;
+				try {
+					usrs = usrLogic.getAll();
+				} catch (SQLException e) {
+					request.getSession().invalidate();
+					e.printStackTrace();
+					request.setAttribute("result", "Los servidores estan caidos");
+					request.getRequestDispatcher("/index.jsp").forward(request, response);
+				}
+
 				request.setAttribute("listaUsuarios", usrs);
 				request.getRequestDispatcher("/WEB-INF/UserManagement.jsp").forward(request, response);
 			} else {
@@ -70,22 +79,17 @@ public class ListadoUsuarios extends HttpServlet {
 		// Verifica que el usuario sea admin
 		int success = 0;
 		Usuario usr;
-		if (request.getSession().getAttribute("usuario") != null) {
-			usr = (Usuario) request.getSession().getAttribute("usuario");
-			if (usr.getTipo().equals("admin")) {
-				if ("delete".equals(request.getParameter("action"))) {
-					try {
+		try {
+			if (request.getSession().getAttribute("usuario") != null) {
+				usr = (Usuario) request.getSession().getAttribute("usuario");
+				if (usr.getTipo().equals("admin")) {
+					if ("delete".equals(request.getParameter("action"))) {
 						UsuarioLogic usrLogic = new UsuarioLogic();
 						int idUsuario = Integer.parseInt(request.getParameter("hiddenId"));
 						usrLogic.delete(idUsuario);
 						success = 1;
-					} catch (Exception e) {
-						request.setAttribute("error", e.getMessage());
-						success = 0;
 					}
-				}
-				if ("edit".equals(request.getParameter("action2"))) {
-					try {
+					if ("edit".equals(request.getParameter("action2"))) {
 						UsuarioLogic usrLogic = new UsuarioLogic();
 						Usuario usrEdit = new Usuario();
 
@@ -100,18 +104,20 @@ public class ListadoUsuarios extends HttpServlet {
 
 						usrLogic.update(usrEdit);
 						success = 2;
-					} catch (Exception e) {
-						request.setAttribute("error", e.getMessage());
-						success = 0;
 					}
-				}
-				response.sendRedirect("ListadoUsuariosDisplay.do?s=" + success);
-			} else {
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+					response.sendRedirect("ListadoUsuariosDisplay.do?s=" + success);
+				} else {
+					response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 
+				}
+			} else {
+				response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 			}
-		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+		} catch (SQLException e) {
+			request.getSession().invalidate();
+			e.printStackTrace();
+			request.setAttribute("result", "Los servidores estan caidos");
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 	}
 

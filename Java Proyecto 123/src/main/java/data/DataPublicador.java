@@ -55,7 +55,7 @@ public class DataPublicador {
     }
 
 	
-	public Publicador getOne(int pu) {
+	public Publicador getOne(int pu) throws SQLException {
 		
 		Publicador p=null;
 		PreparedStatement stmt=null;
@@ -76,6 +76,7 @@ public class DataPublicador {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
@@ -83,13 +84,14 @@ public class DataPublicador {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 		}
 		
 		return p;
 	}
 
-	public LinkedList<Publicador> getAll(){		
+	public LinkedList<Publicador> getAll() throws SQLException{		
 		Statement stmt=null;
 		ResultSet rs=null;
 		LinkedList<Publicador> pubs= new LinkedList<>();
@@ -108,6 +110,7 @@ public class DataPublicador {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 			
 		} finally {
 			try {
@@ -116,6 +119,7 @@ public class DataPublicador {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 		}
 		
@@ -123,7 +127,7 @@ public class DataPublicador {
 		return pubs;
 	}
 	
-	public Publicador add(Publicador p) {
+	public Publicador add(Publicador p) throws SQLException {
 
 		PreparedStatement stmt= null;
 		ResultSet keyResultSet=null;
@@ -146,6 +150,7 @@ public class DataPublicador {
 			
 		}  catch (SQLException e) {
             e.printStackTrace();
+            throw e;
 		} finally {
             try {
                 if(keyResultSet!=null)keyResultSet.close();
@@ -153,12 +158,13 @@ public class DataPublicador {
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
             	e.printStackTrace();
+                throw e;
             }        
 		}
 		  return p; 
     }
 
-	public void update(Publicador p) {
+	public void update(Publicador p) throws SQLException {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -172,17 +178,19 @@ public class DataPublicador {
 			
 		} catch (SQLException e) {
             e.printStackTrace();
+            throw e;
 		} finally {
             try {
                 if(stmt!=null)stmt.close();
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
             	e.printStackTrace();
+            	throw e;
             }
 		}
 	}
 	
-	public void delete(Publicador p) {
+	public void delete(Publicador p) throws SQLException {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -192,12 +200,14 @@ public class DataPublicador {
 			stmt.executeUpdate();
 		} catch (SQLException e) {
             e.printStackTrace();
+            throw e;
 		} finally {
             try {
                 if(stmt!=null)stmt.close();
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
             	e.printStackTrace();
+            	throw e;
             }
 		}
 	}

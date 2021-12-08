@@ -11,9 +11,15 @@ public class UsuarioLogic
 
     private DataUsuario db = new DataUsuario();
 
-    public LinkedList<Usuario> getAll()
+    public LinkedList<Usuario> getAll() throws SQLException
     {
-	return db.getAll();
+	try {
+		return db.getAll();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		throw e;
+	}
     }
 
     
@@ -53,18 +59,25 @@ public class UsuarioLogic
 	}
     }
 	
-	public void updatePassword(Usuario obj)
+	public void updatePassword(Usuario obj) throws SQLException
 	{
 		try {
 			db.updatePassword(obj);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
 	}
 		
-	public Usuario add(Usuario obj) {
-		return db.add(obj);	
+	public Usuario add(Usuario obj) throws SQLException {
+		try {
+			return db.add(obj);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}	
 	
     }
     
@@ -79,9 +92,15 @@ public class UsuarioLogic
     	}
     }
 
-    public void delete(Usuario obj)
+    public void delete(Usuario obj) throws SQLException
     {
-	db.delete(obj);
+	try {
+		db.delete(obj);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		throw e;
+	}
     }
 
 	public void delete(int id)  throws SQLException {

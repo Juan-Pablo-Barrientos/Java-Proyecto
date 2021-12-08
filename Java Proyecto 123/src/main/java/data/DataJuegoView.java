@@ -12,7 +12,7 @@ import java.util.LinkedList;
 
 public class DataJuegoView {
 	
-	public LinkedList<JuegoView> getAll(){			
+	public LinkedList<JuegoView> getAll() throws SQLException{			
 		Statement stmt=null;
 		ResultSet rs=null;
 		LinkedList<JuegoView> juegoViewlist= new LinkedList<>();
@@ -56,6 +56,7 @@ public class DataJuegoView {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 			
 		} finally {
 			try {
@@ -64,13 +65,14 @@ public class DataJuegoView {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) { 
 				e.printStackTrace();
+				throw e;
 			}
 		}
 			
 		return juegoViewlist;
 	}
 	
-	public LinkedList<JuegoView> getAllNotRelesed(){	
+	public LinkedList<JuegoView> getAllNotRelesed() throws SQLException{	
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
 		LocalDate localDate = LocalDate.now();
 		PreparedStatement stmt=null;
@@ -117,6 +119,7 @@ public class DataJuegoView {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 			
 		} finally {
 			try {
@@ -125,13 +128,14 @@ public class DataJuegoView {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) { 
 				e.printStackTrace();
+				throw e;
 			}
 		}
 			
 		return juegoViewlist;
 	}
 	
-	public JuegoView getOne(int Id){	
+	public JuegoView getOne(int Id) throws SQLException{	
 		PreparedStatement stmt = null;
 		ResultSet rs=null;
 		JuegoView juegoView= new JuegoView();
@@ -174,6 +178,7 @@ public class DataJuegoView {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 			
 		} finally {
 			try {
@@ -182,6 +187,7 @@ public class DataJuegoView {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) { 
 				e.printStackTrace();
+				throw e;
 			}
 		}
 			

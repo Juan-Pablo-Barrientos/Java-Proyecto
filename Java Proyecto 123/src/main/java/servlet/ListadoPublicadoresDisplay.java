@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -68,7 +69,15 @@ public class ListadoPublicadoresDisplay extends HttpServlet {
 				
 			}
 			PublicadorLogic PublicadorLogic = new PublicadorLogic();
-			LinkedList<Publicador> Publicador = PublicadorLogic.getAll();
+			LinkedList<Publicador> Publicador = null;
+			try {
+				Publicador = PublicadorLogic.getAll();
+			} catch (SQLException e) {
+				request.getSession().invalidate();
+				e.printStackTrace();
+				request.setAttribute("result", "Los servidores estan caidos");
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
+			}
 			request.setAttribute("listapublicadores", Publicador);
 			request.getRequestDispatcher("/WEB-INF/ListadoPublicadores.jsp").forward(request, response);
 		} else {

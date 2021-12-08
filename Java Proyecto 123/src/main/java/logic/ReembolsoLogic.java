@@ -1,5 +1,6 @@
 package logic;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import data.*;
@@ -9,35 +10,77 @@ public class ReembolsoLogic {
 	
 private DataReembolso db= new DataReembolso();
 	
-	public LinkedList<Reembolso> getAll(){
-		return db.getAll();
+	public LinkedList<Reembolso> getAll() throws SQLException{
+		try {
+			return db.getAll();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 	}
 	
-	public LinkedList<Reembolso> getAllPendientes(){
-		return db.getAllPendientes();
+	public LinkedList<Reembolso> getAllPendientes() throws SQLException{
+		try {
+			return db.getAllPendientes();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 	}
 	
-	public Reembolso getOne(Reembolso obj) {
-		return this.getOne(obj.getId());
+	public Reembolso getOne(Reembolso obj) throws SQLException {
+		try {
+			return this.getOne(obj.getId());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 		
 	} 
 	
-	public Reembolso getOne(int i) {
-		return db.getOne(i);
+	public Reembolso getOne(int i) throws SQLException {
+		try {
+			return db.getOne(i);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 		
 	} 
 		
-	public Reembolso add(Reembolso obj) {
-			return db.add(obj);
+	public Reembolso add(Reembolso obj) throws SQLException {
+			try {
+				return db.add(obj);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw e;
+			}
 		
 	}
 	
-	public void update(Reembolso obj) {
-		 db.update(obj);
+	public void update(Reembolso obj) throws SQLException {
+		 try {
+			db.update(obj);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
-	public void delete(Reembolso obj) {
-		 db.delete(obj);
+	public void delete(Reembolso obj) throws SQLException {
+		 try {
+			db.delete(obj);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 

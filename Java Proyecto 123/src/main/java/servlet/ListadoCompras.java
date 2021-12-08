@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -49,8 +50,16 @@ public class ListadoCompras extends HttpServlet {
 			usr = (Usuario) request.getSession().getAttribute("usuario");
 			if (usr.getTipo().equals("admin")) {
 				CompraViewLogic compraViewLogic = new CompraViewLogic();
-				LinkedList<CompraView> rems = compraViewLogic.getAll();
+				LinkedList<CompraView> rems;
+				try {
+					rems = compraViewLogic.getAll();
 				request.setAttribute("listaCompraView", rems);
+				} catch (SQLException e) {
+					request.getSession().invalidate();
+					e.printStackTrace();
+					request.setAttribute("result", "Los servidores estan caidos");
+					request.getRequestDispatcher("/index.jsp").forward(request, response);
+				}
 				request.getRequestDispatcher("/WEB-INF/ListadoCompras.jsp").forward(request, response);
 			} else {
 				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");

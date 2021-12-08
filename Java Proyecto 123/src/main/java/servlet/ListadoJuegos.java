@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 import javax.servlet.ServletException;
@@ -41,15 +42,22 @@ public class ListadoJuegos extends HttpServlet {
 		if (request.getSession().getAttribute("usuario") != null) {
 			usr = (Usuario) request.getSession().getAttribute("usuario");
 			if (usr.getTipo().equals("admin")) {
-				JuegoViewLogic juegoviewlogic = new JuegoViewLogic();
-				LinkedList<JuegoView> juegosview = juegoviewlogic.getAll();
-				DesarrolladorLogic devLogic = new DesarrolladorLogic();
-				LinkedList<Desarrollador> devs = devLogic.getAll();
-				PublicadorLogic pubLogic = new PublicadorLogic();
-				LinkedList<Publicador> pubs = pubLogic.getAll();
-				request.setAttribute("listajuegosview", juegosview);
-				request.setAttribute("listadevs", devs);
-				request.setAttribute("listapubs", pubs);
+				try {
+					JuegoViewLogic juegoviewlogic = new JuegoViewLogic();
+					LinkedList<JuegoView> juegosview = juegoviewlogic.getAll();
+					DesarrolladorLogic devLogic = new DesarrolladorLogic();
+					LinkedList<Desarrollador> devs = devLogic.getAll();
+					PublicadorLogic pubLogic = new PublicadorLogic();
+					LinkedList<Publicador> pubs = pubLogic.getAll();
+					request.setAttribute("listajuegosview", juegosview);
+					request.setAttribute("listadevs", devs);
+					request.setAttribute("listapubs", pubs);
+				} catch (SQLException e) {
+					request.getSession().invalidate();
+					e.printStackTrace();
+					request.setAttribute("result", "Los servidores estan caidos");
+					request.getRequestDispatcher("/index.jsp").forward(request, response);
+				}
 				request.getRequestDispatcher("/WEB-INF/ListadoJuegos.jsp").forward(request, response);
 			} else {
 				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
@@ -68,24 +76,19 @@ public class ListadoJuegos extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// Verifica que el usuario sea admin
-		Usuario usr;
-		int success = 0;
-		if (request.getSession().getAttribute("usuario") != null) {
-			usr = (Usuario) request.getSession().getAttribute("usuario");
-			if (usr.getTipo().equals("admin")) {
-				if ("delete".equals(request.getParameter("actionDelete"))) {
-					try {
+		try {
+			Usuario usr;
+			int success = 0;
+			if (request.getSession().getAttribute("usuario") != null) {
+				usr = (Usuario) request.getSession().getAttribute("usuario");
+				if (usr.getTipo().equals("admin")) {
+					if ("delete".equals(request.getParameter("actionDelete"))) {
 						JuegoLogic jgoLogic = new JuegoLogic();
 						int idJuego = Integer.parseInt(request.getParameter("hiddenId"));
 						jgoLogic.delete(idJuego);
 						success = 1;
-					} catch (Exception e) {
-						request.setAttribute("error", e.getMessage());
-						success = 0;
 					}
-				}
-				if ("edit".equals(request.getParameter("action"))) {
-					try {
+					if ("edit".equals(request.getParameter("action"))) {
 						JuegoLogic jgoLogic = new JuegoLogic();
 						Juego jgoEdit = jgoLogic.getOne(Integer.parseInt(request.getParameter("juegoId")));
 						LocalDate date = LocalDate.parse(request.getParameter("juegoFechaId"));
@@ -97,11 +100,11 @@ public class ListadoJuegos extends HttpServlet {
 						jgoEdit.setGenero(request.getParameter("juegoGeneroId"));
 						jgoEdit.setReestriccionPorEdad(request.getParameter("juegoReestriccionId"));
 						jgoEdit.setUrl(request.getParameter("juegoUrlId"));
-						if (request.getParameter("juegoNombreId").equals((jgoLogic.getOne(Integer.parseInt(request.getParameter("juegoId"))).getNombre()))) {
+						if (request.getParameter("juegoNombreId").equals(
+								(jgoLogic.getOne(Integer.parseInt(request.getParameter("juegoId"))).getNombre()))) {
 							jgoLogic.update(jgoEdit);
 							success = 2;
-						}
-						else {
+						} else {
 							if (!jgoLogic.GameNameExist(jgoEdit.getNombre())) {
 								jgoLogic.update(jgoEdit);
 								success = 2;
@@ -110,13 +113,8 @@ public class ListadoJuegos extends HttpServlet {
 							}
 
 						}
-					} catch (Exception e) {
-						request.setAttribute("error", e.getMessage());
-						success = 0;
 					}
-				}
-				if ("new".equals(request.getParameter("action"))) {
-					try {
+					if ("new".equals(request.getParameter("action"))) {
 						JuegoLogic jgoLogic = new JuegoLogic();
 						Juego jgoEdit = new Juego();
 						LocalDate date = LocalDate.parse(request.getParameter("juegoFechaId"));
@@ -136,99 +134,91 @@ public class ListadoJuegos extends HttpServlet {
 							success = 3;
 						} else
 							success = 7;
-					} catch (Exception e) {
-						request.setAttribute("error", e.getMessage());
-						success = 0;
 					}
-				}
-				if ("descuento".equals(request.getParameter("actionDiscount"))) {
-					try {
+					if ("descuento".equals(request.getParameter("actionDiscount"))) {
+
 						JuegoLogic jgoLogic = new JuegoLogic();
 						Juego jgoEdit = jgoLogic.getOne(Integer.parseInt(request.getParameter("juegoId")));
 						jgoEdit.setDescuento(Double.parseDouble(request.getParameter("juegoDescuentoId")) / 100);
 						UsuarioLogic usrLogic = new UsuarioLogic();
-						LinkedList<Usuario> usrs =usrLogic.getAll();
+						LinkedList<Usuario> usrs = usrLogic.getAll();
 						jgoLogic.update(jgoEdit);
 						success = 4;
-					      // Get system properties
-					      Properties properties = System.getProperties();
-					 
-					      // Setup mail server
-					      properties.setProperty("mail.smtp.host", "smtp.gmail.com");
-					      properties.put("mail.smtp.auth", "true");
-					      properties.put("mail.smtp.user", "assacreed200@gmail.com");
-					      properties.put("mail.smtp.password", "momo0808");
-					      properties.put("mail.smtp.port", "587");
-					      properties.put("mail.smtp.starttls.enable", "true");
-					 
-					      // Get the default Session object.
-					      Session session = Session.getDefaultInstance(properties,
-					                new Authenticator() {
-					 
-					                    protected PasswordAuthentication getPasswordAuthentication() {
-					                        return new PasswordAuthentication(
-					                                "assacreed200@gmail.com", "momo0808");
-					                    }
-					                });
-					      
-					      // Set response content type
-					      response.setContentType("text/html");
-					      PrintWriter out = response.getWriter();
+						// Get system properties
+						Properties properties = System.getProperties();
 
-					      try {
-					         // Create a default MimeMessage object.
-					         MimeMessage message = new MimeMessage(session);
-					         
-					         // Set From: header field of the header.
-					         message.setFrom(new InternetAddress("assacreed200@gmail.com"));
-						     message.addRecipient(Message.RecipientType.BCC, new InternetAddress("assacreed100@gmail.com"));
-					         
-					         for (Usuario u : usrs) {
-						     message.addRecipient(Message.RecipientType.BCC, new InternetAddress(u.getEmail()));
-							 }
-					         
-					         // Set Subject: header field
-					         message.setSubject("Nuevo descuento de "+jgoEdit.getNombre()+"!");
-					         String juegoDescuento=(Double.toString(jgoEdit.getDescuento()*100)).substring(0,1);
-					         // Now set the actual message
-					         message.setText(jgoEdit.getNombre()+" esta en con un descuento de "+juegoDescuento+"%, con un precio final de: $"+(jgoEdit.getPrecioBase()-(jgoEdit.getPrecioBase()*jgoEdit.getDescuento())));
-					         
-					         // Send message
-					         Transport.send(message);
-						
-					}catch (MessagingException mex) {
-						mex.printStackTrace();
-						request.setAttribute("error", mex.getMessage());
-						success = 0;
-					} 
-						
-					}catch (Exception e) {
-						request.setAttribute("error", e.getMessage());
-						success = 0;
+						// Setup mail server
+						properties.setProperty("mail.smtp.host", "smtp.gmail.com");
+						properties.put("mail.smtp.auth", "true");
+						properties.put("mail.smtp.user", "assacreed200@gmail.com");
+						properties.put("mail.smtp.password", "momo0808");
+						properties.put("mail.smtp.port", "587");
+						properties.put("mail.smtp.starttls.enable", "true");
+
+						// Get the default Session object.
+						Session session = Session.getDefaultInstance(properties, new Authenticator() {
+
+							protected PasswordAuthentication getPasswordAuthentication() {
+								return new PasswordAuthentication("assacreed200@gmail.com", "momo0808");
+							}
+						});
+
+						// Set response content type
+						response.setContentType("text/html");
+						PrintWriter out = response.getWriter();
+
+						try {
+							// Create a default MimeMessage object.
+							MimeMessage message = new MimeMessage(session);
+
+							// Set From: header field of the header.
+							message.setFrom(new InternetAddress("assacreed200@gmail.com"));
+							message.addRecipient(Message.RecipientType.BCC,
+									new InternetAddress("assacreed100@gmail.com"));
+
+							for (Usuario u : usrs) {
+								message.addRecipient(Message.RecipientType.BCC, new InternetAddress(u.getEmail()));
+							}
+
+							// Set Subject: header field
+							message.setSubject("Nuevo descuento de " + jgoEdit.getNombre() + "!");
+							String juegoDescuento = (Double.toString(jgoEdit.getDescuento() * 100)).substring(0, 1);
+							// Now set the actual message
+							message.setText(jgoEdit.getNombre() + " esta en con un descuento de " + juegoDescuento
+									+ "%, con un precio final de: $"
+									+ (jgoEdit.getPrecioBase() - (jgoEdit.getPrecioBase() * jgoEdit.getDescuento())));
+
+							// Send message
+							Transport.send(message);
+
+						} catch (MessagingException mex) {
+							mex.printStackTrace();
+							request.setAttribute("error", mex.getMessage());
+							success = 0;
+						}
 					}
-				}
-				if ("desc".equals(request.getParameter("actionDesc"))) {
-					try {
+					if ("desc".equals(request.getParameter("actionDesc"))) {
+
 						JuegoLogic jgoLogic = new JuegoLogic();
 						Juego jgoEdit = jgoLogic.getOne(Integer.parseInt(request.getParameter("juegoId")));
 						jgoEdit.setDescripcion(request.getParameter("juegoDescripcionId2"));
 
 						jgoLogic.update(jgoEdit);
 						success = 5;
-					} catch (Exception e) {
-						request.setAttribute("error", e.getMessage());
-						success = 0;
 					}
+					response.sendRedirect("ListadoJuegosDisplay.do?s=" + success);
+				} else {
+					response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+
 				}
-				response.sendRedirect("ListadoJuegosDisplay.do?s=" + success);
 			} else {
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
-
+				response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 			}
-		} else
-
-		{
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+		} catch (SQLException e) {
+			request.getSession().invalidate();
+			e.printStackTrace();
+			request.setAttribute("result", "Los servidores estan caidos");
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 	}
 }

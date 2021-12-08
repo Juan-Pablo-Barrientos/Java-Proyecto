@@ -168,7 +168,7 @@ public class DataUsuario {
 		return u;
 	}
 
-	public LinkedList<Usuario> getAll() {
+	public LinkedList<Usuario> getAll() throws SQLException {
 		Statement stmt = null;
 		ResultSet rs = null;
 		LinkedList<Usuario> usrs = new LinkedList<>();
@@ -194,7 +194,7 @@ public class DataUsuario {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-
+			throw e;
 		} finally {
 			try {
 				if (rs != null) {
@@ -206,13 +206,14 @@ public class DataUsuario {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 		}
 
 		return usrs;
 	}
 
-	public void delete(Usuario u) {
+	public void delete(Usuario u) throws SQLException {
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement("update usuario set habilitado=? where id=?");
@@ -221,6 +222,7 @@ public class DataUsuario {
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (stmt != null)
@@ -228,11 +230,12 @@ public class DataUsuario {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 		}
 	}
 
-	public Usuario add(Usuario u) {
+	public Usuario add(Usuario u) throws SQLException {
 
 		PreparedStatement stmt = null;
 		ResultSet keyResultSet = null;
@@ -260,6 +263,7 @@ public class DataUsuario {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (keyResultSet != null)
@@ -269,6 +273,7 @@ public class DataUsuario {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 		}
 		return u;

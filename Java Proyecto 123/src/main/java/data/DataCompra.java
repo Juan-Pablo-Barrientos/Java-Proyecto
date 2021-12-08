@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 public class DataCompra {
 
-public int NumeroDeCompras(int IdUsuario,int Idjuego) {
+public int NumeroDeCompras(int IdUsuario,int Idjuego) throws SQLException {
 		
 		int compras=0;
 		PreparedStatement stmt=null;
@@ -26,6 +26,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
@@ -33,13 +34,14 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 		}
 		
 		return compras;
 	}
 
-	public int NumeroDeComprasHabilitadas(int IdUsuario,int Idjuego) {
+	public int NumeroDeComprasHabilitadas(int IdUsuario,int Idjuego) throws SQLException {
 	
 	int compras=0;
 	PreparedStatement stmt=null;
@@ -57,6 +59,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 		}
 	} catch (SQLException e) {
 		e.printStackTrace();
+		throw e;
 	}finally {
 		try {
 			if(rs!=null) {rs.close();}
@@ -64,13 +67,14 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 			DbConnector.getInstancia().releaseConn();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 	
 	return compras;
 }
 	
-	public Compra getOne(int com) {
+	public Compra getOne(int com) throws SQLException {
 		
 		Compra c=null;;
 		PreparedStatement stmt=null;
@@ -96,6 +100,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
@@ -103,13 +108,14 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 		}
 		
 		return c;
 	}
 	
-	public Compra getOneByReembolso(Reembolso com) {
+	public Compra getOneByReembolso(Reembolso com) throws SQLException {
 		
 		Compra c=null;;
 		PreparedStatement stmt=null;
@@ -136,6 +142,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
@@ -143,13 +150,14 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 		}
 		
 		return c;
 	}
 	
-	public LinkedList<Compra> getAll(){		
+	public LinkedList<Compra> getAll() throws SQLException{		
 		Statement stmt=null;
 		ResultSet rs=null;
 		LinkedList<Compra> coms= new LinkedList<>();
@@ -174,6 +182,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 			
 		} finally {
 			try {
@@ -182,13 +191,14 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) { 
 				e.printStackTrace();
+				throw e;
 			}
 		}
 			
 		return coms;
 	}
 
-	public Compra add(Compra c) {
+	public Compra add(Compra c) throws SQLException {
 
 
 		PreparedStatement stmt= null;
@@ -216,6 +226,7 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 			
 		}  catch (SQLException e) {
             e.printStackTrace();
+            throw e;
 		} finally {
             try {
                 if(keyResultSet!=null)keyResultSet.close();
@@ -223,12 +234,13 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
             	e.printStackTrace();
+            	throw e;
             }        
 		}
 		  return c; 
     }
 	
-	public void update(Compra c) {
+	public void update(Compra c) throws SQLException {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -246,17 +258,19 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 			stmt.executeUpdate();
 		} catch (SQLException e) {
             e.printStackTrace();
+            throw e;
 		} finally {
             try {
                 if(stmt!=null)stmt.close();
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
             	e.printStackTrace();
+            	throw e;
             }
 		}
 	}
 	
-	public void updateIdReseña(Compra c) {
+	public void updateIdReseña(Compra c) throws SQLException {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -274,17 +288,19 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 			stmt.executeUpdate();
 		} catch (SQLException e) {
             e.printStackTrace();
+            throw e;
 		} finally {
             try {
                 if(stmt!=null)stmt.close();
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
             	e.printStackTrace();
+            	throw e;
             }
 		}
 	}
 	
-	public void updateIdReembolso(Compra c) {
+	public void updateIdReembolso(Compra c) throws SQLException {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -296,17 +312,19 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 			stmt.executeUpdate();
 		} catch (SQLException e) {
             e.printStackTrace();
+            throw e;
 		} finally {
             try {
                 if(stmt!=null)stmt.close();
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
             	e.printStackTrace();
+            	throw e;
             }
 		}
 	}
 
-	public void delete(Compra c) {
+	public void delete(Compra c) throws SQLException {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -316,12 +334,14 @@ public int NumeroDeCompras(int IdUsuario,int Idjuego) {
 			stmt.executeUpdate();
 		} catch (SQLException e) {
             e.printStackTrace();
+            throw e;
 		} finally {
             try {
                 if(stmt!=null)stmt.close();
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
             	e.printStackTrace();
+            	throw e;
             }
 		}
 	}

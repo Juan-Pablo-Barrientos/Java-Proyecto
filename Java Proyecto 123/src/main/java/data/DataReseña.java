@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class DataReseña {
 
-	public Reseña getOne(int res) {
+	public Reseña getOne(int res) throws SQLException {
 		
 		Reseña r=null;
 		PreparedStatement stmt=null;
@@ -30,6 +30,7 @@ public class DataReseña {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
@@ -37,13 +38,14 @@ public class DataReseña {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 		}
 		
 		return r;
 	}
 	
-	public LinkedList<Reseña> getAll(){		
+	public LinkedList<Reseña> getAll() throws SQLException{		
 		Statement stmt=null;
 		ResultSet rs=null;
 		LinkedList<Reseña> rems= new LinkedList<>();
@@ -64,7 +66,7 @@ public class DataReseña {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
+			throw e;
 		} finally {
 			try {
 				if(rs!=null) {rs.close();}
@@ -72,13 +74,14 @@ public class DataReseña {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 		}
 			
 		return rems;
 	}
 
-	public Reseña add(Reseña r) {
+	public Reseña add(Reseña r) throws SQLException {
 
 
 		PreparedStatement stmt= null;
@@ -105,6 +108,7 @@ public class DataReseña {
 			
 		}  catch (SQLException e) {
             e.printStackTrace();
+            throw e;
 		} finally {
             try {
                 if(keyResultSet!=null)keyResultSet.close();
@@ -112,12 +116,13 @@ public class DataReseña {
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
             	e.printStackTrace();
+            	throw e;
             }        
 		}
 		  return r; 
     }
 
-	public void update(Reseña r) {
+	public void update(Reseña r) throws SQLException {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -133,17 +138,19 @@ public class DataReseña {
 			stmt.executeUpdate();
 		} catch (SQLException e) {
             e.printStackTrace();
+            throw e;
 		} finally {
             try {
                 if(stmt!=null)stmt.close();
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
             	e.printStackTrace();
+            	throw e;
             }
 		}
 	}
 	
-	public void delete(Reseña r) {
+	public void delete(Reseña r) throws SQLException {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -153,12 +160,14 @@ public class DataReseña {
 			stmt.executeUpdate();
 		} catch (SQLException e) {
             e.printStackTrace();
+            throw e;
 		} finally {
             try {
                 if(stmt!=null)stmt.close();
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
             	e.printStackTrace();
+            	throw e;
             }
 		}
 	}

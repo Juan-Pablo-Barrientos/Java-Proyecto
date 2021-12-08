@@ -10,36 +10,78 @@ public class DesarrolladorLogic {
 
 	private DataDesarrollador db = new DataDesarrollador();
 
-	public LinkedList<Desarrollador> getAll() {
-		return db.getAll();
+	public LinkedList<Desarrollador> getAll() throws SQLException {
+		try {
+			return db.getAll();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
-	public Desarrollador getOne(Desarrollador obj) {
-		return this.getOne(obj.getId());
-
-	}
-
-	public Desarrollador getOne(int i)  {
-		return db.getOne(i);
-	}
-
-	public Desarrollador add(Desarrollador obj) {
-		return db.add(obj);
-
-	}
-
-	public void update(Desarrollador obj) {
-		db.update(obj);
-
-	}
-
-	public void delete(Desarrollador obj) {
-		db.delete(obj);
+	public Desarrollador getOne(Desarrollador obj) throws SQLException {
+		try {
+			return this.getOne(obj.getId());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 
 	}
 
-	public void delete(int id) {
-		db.delete(this.getOne(id));
+	public Desarrollador getOne(int i) throws SQLException  {
+		try {
+			return db.getOne(i);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	public Desarrollador add(Desarrollador obj) throws SQLException {
+		try {
+			return db.add(obj);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+
+	}
+
+	public void update(Desarrollador obj) throws SQLException {
+		try {
+			db.update(obj);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+
+	}
+
+	public void delete(Desarrollador obj) throws SQLException {
+		try {
+			db.delete(obj);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+
+	}
+
+	public void delete(int id) throws SQLException {
+		try {
+			db.delete(this.getOne(id));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 
 	}
 	

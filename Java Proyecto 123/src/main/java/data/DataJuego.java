@@ -56,7 +56,7 @@ public class DataJuego
 	return respuesta;
     }
 
-    public Juego getOne(int jue)
+    public Juego getOne(int jue) throws SQLException
     {
 
 	Juego j = null;
@@ -90,6 +90,7 @@ public class DataJuego
 	catch (SQLException e)
 	{
 	    e.printStackTrace();
+	    throw e;
 	}
 	finally
 	{
@@ -108,6 +109,7 @@ public class DataJuego
 	    catch (SQLException e)
 	    {
 		e.printStackTrace();
+		throw e;
 	    }
 	}
 
@@ -180,7 +182,7 @@ public class DataJuego
 	return juegs;
     }
 
-    public LinkedList<Juego> getAll()
+    public LinkedList<Juego> getAll() throws SQLException
     {
 	Statement stmt = null;
 	ResultSet rs = null;
@@ -217,6 +219,7 @@ public class DataJuego
 	catch (SQLException e)
 	{
 	    e.printStackTrace();
+	    throw e;
 
 	}
 	finally
@@ -236,13 +239,14 @@ public class DataJuego
 	    catch (SQLException e)
 	    {
 		e.printStackTrace();
+		throw e;
 	    }
 	}
 
 	return juegs;
     }
     
-    public LinkedList<Juego> getAllNotRelesed()
+    public LinkedList<Juego> getAllNotRelesed() throws SQLException
     {
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
     LocalDate localDate = LocalDate.now();
@@ -281,6 +285,7 @@ public class DataJuego
 	catch (SQLException e)
 	{
 	    e.printStackTrace();
+	    throw e;
 
 	}
 	finally
@@ -300,13 +305,14 @@ public class DataJuego
 	    catch (SQLException e)
 	    {
 		e.printStackTrace();
+		throw e;
 	    }
 	}
 
 	return juegs;
     }
 
-    public Juego add(Juego j)
+    public Juego add(Juego j) throws SQLException
     {
 
 	PreparedStatement stmt = null;
@@ -340,6 +346,7 @@ public class DataJuego
 	catch (SQLException e)
 	{
 	    e.printStackTrace();
+	    throw e;
 	}
 	finally
 	{
@@ -354,12 +361,13 @@ public class DataJuego
 	    catch (SQLException e)
 	    {
 		e.printStackTrace();
+		throw e;
 	    }
 	}
 	return j;
     }
 
-    public void update(Juego j)
+    public void update(Juego j) throws SQLException
     {
 	PreparedStatement stmt = null;
 	try
@@ -384,6 +392,7 @@ public class DataJuego
 	catch (SQLException e)
 	{
 	    e.printStackTrace();
+	    throw e;
 	}
 	finally
 	{
@@ -396,11 +405,12 @@ public class DataJuego
 	    catch (SQLException e)
 	    {
 		e.printStackTrace();
+		throw e;
 	    }
 	}
     }
 
-    public void delete(Juego j)
+    public void delete(Juego j) throws SQLException
     {
 	PreparedStatement stmt = null;
 	try
@@ -412,6 +422,7 @@ public class DataJuego
 	catch (SQLException e)
 	{
 	    e.printStackTrace();
+	    throw e;
 	}
 	finally
 	{
@@ -424,6 +435,7 @@ public class DataJuego
 	    catch (SQLException e)
 	    {
 		e.printStackTrace();
+		throw e;
 	    }
 	}
     }

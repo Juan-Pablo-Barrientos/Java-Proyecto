@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -23,28 +24,38 @@ import logic.PublicadorLogic;
 @WebServlet("/ListadoPublicadores")
 public class ListadoPublicadores extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ListadoPublicadores() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ListadoPublicadores() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Usuario usr;
 		if (request.getSession().getAttribute("usuario") != null) {
 			usr = (Usuario) request.getSession().getAttribute("usuario");
 			if (usr.getTipo().equals("admin")) {
-			PublicadorLogic PublicadorLogic = new PublicadorLogic();
-			LinkedList<Publicador> Publicador= PublicadorLogic.getAll();
-			request.setAttribute("listapublicadores", Publicador); 
-			request.getRequestDispatcher("/WEB-INF/ListadoPublicadores.jsp").forward(request, response);	
+				PublicadorLogic PublicadorLogic = new PublicadorLogic();
+				LinkedList<Publicador> Publicador = null;
+				try {
+					Publicador = PublicadorLogic.getAll();
+				} catch (SQLException e) {
+					request.getSession().invalidate();
+					e.printStackTrace();
+					request.setAttribute("result", "Los servidores estan caidos");
+					request.getRequestDispatcher("/index.jsp").forward(request, response);
+				}
+				request.setAttribute("listapublicadores", Publicador);
+				request.getRequestDispatcher("/WEB-INF/ListadoPublicadores.jsp").forward(request, response);
 			} else {
 				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 
@@ -55,72 +66,62 @@ public class ListadoPublicadores extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		// Verifica que el usuario sea admin
-		int success = 0;
-		Usuario usr;
-		if (request.getSession().getAttribute("usuario") != null) {
-			usr = (Usuario) request.getSession().getAttribute("usuario");
-			if (usr.getTipo().equals("admin")) {
-				if ("create".equals(request.getParameter("action3"))) {
-					try {
+		try {
+			int success = 0;
+			Usuario usr;
+			if (request.getSession().getAttribute("usuario") != null) {
+				usr = (Usuario) request.getSession().getAttribute("usuario");
+				if (usr.getTipo().equals("admin")) {
+					if ("create".equals(request.getParameter("action3"))) {
 						PublicadorLogic pubLogic = new PublicadorLogic();
 						Publicador pubNew = new Publicador();
 						pubNew.setNombre(request.getParameter("InputPublicador"));
-						if (!pubLogic.PublisherNameExist(pubNew.getNombre()))
-						{
-						pubLogic.add(pubNew);
-						success = 3;
-						}
-						else success=5;
-					} catch (Exception e) {
-						request.setAttribute("error", e.getMessage());
-						success = 0;
+						if (!pubLogic.PublisherNameExist(pubNew.getNombre())) {
+							pubLogic.add(pubNew);
+							success = 3;
+						} else
+							success = 5;
 					}
-				}
-				if ("delete".equals(request.getParameter("action"))) {
-					try {
+					if ("delete".equals(request.getParameter("action"))) {
 						PublicadorLogic pubLogic = new PublicadorLogic();
 						int idPublicador = Integer.parseInt(request.getParameter("hiddenId"));
 						pubLogic.delete(idPublicador);
 						success = 1;
-					} catch (Exception e) {
-						request.setAttribute("error", e.getMessage());
-						success = 0;
 					}
-				}
-				if ("edit".equals(request.getParameter("action2"))) {
-					try {
+					if ("edit".equals(request.getParameter("action2"))) {
 						PublicadorLogic pubLogic = new PublicadorLogic();
-						Publicador pubEdit = new Publicador();						
+						Publicador pubEdit = new Publicador();
 						pubEdit.setId(Integer.parseInt(request.getParameter("publicadorId")));
 						pubEdit.setNombre(request.getParameter("InputPublicador"));
 						String nombre = pubLogic.getOne(pubEdit.getId()).getNombre();
 						if (!request.getParameter("InputPublicador").equals(nombre)) {
-						if (!pubLogic.PublisherNameExist(pubEdit.getNombre()))
-						{	
-						success=2;
-						pubLogic.update(pubEdit);											
-						}
-						else success =5;						
-						}
-						else success =4;
-					} catch (Exception e) {
-						request.setAttribute("error", e.getMessage());
-						success = 0;
+							if (!pubLogic.PublisherNameExist(pubEdit.getNombre())) {
+								success = 2;
+								pubLogic.update(pubEdit);
+							} else
+								success = 5;
+						} else
+							success = 4;
 					}
-				}
-				response.sendRedirect("ListadoPublicadoresDisplay.do?s=" + success);
-			}else {
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+					response.sendRedirect("ListadoPublicadoresDisplay.do?s=" + success);
+				} else {
+					response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 
+				}
+			} else {
+				response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 			}
-		}else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+		} catch (SQLException e) {
+			request.getSession().invalidate();
+			e.printStackTrace();
+			request.setAttribute("result", "Los servidores estan caidos");
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 	}
-
 }

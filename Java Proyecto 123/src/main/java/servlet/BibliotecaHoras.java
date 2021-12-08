@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,13 +31,20 @@ public class BibliotecaHoras extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
 		//Solo actualiza el tiempo.				
 			CompraLogic comLogic = new CompraLogic();
 			Compra compra = new Compra();			
 			double tiempo= (Double.parseDouble(request.getParameter("segundos"))/3600000);
 			compra = comLogic.getOne(Integer.parseInt(request.getParameter("nroCompra")));
 			compra.setHoras_jugadas(compra.getHoras_jugadas()+tiempo);
-			comLogic.update(compra);							
+			comLogic.update(compra);	
+		} catch (SQLException e) {
+		request.getSession().invalidate();
+		e.printStackTrace();
+		request.setAttribute("result", "Los servidores estan caidos");
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
+	}
 		
 	}
 

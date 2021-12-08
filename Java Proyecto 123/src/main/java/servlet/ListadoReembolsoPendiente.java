@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,7 +38,15 @@ public class ListadoReembolsoPendiente extends HttpServlet {
 			usr = (Usuario) request.getSession().getAttribute("usuario");
 			if (usr.getTipo().equals("admin")) {
 				CompraViewLogic compraViewLogic = new CompraViewLogic();
-				LinkedList<CompraView> rems = compraViewLogic.getAll();
+				LinkedList<CompraView> rems = null;
+				try {
+					rems = compraViewLogic.getAll();
+				} catch (SQLException e) {
+					request.getSession().invalidate();
+					e.printStackTrace();
+					request.setAttribute("result", "Los servidores estan caidos");
+					request.getRequestDispatcher("/index.jsp").forward(request, response);
+				}
 				request.setAttribute("listaCompraView", rems);
 				request.getRequestDispatcher("/WEB-INF/Reembolso.jsp").forward(request, response);
 			} else {
@@ -54,14 +64,13 @@ public class ListadoReembolsoPendiente extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		int success = 0;
-		Usuario usr;
-		if (request.getSession().getAttribute("usuario") != null) {
-			usr = (Usuario) request.getSession().getAttribute("usuario");
-			if (usr.getTipo().equals("admin")) {
-				if ("approve".equals(request.getParameter("approveInput"))) {
-					try {
+		try {
+			int success = 0;
+			Usuario usr;
+			if (request.getSession().getAttribute("usuario") != null) {
+				usr = (Usuario) request.getSession().getAttribute("usuario");
+				if (usr.getTipo().equals("admin")) {
+					if ("approve".equals(request.getParameter("approveInput"))) {
 						CompraLogic ComLogic = new CompraLogic();
 						UsuarioLogic UsrLogic = new UsuarioLogic();
 						ReembolsoLogic RemLogic = new ReembolsoLogic();
@@ -75,34 +84,31 @@ public class ListadoReembolsoPendiente extends HttpServlet {
 						UsrLogic.update(usuario);
 						ComLogic.delete(compra);
 						success = 2;
-					} catch (Exception e) {
-						request.setAttribute("error", e.getMessage());
-						success = 0;
 					}
-				}
-				if ("decline".equals(request.getParameter("declineInput"))) {
-					try {
+					if ("decline".equals(request.getParameter("declineInput"))) {
 						ReembolsoLogic RemLogic = new ReembolsoLogic();
 						Reembolso remEdit = RemLogic.getOne(Integer.parseInt(request.getParameter("hiddenIdDecline")));
 						remEdit.setComentario(request.getParameter("InputComentarioId"));
 						remEdit.setEstado("Rechazado");
 						RemLogic.update(remEdit);
 						success = 1;
-					} catch (Exception e) {
-						request.setAttribute("error", e.getMessage());
-						success = 0;
+
 					}
+					response.sendRedirect("ListadoReembolsoPendienteDisplay.do?s=" + success);
+				} else {
+					response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 
 				}
-				response.sendRedirect("ListadoReembolsoPendienteDisplay.do?s=" + success);
 			} else {
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
-
+				response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 			}
-	   } else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+
+		} catch (SQLException e) {
+			request.getSession().invalidate();
+			e.printStackTrace();
+			request.setAttribute("result", "Los servidores estan caidos");
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 
 	}
-
 }

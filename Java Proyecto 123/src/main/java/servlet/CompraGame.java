@@ -50,16 +50,16 @@ public class CompraGame extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int success = 0;
-		int game = Integer.parseInt(request.getParameter("idJuego"));
-		if (request.getSession().getAttribute("usuario") != null) {
-			Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-			UsuarioLogic usrLogic = new UsuarioLogic();
-			JuegoLogic juegologic = new JuegoLogic();
-			Juego juego = juegologic.getOne(game);
-			CompraLogic compraLogic = new CompraLogic();
-			double importe = juego.getPrecioBase() - (juego.getPrecioBase() * juego.getDescuento());
-			try {
+		try {
+			int success = 0;
+			int game = Integer.parseInt(request.getParameter("idJuego"));
+			if (request.getSession().getAttribute("usuario") != null) {
+				Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+				UsuarioLogic usrLogic = new UsuarioLogic();
+				JuegoLogic juegologic = new JuegoLogic();
+				Juego juego = juegologic.getOne(game);
+				CompraLogic compraLogic = new CompraLogic();
+				double importe = juego.getPrecioBase() - (juego.getPrecioBase() * juego.getDescuento());
 				if (usrLogic.getOne(usuario.getId()).getSaldo() < importe) {
 					success = 1;
 				} // No alcanza el saldo
@@ -80,13 +80,16 @@ public class CompraGame extends HttpServlet {
 						success = 3;
 					}
 				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} else {
+				response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
 			}
-		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+			response.sendRedirect("CompraGameDisplay.do?s=" + success + "&game=" + game);
+
+		} catch (SQLException e) {
+			request.getSession().invalidate();
+			e.printStackTrace();
+			request.setAttribute("result", "Los servidores estan caidos");
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}
-		response.sendRedirect("CompraGameDisplay.do?s=" + success + "&game=" + game);
 	}
 }

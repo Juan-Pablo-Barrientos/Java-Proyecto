@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
@@ -44,12 +45,19 @@ public class ListadoDesarrolladores extends HttpServlet {
 			usr = (Usuario) request.getSession().getAttribute("usuario");
 			if (usr.getTipo().equals("admin")) {
 				DesarrolladorLogic devLogic = new DesarrolladorLogic();
-				LinkedList<Desarrollador> devs = devLogic.getAll();
+				LinkedList<Desarrollador> devs;
+				try {
+					devs = devLogic.getAll();
 				request.setAttribute("listaDesarrollador", devs);
+				} catch (SQLException e) {
+					request.getSession().invalidate();
+					e.printStackTrace();
+					request.setAttribute("result", "Los servidores estan caidos");
+					request.getRequestDispatcher("/index.jsp").forward(request, response);
+				}
 				request.getRequestDispatcher("/WEB-INF/ListadoDesarrolladores.jsp").forward(request, response);
 			} else {
 				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
-
 			}
 		} else {
 			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");

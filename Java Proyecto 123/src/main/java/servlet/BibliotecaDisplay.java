@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -59,8 +60,16 @@ public class BibliotecaDisplay extends HttpServlet {
 		}
 		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
 		CompraViewLogic compraViewLogic = new CompraViewLogic();
-		LinkedList<CompraView> rems= compraViewLogic.getAllByUserId(usr.getId());
-		request.setAttribute("listaCompraView", rems); 
+		LinkedList<CompraView> rems;
+		try {
+			rems = compraViewLogic.getAllByUserId(usr.getId());
+		request.setAttribute("listaCompraView", rems);
+		} catch (SQLException e) {
+			request.getSession().invalidate();
+			e.printStackTrace();
+			request.setAttribute("result", "Los servidores estan caidos");
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+		} 
 		request.getRequestDispatcher("/WEB-INF/Biblioteca.jsp").forward(request, response);
 	}
 

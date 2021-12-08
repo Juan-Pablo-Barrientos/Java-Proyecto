@@ -54,81 +54,75 @@ public class Reseñas extends HttpServlet {
 			usr = (Usuario) request.getSession().getAttribute("usuario");
 			Compra compra = null;
 			JuegoLogic jlogic = new JuegoLogic();
-			String game =  request.getParameter("hiddenIdJuego");
-			Juego juego = jlogic.getOne(Integer.parseInt(game));
+			String game = request.getParameter("hiddenIdJuego");
+			Juego juego;
+			try {
+				juego = jlogic.getOne(Integer.parseInt(game));
 
-			// Si la compra sigue siendo valida
-			if ((clogic.NumeroDeComprasHabilitadas(usr.getId(), juego.getId()) == 1)) {
-				// Busqueda de una posible reseña del usuario
-				Reseña reseñaUsuario;
-				try {
-					reseñaUsuario = rvlogic.getByJuegoYUsuario(juego, usr).getReseña();
-				} catch (SQLException e) {
-					request.setAttribute("error", e.getMessage());
+				// Si la compra sigue siendo valida
+				if ((clogic.NumeroDeComprasHabilitadas(usr.getId(), juego.getId()) == 1)) {
+					// Busqueda de una posible reseña del usuario
+					Reseña reseñaUsuario = null;
+					
+						reseñaUsuario = rvlogic.getByJuegoYUsuario(juego, usr).getReseña();
+					
+
+					// Si la accion es crear y no hay reseña para esa compra
+					if (("create".equals(request.getParameter("action"))) && (reseñaUsuario.getId() == 0)) {
+						
+							// Reseña
+							ReseñaLogic rLogic = new ReseñaLogic();
+							reseñaUsuario = new Reseña();
+							reseñaUsuario.setTitulo(request.getParameter("inputTitulo"));
+							reseñaUsuario.setDescripcion(request.getParameter("inputDescripcion"));
+							reseñaUsuario.setPuntuacion(Integer.parseInt(request.getParameter("inputPuntuacion")));
+
+							reseñaUsuario = rLogic.add(reseñaUsuario);
+
+							// Compra
+							compra = clogic.getOne(Integer.parseInt(request.getParameter("hiddenNroSerieCompra")));
+							compra.setId_reseña(reseñaUsuario.getId());
+							clogic.updateIdReseña(compra);
+							success = 4;
+					} else
+
+					// Si la la accion es editar y hay reseña
+					if ((reseñaUsuario.getId() != 0) && ("edit".equals(request.getParameter("action")))) {
+						
+							ReseñaLogic rLogic = new ReseñaLogic();
+							reseñaUsuario.setTitulo(request.getParameter("inputTitulo"));
+							reseñaUsuario.setDescripcion(request.getParameter("inputDescripcion"));
+							reseñaUsuario.setPuntuacion(Integer.parseInt(request.getParameter("inputPuntuacion")));
+
+							rLogic.update(reseñaUsuario);
+							success = 5;
+					} else
+
+					// Si la accion es borrar y hay reseña
+					if ((reseñaUsuario.getId() != 0) && ("delete".equals(request.getParameter("action")))) {
+						
+							ReseñaLogic rLogic = new ReseñaLogic();
+							// Seteo en null de id_reseña en la compra
+							compra = clogic.getOne(Integer.parseInt(request.getParameter("hiddenNroSerieCompra")));
+							compra.setId_reseña(0);
+							clogic.updateIdReseña(compra);
+							rLogic.delete(reseñaUsuario);
+							success = 6;
+					}
+					// Redirección a la página que muestra si la acción fue exitosa o fallida
+					response.sendRedirect("CompraGameDisplay.do?s=" + success + "&game=" + game);
+					// response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+				} else {
+					request.setAttribute("error", "El usuario no posee una compra válida del juego");
 					success = 0;
-					throw new ServletException(e);
 				}
-
-				// Si la accion es crear y no hay reseña para esa compra
-				if (("create".equals(request.getParameter("action"))) && (reseñaUsuario.getId() == 0)) {
-					try {
-						// Reseña
-						ReseñaLogic rLogic = new ReseñaLogic();
-						reseñaUsuario = new Reseña();
-						reseñaUsuario.setTitulo(request.getParameter("inputTitulo"));
-						reseñaUsuario.setDescripcion(request.getParameter("inputDescripcion"));
-						reseñaUsuario.setPuntuacion(Integer.parseInt(request.getParameter("inputPuntuacion")));
-
-						reseñaUsuario = rLogic.add(reseñaUsuario);
-
-						// Compra
-						compra = clogic.getOne(Integer.parseInt(request.getParameter("hiddenNroSerieCompra")));
-						compra.setId_reseña(reseñaUsuario.getId());
-						clogic.updateIdReseña(compra);
-						success = 4;
-					} catch (Exception e) {
-						request.setAttribute("error", e.getMessage());
-						success = 0;
-					}
-				} else
-
-				// Si la la accion es editar y hay reseña
-				if ((reseñaUsuario.getId() != 0) && ("edit".equals(request.getParameter("action")))) {
-					try {
-						ReseñaLogic rLogic = new ReseñaLogic();
-						reseñaUsuario.setTitulo(request.getParameter("inputTitulo"));
-						reseñaUsuario.setDescripcion(request.getParameter("inputDescripcion"));
-						reseñaUsuario.setPuntuacion(Integer.parseInt(request.getParameter("inputPuntuacion")));
-
-						rLogic.update(reseñaUsuario);
-						success = 5;
-					} catch (Exception e) {
-						request.setAttribute("error", e.getMessage());
-						success = 0;
-					}
-				} else
-
-				// Si la accion es borrar y hay reseña
-				if ((reseñaUsuario.getId() != 0) && ("delete".equals(request.getParameter("action")))) {
-					try {
-						ReseñaLogic rLogic = new ReseñaLogic();
-						// Seteo en null de id_reseña en la compra
-						compra = clogic.getOne(Integer.parseInt(request.getParameter("hiddenNroSerieCompra")));
-						compra.setId_reseña(0);
-						clogic.updateIdReseña(compra);
-						rLogic.delete(reseñaUsuario);
-						success = 6;
-					} catch (Exception e) {
-						request.setAttribute("error", e.getMessage());
-						success = 0;
-					}
-				}
-				// Redirección a la página que muestra si la acción fue exitosa o fallida
-				response.sendRedirect("CompraGameDisplay.do?s=" + success + "&game=" + game);
-				// response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
-			} else {
-				request.setAttribute("error", "El usuario no posee una compra válida del juego");
-				success = 0;
+			
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				request.getSession().invalidate();
+				e.printStackTrace();
+				request.setAttribute("result", "Los servidores estan caidos");
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
 			}
 
 		} else {

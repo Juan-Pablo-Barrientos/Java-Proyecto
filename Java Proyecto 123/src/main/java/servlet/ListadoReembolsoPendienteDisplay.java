@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -58,7 +59,15 @@ public class ListadoReembolsoPendienteDisplay extends HttpServlet {
 				break;
 			}
 			CompraViewLogic compraViewLogic = new CompraViewLogic();
-			LinkedList<CompraView> rems = compraViewLogic.getAll();
+			LinkedList<CompraView> rems = null;
+			try {
+				rems = compraViewLogic.getAll();
+			} catch (SQLException e) {
+				request.getSession().invalidate();
+				e.printStackTrace();
+				request.setAttribute("result", "Los servidores estan caidos");
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
+			}
 			request.setAttribute("listaCompraView", rems);
 			request.getRequestDispatcher("/WEB-INF/Reembolso.jsp").forward(request, response);
 		} else {

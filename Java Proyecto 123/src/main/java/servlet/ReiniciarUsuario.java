@@ -39,7 +39,10 @@ public class ReiniciarUsuario extends HttpServlet {
 				usr = ul.getOne((Usuario) request.getSession().getAttribute("usuario"));
 				request.getSession().setAttribute("usuario", usr);
 			} catch (SQLException e) {
-				throw new ServletException(e);
+				request.getSession().invalidate();
+				e.printStackTrace();
+				request.setAttribute("result", "Los servidores estan caidos");
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
 			}
 		}
 		else{

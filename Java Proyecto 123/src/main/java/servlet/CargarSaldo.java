@@ -18,19 +18,21 @@ import logic.UsuarioLogic;
 @WebServlet("/CargarSaldo")
 public class CargarSaldo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CargarSaldo() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public CargarSaldo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -40,16 +42,17 @@ public class CargarSaldo extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UsuarioLogic usrLogic = new UsuarioLogic();
-		Usuario usrCargarSaldo = (Usuario) request.getSession().getAttribute("usuario");
-		usrCargarSaldo.setSaldo(usrCargarSaldo.getSaldo()+Double.parseDouble(request.getParameter("Saldo")));
+		Usuario usrCargarSaldo;
 		try {
+			usrCargarSaldo = usrLogic.getOne(((Usuario) request.getSession().getAttribute("usuario")).getId());
+		usrCargarSaldo.setSaldo(usrCargarSaldo.getSaldo()+Double.parseDouble(request.getParameter("Saldo")));
 		usrLogic.update(usrCargarSaldo);
-		}
-		catch(SQLException e){
-			e.printStackTrace();
-			throw new ServletException(e);
-		}
-		response.sendRedirect(request.getParameter("URL"));
-	}
-
+		} catch(SQLException e) {
+		request.getSession().invalidate();
+		e.printStackTrace();
+		request.setAttribute("result", "Los servidores estan caidos");
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
+	}response.sendRedirect(request.getParameter("URL"));
 }
+}
+
