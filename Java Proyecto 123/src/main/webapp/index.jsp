@@ -44,11 +44,12 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-4 offset-md-4" >
+			<div class="col-md-4 offset-md-4">
 				<div class="login-form mt-4 p-4 color-principal text-dark shadow-lg"
 					style="border-radius: 4px;">
 					<form action="signin" method="post" class="row g-3">
 						<h4>Iniciar sesión</h4>
+						<div id="liveAlertPlaceholder"></div>
 						<div class="col-12">
 							<label for="exampleInputEmail1">Usuario o Email</label> <input
 								type="text" class="form-control" id="exampleInputEmail1"
@@ -60,9 +61,9 @@
 								type="password" class="form-control" id="exampleInputPassword1"
 								placeholder="Contraseña" name="InputPass" required>
 							<div style="margin-top: 5px;"></div>
-							<a href="#">Olvidé mi contraseña</a>
+							<a href=# onclick=OlvideMiContraseña()>Olvidé mi contraseña</a>
 						</div>
-						<input type="hidden" name="game" value="${param.game}" /> 
+						<input type="hidden" name="game" value="${param.game}" />
 						<div class="col-12">
 							<button type="submit" class="boton">Ingresar</button>
 						</div>
@@ -77,7 +78,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 
 	<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 	<script
@@ -91,6 +92,42 @@
 		$(window).on('load', function() {
 			$('#modalLogin').modal('show');
 		});
+
+		function OlvideMiContraseña() {
+			var email = $("#exampleInputEmail1").val;
+			$.ajax({
+				url : 'OlvideMiContraseña',
+				data : {
+					"email" : email
+				},
+				type : 'post',
+				cache : false,
+				async : false,
+				success : function() {
+					alertaLoginPorReestriccion(email)
+				},
+				error : function() {
+					alert('Ajax a fallado');
+				}
+			});
+		};
+		function alertaLoginPorReestriccion(email) {
+			var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+			function alert(message, type) {
+
+				if (document.getElementById('error') != null) {
+					document.getElementById('error').remove()
+				}
+				var wrapper = document.createElement('div')
+				wrapper.innerHTML = '<div id="error" class="alert alert-' + type + ' alert-dismissible" role="alert">'
+						+ message
+						+ '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+				alertPlaceholder.append(wrapper)
+			}
+				alert(
+						'Hemos enviado tu contraseña a:'+email,
+						'success')
+			}
 	</script>
 
 </body>

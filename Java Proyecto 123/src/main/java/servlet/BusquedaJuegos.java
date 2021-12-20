@@ -15,7 +15,7 @@ import entities.Juego;
 /**
  * Servlet implementation class busqueda
  */
-@WebServlet(name = "busquedaJuegos", description = "Servlet para realizar búsquedas de juegos mediante search bar en navbar.", urlPatterns = {
+@WebServlet(name = "busquedaJuegos", description = "Servlet para realizar bï¿½squedas de juegos mediante search bar en navbar.", urlPatterns = {
 	"/busquedaJuegos" })
 public class BusquedaJuegos extends HttpServlet
 {
@@ -46,8 +46,10 @@ public class BusquedaJuegos extends HttpServlet
 	}
 	catch (SQLException e)
 	{
-	    e.printStackTrace();
-	    throw new ServletException(e);
+		request.getSession().invalidate();
+		e.printStackTrace();
+		request.setAttribute("result", "Los servidores estan caidos");
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 	request.getRequestDispatcher("/BusquedaJuegos.jsp").forward(request, response);
 

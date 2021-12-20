@@ -150,8 +150,8 @@ public class ListadoJuegos extends HttpServlet {
 						// Setup mail server
 						properties.setProperty("mail.smtp.host", "smtp.gmail.com");
 						properties.put("mail.smtp.auth", "true");
-						properties.put("mail.smtp.user", "assacreed200@gmail.com");
-						properties.put("mail.smtp.password", "momo0808");
+						properties.put("mail.smtp.user", "gamesclawgames@gmail.com");
+						properties.put("mail.smtp.password", "Momo0808");
 						properties.put("mail.smtp.port", "587");
 						properties.put("mail.smtp.starttls.enable", "true");
 
@@ -159,7 +159,7 @@ public class ListadoJuegos extends HttpServlet {
 						Session session = Session.getDefaultInstance(properties, new Authenticator() {
 
 							protected PasswordAuthentication getPasswordAuthentication() {
-								return new PasswordAuthentication("assacreed200@gmail.com", "momo0808");
+								return new PasswordAuthentication("gamesclawgames@gmail.com", "Momo0808");
 							}
 						});
 
@@ -172,7 +172,7 @@ public class ListadoJuegos extends HttpServlet {
 							MimeMessage message = new MimeMessage(session);
 
 							// Set From: header field of the header.
-							message.setFrom(new InternetAddress("assacreed200@gmail.com"));
+							message.setFrom(new InternetAddress("gamesclawgames@gmail.com"));
 							message.addRecipient(Message.RecipientType.BCC,
 									new InternetAddress("assacreed100@gmail.com"));
 
@@ -182,7 +182,7 @@ public class ListadoJuegos extends HttpServlet {
 
 							// Set Subject: header field
 							message.setSubject("Nuevo descuento de " + jgoEdit.getNombre() + "!");
-							String juegoDescuento = (Double.toString(jgoEdit.getDescuento() * 100)).substring(0, 1);
+							String juegoDescuento = (Double.toString(jgoEdit.getDescuento() * 100)).substring(0, 2);
 							// Now set the actual message
 							message.setText(jgoEdit.getNombre() + " esta en con un descuento de " + juegoDescuento
 									+ "%, con un precio final de: $"
@@ -193,8 +193,7 @@ public class ListadoJuegos extends HttpServlet {
 
 						} catch (MessagingException mex) {
 							mex.printStackTrace();
-							request.setAttribute("error", mex.getMessage());
-							success = 0;
+							success = 8;
 						}
 					}
 					if ("desc".equals(request.getParameter("actionDesc"))) {

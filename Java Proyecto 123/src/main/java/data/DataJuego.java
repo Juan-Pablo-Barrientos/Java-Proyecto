@@ -332,7 +332,7 @@ public class DataJuego
 	    stmt.setDouble(6, j.getDescuento());
 	    stmt.setString(7, j.getGenero());
 	    stmt.setObject(8, j.getFecha_publicacion());
-	    stmt.setString(9, j.getReestriccionPorEdad());
+		stmt.setString(9, j.getReestriccionPorEdad());
 	    stmt.setString(10, j.getUrl());
 	    stmt.executeUpdate();
 
@@ -383,7 +383,7 @@ public class DataJuego
 	    stmt.setDouble(6, j.getDescuento());
 	    stmt.setString(7, j.getGenero());
 	    stmt.setObject(8, j.getFecha_publicacion());
-	    stmt.setString(9, j.getReestriccionPorEdad());
+		stmt.setString(9, j.getReestriccionPorEdad());
 	    stmt.setString(10, j.getUrl());
 	    stmt.setInt(11, j.getId());
 

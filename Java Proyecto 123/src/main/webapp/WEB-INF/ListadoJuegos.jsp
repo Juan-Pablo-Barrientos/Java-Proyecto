@@ -156,11 +156,12 @@
 						</div>
 						<div class="form-group">
 							<label for="juegoNombreId">Reestriccion por edad</label>
-							<div class="input-group mb-3">
-								<input type="text" class="form-control" id="juegoRestriccionId"
-									placeholder="Ingrese reestriccion por edad del juego"
+							<select class="form-control" id ="juegoRestriccionId"
 									name="juegoReestriccionId">
-							</div>
+									<option value="">Ingrese reestriccion por edad del juego</option>
+									<option value="+13">+13</option>
+									<option value="+18">+18</option>
+							</select>
 						</div>
 						<div class="form-group">
 							<label for="juegoDescuentoId" id="lblDescripcion">Descripcion</label>

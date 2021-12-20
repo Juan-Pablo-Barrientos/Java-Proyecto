@@ -36,7 +36,6 @@ public class Game extends HttpServlet {
 		JuegoViewLogic jgoLogic = new JuegoViewLogic();
 		JuegoView jgo = new JuegoView();
 		CompraLogic compraLogic = new CompraLogic();
-
 		boolean tieneGame = false;
 		try {
 			jgo = jgoLogic.getOne(Integer.parseInt(request.getParameter("game")));
@@ -71,7 +70,38 @@ public class Game extends HttpServlet {
 				}
 			}
 		}
+		
 
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+		if(!jgo.getJuego().getReestriccionPorEdad().isEmpty() && usuario==null) {
+			request.setAttribute("result", "Este juego cuenta con una reestriccion por edad, por favor inicie sesion");
+			request.getRequestDispatcher("/index.jsp?game="+jgo.getJuego().getId()).forward(request, response);
+			
+		}else if (!jgo.getJuego().getReestriccionPorEdad().isEmpty() && usuario!=null){
+			switch(jgo.getJuego().getReestriccionPorEdad()) {
+			case "+18":{
+				if (!EstaLogeado.esMayor18(usuario.getFechaNacimiento())) {
+				request.setAttribute("result", "Usted no cuenta con la edad necesaria para ver este juego");
+				request.getRequestDispatcher("/BusquedaJuegos.jsp").forward(request, response);
+				return;
+				}
+				break;
+			}
+			case "+13":{
+				if (!EstaLogeado.esMayor13(usuario.getFechaNacimiento())) {
+				request.setAttribute("result", "Usted no cuenta con la edad necesaria para ver este juego");
+				request.getRequestDispatcher("/BusquedaJuegos.jsp").forward(request, response);
+				return;
+				}
+				break;
+			}
+			default:{
+				break;
+			}
+			
+			}
+		}
+		
 		request.setAttribute("tieneGame", tieneGame);
 		request.setAttribute("game", jgo);
 		request.setAttribute("reseñasJuego", reseñasViewJuego);
