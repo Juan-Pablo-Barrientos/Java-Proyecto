@@ -47,7 +47,6 @@ public class EstaLogeado extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
 		PrintWriter out = response.getWriter();
 		JuegoLogic jgoLogic = new JuegoLogic();
@@ -56,61 +55,35 @@ public class EstaLogeado extends HttpServlet {
 			// 2 no esta logueado
 			// 3 Logueado y menor de edad
 			Juego jgo = (Juego) jgoLogic.getOne(Integer.parseInt(request.getParameter("jgId")));
-			if(jgo.getReestriccionPorEdad()==null)
+			if(jgo.getReestriccionPorEdad().isEmpty())
 			{
 				out.println("1");
 				out.flush();
 			}
-			if (usr != null && jgo.getReestriccionPorEdad()!=null) {
+			if (usr != null && !jgo.getReestriccionPorEdad().isEmpty()) {
 				switch (jgo.getReestriccionPorEdad()) {
 				case "+18": {
-					if (esMayor18(usr.getFechaNacimiento())) {
+					if (esMayor18(usr.getFechaNacimiento())) 
 						out.println("1");
-						out.flush();
-						break;
-					}
-					out.println("3");
+						else out.println("3");
 					out.flush();
 					break;
 				}
 				case "+13": {
-					if (esMayor13(usr.getFechaNacimiento())) {
+					if (esMayor13(usr.getFechaNacimiento()))
 						out.println("1");
-						out.flush();
-						break;
+						else out.println("3");
+					out.flush();
+					break;
 					}
-					out.println("3");
-					out.flush();
-					break;
 				}
-				default: {
-					out.println("1");
-					out.flush();
-					break;
-				}
-
-				}
-
-			} else if (usr == null && jgo.getReestriccionPorEdad()!=null){
-				switch (jgo.getReestriccionPorEdad()) {
-				case "+18": {
+			} 
+			
+			if (usr == null && !jgo.getReestriccionPorEdad().isEmpty()){			
 					out.println("2");
 					out.flush();
-					break;
-				}
-				case "+13": {
-					out.println("2");
-					out.flush();
-					break;
-				}
-				default: {
-					out.println("1");
-					out.flush();
-					break;
-				}
-				}
-
-			}
+					}
+																		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			request.getSession().invalidate();
