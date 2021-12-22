@@ -18,6 +18,10 @@ import java.util.*;
 @WebServlet("/Game")
 public class Game extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private	JuegoViewLogic jgoLogic = new JuegoViewLogic();
+	private	JuegoView jgo = new JuegoView();
+	private	CompraLogic compraLogic = new CompraLogic();
+	private ReseñaViewLogic reseñaViewLogic = new ReseñaViewLogic();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -32,90 +36,74 @@ public class Game extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		JuegoViewLogic jgoLogic = new JuegoViewLogic();
-		JuegoView jgo = new JuegoView();
-		CompraLogic compraLogic = new CompraLogic();
-		boolean tieneGame = false;
+			throws ServletException, IOException {			
 		try {
-			jgo = jgoLogic.getOne(Integer.parseInt(request.getParameter("game")));
-
-		// Busqueda de reseñas del juego
-		ReseñaViewLogic reseñaViewLogic = new ReseñaViewLogic();
-		LinkedList<ReseñaView> reseñasViewJuego = null;
-		try {
-			reseñasViewJuego = reseñaViewLogic.getAllByJuego(jgo.getJuego());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			request.getSession().invalidate();
-			e.printStackTrace();
-			request.setAttribute("result", "Los servidores estan caidos");
-			request.getRequestDispatcher("/index.jsp").forward(request, response);
-		}
-
-		// Comprobaciñn - Si el usuario tiene el juego comprado e hizo reseña
-		ReseñaView reseñaViewUsuario = null;
-		if (request.getSession().getAttribute("usuario") != null) {
 			Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-			if (compraLogic.NumeroDeComprasHabilitadas(usuario.getId(), jgo.getJuego().getId()) == 1) {
-				tieneGame = true;
-				try {
-					reseñaViewUsuario = reseñaViewLogic.getByJuegoYUsuario(jgo.getJuego(), usuario);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					request.getSession().invalidate();
-					e.printStackTrace();
-					request.setAttribute("result", "Los servidores estan caidos");
-					request.getRequestDispatcher("/index.jsp").forward(request, response);
-				}
-			}
-		}
-		
-
-		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-		if(!jgo.getJuego().getReestriccionPorEdad().isEmpty() && usuario==null) {
-			request.setAttribute("result", "Este juego cuenta con una reestriccion por edad, por favor inicie sesion");
-			request.getRequestDispatcher("/index.jsp?game="+jgo.getJuego().getId()).forward(request, response);
+			jgo = jgoLogic.getOne(Integer.parseInt(request.getParameter("game")));
+			LinkedList<ReseñaView> reseñasViewJuego = reseñaViewLogic.getAllByJuego(jgo.getJuego());	
+			request.setAttribute("game", jgo);
+			request.setAttribute("reseñasJuego", reseñasViewJuego);
+			request = setReseñaUsuario(request,usuario,jgo);		
 			
-		}else if (!jgo.getJuego().getReestriccionPorEdad().isEmpty() && usuario!=null){
-			switch(jgo.getJuego().getReestriccionPorEdad()) {
-			case "+18":{
-				if (!EstaLogeado.esMayor18(usuario.getFechaNacimiento())) {
-				request.setAttribute("result", "Usted no cuenta con la edad necesaria para ver este juego");
-				request.getRequestDispatcher("/BusquedaJuegos.jsp").forward(request, response);
-				return;
-				}
-				break;
-			}
-			case "+13":{
-				if (!EstaLogeado.esMayor13(usuario.getFechaNacimiento())) {
-				request.setAttribute("result", "Usted no cuenta con la edad necesaria para ver este juego");
-				request.getRequestDispatcher("/BusquedaJuegos.jsp").forward(request, response);
-				return;
-				}
-				break;
-			}
-			default:{
-				break;
-			}
-			
-			}
-		}
-		
-		request.setAttribute("tieneGame", tieneGame);
-		request.setAttribute("game", jgo);
-		request.setAttribute("reseñasJuego", reseñasViewJuego);
-		request.setAttribute("reseñaViewUsuario", reseñaViewUsuario);
+			if(TieneRestriccion(jgo)) {
+				if (usuario==null) {
+				request.setAttribute("result", "Este juego cuenta con una reestriccion por edad, por favor inicie sesion");
+				request.getRequestDispatcher("/index.jsp?game="+jgo.getJuego().getId()).forward(request, response);	}			
+				if (usuario!=null && esMenor(request,usuario,jgo,response))					
+					return;					
+				}						
 		request.getRequestDispatcher("/Game.jsp").forward(request, response);
+		
 		}catch (SQLException e) {
-			// TODO Auto-generated catch block
 			request.getSession().invalidate();
 			e.printStackTrace();
 			request.setAttribute("result", "Los servidores estan caidos");
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 	}
-
+		
+	private HttpServletRequest setReseñaUsuario(HttpServletRequest request,Usuario usuario,JuegoView juego)  throws SQLException {
+		
+		if (usuario!= null  && TieneGame(usuario,juego)) {					
+			request.setAttribute("tieneGame", true);													
+			request.setAttribute("reseñaViewUsuario", reseñaViewLogic.getByJuegoYUsuario(jgo.getJuego(), usuario));		
+		}
+		else {
+			request.setAttribute("tieneGame", false);													
+			request.setAttribute("reseñaViewUsuario", null);	
+		}	
+		return request;
+	}
+	
+	private boolean TieneGame(Usuario usuario,JuegoView juego)  throws SQLException {
+		return (compraLogic.NumeroDeComprasHabilitadas(usuario.getId(), jgo.getJuego().getId()) == 1);
+	}
+	private boolean TieneRestriccion(JuegoView juego)  throws SQLException {
+		return !jgo.getJuego().getReestriccionPorEdad().isEmpty();
+	}
+	
+	private boolean esMenor(HttpServletRequest request,Usuario usuario,JuegoView juego,HttpServletResponse response) throws ServletException, IOException {
+		switch(jgo.getJuego().getReestriccionPorEdad()) {
+		case "+18":{
+			if (!EstaLogeado.esMayor18(usuario.getFechaNacimiento())) {
+			request.setAttribute("result", "Usted no cuenta con la edad necesaria para ver este juego");
+			request.getRequestDispatcher("/BusquedaJuegos.jsp").forward(request, response);		
+			return true;
+			}
+			else return false;		
+		}
+		case "+13":{
+			if (!EstaLogeado.esMayor13(usuario.getFechaNacimiento())) {
+			request.setAttribute("result", "Usted no cuenta con la edad necesaria para ver este juego");
+			request.getRequestDispatcher("/BusquedaJuegos.jsp").forward(request, response);		
+			return true;
+			}
+			else return false;
+		}			
+		}
+		return false;	
+	}
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
