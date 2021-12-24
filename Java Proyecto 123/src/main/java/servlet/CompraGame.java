@@ -81,7 +81,7 @@ public class CompraGame extends HttpServlet {
 					}
 				}
 			} else {
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+				response.sendRedirect(request.getContextPath() + "/Homepage?load");
 			}
 			response.sendRedirect("CompraGameDisplay.do?s=" + success + "&game=" + game);
 

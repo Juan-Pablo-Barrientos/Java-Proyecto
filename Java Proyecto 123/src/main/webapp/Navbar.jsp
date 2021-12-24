@@ -62,10 +62,10 @@
 	<div id="wrapper">
 		<nav class="navbar navbar-expand-lg"
 			style="color: black; background-color: #FF9800;">
-			<a class="navbar-brand" href="/Java_Proyecto_123/Homepage.jsp"
+			<a class="navbar-brand" href="Homepage?logo"
 				style="color: black;"> <img src="img/logo_modificado.svg" alt=""
 				width="30" height="30"
-				style="filter: invert(21%) sepia(68%) saturate(6615%) hue-rotate(269deg) brightness(93%) contrast(115%); margin-left: 10px"
+				style="filter: invert(21%) sepia(68%) saturate(6615%) hue-rotate(269deg) brightness(93%) contrast(115%); margin-left: 10px; margin-right:10px";
 				class="d-inline-block align-text-top"> Claw Games
 			</a>
 
@@ -77,7 +77,7 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link" style="color: black"
-						href="Homepage.jsp">Home <span class="sr-only">(current)</span>
+						href="Homepage">Home <span class="sr-only">(current)</span>
 					</a></li>
 
 					<c:if test="${usuario != null}">
@@ -179,7 +179,7 @@
 									+ window.location.pathname.split("/").pop()
 									+ '"]').closest('a').addClass('active');
 				
-				    $.ajax(
+				   /* $.ajax(
 				        {
 				            url:'ReiniciarUsuario',
 				            data:{},
@@ -188,9 +188,9 @@
 				            async:false,
 				            success:function(){$("#divSaldo").load(location.href+" #divSaldo>*","");
 				            },
-				            error:function(){alert('Ajax a fallado');}
+				            error:function(){alert("asd")}
 				        }
-				    );
+				    );*/
 				});
 		function showModalCargarSaldo()
 		{

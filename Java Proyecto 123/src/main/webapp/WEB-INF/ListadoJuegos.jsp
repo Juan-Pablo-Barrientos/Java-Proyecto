@@ -65,7 +65,8 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
-				<form action="ListadoJuegos" method="post" onSubmit="">
+				<form action="ListadoJuegos" method="post" onSubmit=""
+					enctype="multipart/form-data">
 					<input type="hidden" name="action" value="" id="action" />
 					<div class="modal-body">
 						<div class="form-group">
@@ -136,14 +137,15 @@
 						<div class="form-group">
 							<label for="juegoGeneroId">Genero</label>
 							<div class="input-group mb-3">
-							<select  id="juegoGeneroId" name="juegoGeneroId" class="form-control" required >								
-								<option value="Mundo Abierto">Mundo Abierto</option>
-								<option value="Accion">Accion</option>
-								<option value="Rpg">Rpg</option>	
-								<option value="Simulacion">Simulacion</option>	
-								<option value="Deportes">Deportes</option>	
-								<option value="Pelea">Pelea</option>					
-							</select>
+								<select id="juegoGeneroId" name="juegoGeneroId"
+									class="form-control" required>
+									<option value="Mundo Abierto">Mundo Abierto</option>
+									<option value="Accion">Accion</option>
+									<option value="Rpg">Rpg</option>
+									<option value="Simulacion">Simulacion</option>
+									<option value="Deportes">Deportes</option>
+									<option value="Pelea">Pelea</option>
+								</select>
 							</div>
 						</div>
 						<div class="form-group">
@@ -155,13 +157,26 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="juegoNombreId">Reestriccion por edad</label>
-							<select class="form-control" id ="juegoRestriccionId"
-									name="juegoReestriccionId">
-									<option value="">Ingrese reestriccion por edad del juego</option>
-									<option value="+13">+13</option>
-									<option value="+18">+18</option>
+							<label for="juegoNombreId">Reestriccion por edad</label> <select
+								class="form-control" id="juegoRestriccionId"
+								name="juegoReestriccionId">
+								<option value="">Ingrese reestriccion por edad del
+									juego</option>
+								<option value="+13">+13</option>
+								<option value="+18">+18</option>
 							</select>
+						</div>
+						<div class="form-group">
+						<label for="juegoNombreId">Imagen</label>
+						<div>
+							<img style="max-width: 100%; max-height: 100%;" id="juegoImagen"
+								class="shadow-lg p-3 mb-5 bg-white rounded"
+								src="" />
+							 </div>
+							 <input
+								onchange="ValidarInput(this)" class="form-control"
+								id="juegoImagenId" type="file" name="file" size="100"
+								accept="image/*" />
 						</div>
 						<div class="form-group">
 							<label for="juegoDescuentoId" id="lblDescripcion">Descripcion</label>
@@ -172,7 +187,8 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="juegoUrlId" id="lblUrl">Version online(Opcional)</label>
+							<label for="juegoUrlId" id="lblUrl">Version
+								online(Opcional)</label>
 							<div class="mb-3">
 								<input type="text" class="form-control" id="juegoUrlId"
 									placeholder="Ingrese version online del juego (Iframe)"
@@ -388,6 +404,7 @@
 			    $("#lblDescuentoId").hide();
 			    $('#juegoDescripcionId').removeAttr('required');
 			    $('#juegoDescuentoId2').removeAttr('required');
+			    $("#juegoImagen").attr("src","${pageContext.request.contextPath}/Images/1.png?game="+[row.idjuego]);
 			    },
 			'click .remove' : function(e, value, row, index) {
 			$("#modalBorrarlbl").text(
@@ -424,6 +441,7 @@
 			$("#juegoFechaId").val("");
 			$("#juegoReestriccionId").val("");
 			$("#juegoUrlId").val("");
+			$("#juegoImagenId").val("");
 		}
 		
 		function createJuego(){
@@ -435,8 +453,9 @@
 		    $("#juegoDescuentoDiv").show();
 		    $("#lblDescuentoId").show();
 			$("#EditarJuegoNombrelbl").text("Crear nuevo juego");
-		    $('#juegoDescripcionId').Attr('required');
-		    $('#juegoDescuentoId2').Attr('required');
+		    $('#juegoDescripcionId').attr('required');
+		    $('#juegoDescuentoId2').attr('required');
+		    $("#juegoImagen").attr("src","${pageContext.request.contextPath}/Images/1.png?game="+[0]);
 		}
 		
 		$(window).on('load', function() {
@@ -449,6 +468,37 @@
 	        '',
 	        `${window.location.pathname}?${"s=8"}${window.location.hash}`,
 	      );
+		   
+		   
+		   var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];    
+		   function ValidarInput(oInput) {
+			   
+				    var output = document.getElementById('juegoImagen');
+				    output.src = URL.createObjectURL(event.target.files[0]);
+				    output.onload = function() {
+				      URL.revokeObjectURL(output.src) // free memory
+				    }
+		       if (oInput.type == "file") {
+		           var sFileName = oInput.value;
+		            if (sFileName.length > 0) {
+		               var blnValid = false;
+		               for (var j = 0; j < _validFileExtensions.length; j++) {
+		                   var sCurExtension = _validFileExtensions[j];
+		                   if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+		                       blnValid = true;
+		                       break;
+		                   }
+		               }
+		                
+		               if (!blnValid) {
+		                   alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+		                   oInput.value = "";
+		                   return false;
+		               }
+		           }
+		       }
+		       return true;
+		   }
 	</script>
 </body>
 </html>

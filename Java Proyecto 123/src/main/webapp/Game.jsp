@@ -169,7 +169,7 @@ img {
 			<div class="">
 				<img style="max-width: 100%; max-height: 100%;"
 					class="shadow-lg p-3 mb-5 bg-white rounded"
-					src="img/${game.juego.id}/1.jpg" />
+					src="${pageContext.request.contextPath}/Images/1.png?game=${game.juego.id}" />
 			</div>
 		</div>
 		<div class="col" style="">

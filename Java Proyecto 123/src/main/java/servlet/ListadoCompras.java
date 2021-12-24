@@ -62,11 +62,11 @@ public class ListadoCompras extends HttpServlet {
 				}
 				request.getRequestDispatcher("/WEB-INF/ListadoCompras.jsp").forward(request, response);
 			} else {
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+				response.sendRedirect(request.getContextPath() + "/Homepage");
 
 			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+			response.sendRedirect(request.getContextPath() + "/Homepage?load");
 		}
 	}
 

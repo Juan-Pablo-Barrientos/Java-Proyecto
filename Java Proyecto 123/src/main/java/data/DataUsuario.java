@@ -168,6 +168,49 @@ public class DataUsuario {
 		return u;
 	}
 
+	public Usuario getOneByEmail(String email) throws SQLException {
+
+		Usuario u = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(
+					"select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo,contraseña,saldo"
+							+ " from usuario where email=? AND habilitado=1");
+			stmt.setString(1, email);
+			rs = stmt.executeQuery();
+			if (rs != null && rs.next()) {
+				u = new Usuario();
+				u.setId(rs.getInt("id"));
+				u.setNombreUsuario(rs.getString("nombre_usuario"));
+				u.setEmail(rs.getString("email"));
+				u.setNickname(rs.getString("nickname"));
+				u.setFechaNacimiento(rs.getObject("fecha_nacimiento", LocalDate.class));
+				u.setTelefono(rs.getString("telefono"));
+				u.setTipo(rs.getString("tipo"));
+				u.setContraseña(rs.getString("contraseña"));
+				u.setSaldo(rs.getDouble("saldo"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (stmt != null) {
+					stmt.close();
+				}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw e;
+			}
+		}
+		return u;
+	}
+	
 	public LinkedList<Usuario> getAll() throws SQLException {
 		Statement stmt = null;
 		ResultSet rs = null;

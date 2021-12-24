@@ -97,7 +97,7 @@ public class CompraGameDisplay extends HttpServlet {
 			request.getRequestDispatcher("/Game.jsp").forward(request, response);			
 		}
 		else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");		
+			response.sendRedirect(request.getContextPath() + "/Homepage?load");		
 		}
 		} catch (SQLException e) {
 			request.getSession().invalidate();

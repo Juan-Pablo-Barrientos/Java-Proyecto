@@ -72,11 +72,11 @@ public class ListadoUsuariosDisplay extends HttpServlet {
 					request.getRequestDispatcher("/index.jsp").forward(request, response);
 				}
 			} else {
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+				response.sendRedirect(request.getContextPath() + "/Homepage");
 
 			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+			response.sendRedirect(request.getContextPath() + "/Homepage?load");
 		}
 	}
 

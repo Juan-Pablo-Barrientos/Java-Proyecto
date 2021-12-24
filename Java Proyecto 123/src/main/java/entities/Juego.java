@@ -4,6 +4,7 @@ package entities;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+@SuppressWarnings("serial")
 public class Juego implements java.io.Serializable
 {
 	private int id;
@@ -17,6 +18,7 @@ public class Juego implements java.io.Serializable
 	private LocalDate fecha_publicacion;
 	private String reestriccionPorEdad;
 	private String url;
+	private byte[] Imagen;
 	
 	public int getId() {
 		return id;
@@ -83,6 +85,12 @@ public class Juego implements java.io.Serializable
 	}
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	public byte[] getImagen() {
+		return Imagen;
+	}
+	public void setImagen(byte[] imagen) {
+		Imagen = imagen;
 	}
 	
 }

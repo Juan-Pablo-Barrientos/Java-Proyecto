@@ -57,11 +57,11 @@ public class ListadoPublicadores extends HttpServlet {
 				request.setAttribute("listapublicadores", Publicador);
 				request.getRequestDispatcher("/WEB-INF/ListadoPublicadores.jsp").forward(request, response);
 			} else {
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+				response.sendRedirect(request.getContextPath() + "/Homepage");
 
 			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+			response.sendRedirect(request.getContextPath() + "/Homepage?load");
 		}
 	}
 
@@ -111,11 +111,11 @@ public class ListadoPublicadores extends HttpServlet {
 					}
 					response.sendRedirect("ListadoPublicadoresDisplay.do?s=" + success);
 				} else {
-					response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+					response.sendRedirect(request.getContextPath() + "/Homepage");
 
 				}
 			} else {
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+				response.sendRedirect(request.getContextPath() + "/Homepage?load");
 			}
 		} catch (SQLException e) {
 			request.getSession().invalidate();

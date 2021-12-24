@@ -1,11 +1,17 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.LinkedList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import entities.Juego;
+import logic.JuegoLogic;
 
 /**
  * Servlet implementation class Homepage
@@ -32,7 +38,18 @@ public class Homepage extends HttpServlet {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		response.setHeader("Expires", "0"); // Proxies.
-		response.sendRedirect("Homepage.jsp");
+		JuegoLogic jgoLogic = new JuegoLogic();
+		LinkedList<Juego> Juegos = null;
+		try {
+			Juegos = jgoLogic.getAll();
+		} catch (SQLException e) {
+			request.getSession().invalidate();
+			e.printStackTrace();
+			request.setAttribute("result", "Los servidores estan caidos");
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+		}
+		request.setAttribute("juegos",Juegos);
+		request.getRequestDispatcher("/Homepage.jsp").forward(request, response);
 	}
 
 	/**

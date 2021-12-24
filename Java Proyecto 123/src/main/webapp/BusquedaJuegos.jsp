@@ -93,8 +93,7 @@ tr {
 					</thead>
 					<tbody>
 						<c:forEach items="${juegosBusqueda}" var="j">
-							<tr class='clickable-row' data-href="Game?game=${j.id}"
-								data-id="${j.id}">
+							<tr class='clickable-row' data-href="Game?game=${j.id}" data-id="${j.id}">
 								<td><c:out value="${j.id}"></c:out></td>
 								<td><c:out value="${j.nombre}"></c:out></td>
 								<td>$<c:out

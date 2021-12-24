@@ -6,6 +6,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
+import javax.sql.rowset.serial.*;
 
 public class DataJuego
 {
@@ -55,7 +56,59 @@ public class DataJuego
 
 	return respuesta;
     }
+	public byte[] getOneImageById(int id) throws SQLException
+    {
 
+	PreparedStatement stmt3 = null;
+	ResultSet rs3 = null;
+    byte[] blobAsBytes = null;
+	try
+	{
+	    stmt3 = DbConnector.getInstancia().getConn().prepareStatement(
+		    "select imagen "
+			    + " from juego where id=? and habilitado=1");
+
+	    stmt3.setInt(1, id);
+	    rs3 = stmt3.executeQuery();
+	    if (rs3 != null && rs3.next())
+	    {
+	    Blob blob = rs3.getBlob("imagen");
+	    if (blob!=null) {
+		    int blobLength = (int) blob.length();  
+		    blobAsBytes = blob.getBytes(1, blobLength);
+		    blob.free();
+	    }
+
+	    }
+	}
+	catch (SQLException e)
+	{
+	    e.printStackTrace();
+	    throw e;
+	}
+	finally
+	{
+	    try
+	    {
+		if (rs3 != null)
+		{
+		    rs3.close();
+		}
+		if (stmt3 != null)
+		{
+		    stmt3.close();
+		}
+		DbConnector.getInstancia().releaseConn();
+	    }
+	    catch (SQLException e)
+	    {
+		e.printStackTrace();
+		throw e;
+	    }
+	}
+
+	return blobAsBytes;
+    }
     public Juego getOne(int jue) throws SQLException
     {
 
@@ -65,7 +118,7 @@ public class DataJuego
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url"
+		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,imagen \n"
 			    + " from juego where id=? and habilitado=1");
 
 	    stmt.setInt(1, jue);
@@ -84,6 +137,14 @@ public class DataJuego
 		j.setUrl(rs.getString("url"));
 		j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 		j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
+	    Blob blob = rs.getBlob("imagen");
+	    byte[] blobAsBytes = null;
+	    if (blob!=null) {
+		    int blobLength = (int) blob.length();  
+		    blobAsBytes = blob.getBytes(1, blobLength);
+		    blob.free();
+	    }
+	    j.setImagen(blobAsBytes);
 
 	    }
 	}
@@ -116,6 +177,75 @@ public class DataJuego
 	return j;
     }
 
+    public Juego getOneByGenero(int jue, String gen) throws SQLException
+    {
+
+	Juego j = null;
+	PreparedStatement stmt = null;
+	ResultSet rs = null;
+	try
+	{
+	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
+		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,imagen \n"
+			    + " from juego where id=? and habilitado=1 and genero=?");
+
+	    stmt.setInt(1, jue);
+	    stmt.setString(2, gen);
+	    rs = stmt.executeQuery();
+	    if (rs != null && rs.next())
+	    {
+		j = new Juego();
+		j.setId(rs.getInt("id"));
+		j.setIdPublicador(rs.getInt("id_publicador"));
+		j.setIdDesarrollador(rs.getInt("id_desarrollador"));
+		j.setNombre(rs.getString("nombre"));
+		j.setDescripcion(rs.getString("descripcion"));
+		j.setPrecioBase(rs.getDouble("precio_base"));
+		j.setDescuento(rs.getDouble("descuento"));
+		j.setGenero(rs.getString("genero"));
+		j.setUrl(rs.getString("url"));
+		j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
+		j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
+	    Blob blob = rs.getBlob("imagen");
+	    byte[] blobAsBytes = null;
+	    if (blob!=null) {
+		    int blobLength = (int) blob.length();  
+		    blobAsBytes = blob.getBytes(1, blobLength);
+		    blob.free();
+	    }
+	    j.setImagen(blobAsBytes);
+
+	    }
+	}
+	catch (SQLException e)
+	{
+	    e.printStackTrace();
+	    throw e;
+	}
+	finally
+	{
+	    try
+	    {
+		if (rs != null)
+		{
+		    rs.close();
+		}
+		if (stmt != null)
+		{
+		    stmt.close();
+		}
+		DbConnector.getInstancia().releaseConn();
+	    }
+	    catch (SQLException e)
+	    {
+		e.printStackTrace();
+		throw e;
+	    }
+	}
+
+	return j;
+    }
+    
     public LinkedList<Juego> search(String name) throws SQLException
     {
 	PreparedStatement stmt = null;
@@ -125,7 +255,7 @@ public class DataJuego
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "SELECT id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url"		
+		    "SELECT id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,imagen \n"		
 		    + "	FROM juego WHERE nombre LIKE ? AND habilitado=1;");
 
 	    stmt.setString(1, "%" + name + "%");
@@ -147,6 +277,14 @@ public class DataJuego
 		    j.setUrl(rs.getString("url"));
 		    j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 		    j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
+		    Blob blob = rs.getBlob("imagen");
+		    byte[] blobAsBytes = null;
+		    if (blob!=null) {
+			    int blobLength = (int) blob.length();  
+			    blobAsBytes = blob.getBytes(1, blobLength);
+			    blob.free();
+		    }
+		    j.setImagen(blobAsBytes);
 
 		    juegs.add(j);
 		}
@@ -181,8 +319,8 @@ public class DataJuego
 
 	return juegs;
     }
-
-    public LinkedList<Juego> getAll() throws SQLException
+    
+    public LinkedList<Juego> getAllConDescuento() throws SQLException
     {
 	Statement stmt = null;
 	ResultSet rs = null;
@@ -192,8 +330,8 @@ public class DataJuego
 	{
 	    stmt = DbConnector.getInstancia().getConn().createStatement();
 	    rs = stmt.executeQuery(
-		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url "
-			    + "from juego where habilitado=1");
+		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,imagen \n"
+			    + "from juego where habilitado=1 and descuento!=0");
 	    if (rs != null)
 	    {
 		while (rs.next())
@@ -210,6 +348,14 @@ public class DataJuego
 		    j.setUrl(rs.getString("url"));
 		    j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 		    j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
+		    Blob blob = rs.getBlob("imagen");
+		    byte[] blobAsBytes = null;
+		    if (blob!=null) {
+			    int blobLength = (int) blob.length();  
+			    blobAsBytes = blob.getBytes(1, blobLength);
+			    blob.free();
+		    }
+		    j.setImagen(blobAsBytes);
 
 		    juegs.add(j);
 		}
@@ -246,7 +392,80 @@ public class DataJuego
 	return juegs;
     }
     
-    public LinkedList<Juego> getAllNotRelesed() throws SQLException
+
+    public LinkedList<Juego> getAll() throws SQLException
+    {
+	Statement stmt = null;
+	ResultSet rs = null;
+	LinkedList<Juego> juegs = new LinkedList<>();
+
+	try
+	{
+	    stmt = DbConnector.getInstancia().getConn().createStatement();
+	    rs = stmt.executeQuery(
+		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,imagen \n"
+			    + "from juego where habilitado=1");
+	    if (rs != null)
+	    {
+		while (rs.next())
+		{
+		    Juego j = new Juego();
+		    j.setId(rs.getInt("id"));
+		    j.setIdPublicador(rs.getInt("id_publicador"));
+		    j.setIdDesarrollador(rs.getInt("id_desarrollador"));
+		    j.setNombre(rs.getString("nombre"));
+		    j.setDescripcion(rs.getString("descripcion"));
+		    j.setPrecioBase(rs.getDouble("precio_base"));
+		    j.setDescuento(rs.getDouble("descuento"));
+		    j.setGenero(rs.getString("genero"));
+		    j.setUrl(rs.getString("url"));
+		    j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
+		    j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
+		    Blob blob = rs.getBlob("imagen");
+		    byte[] blobAsBytes = null;
+		    if (blob!=null) {
+			    int blobLength = (int) blob.length();  
+			    blobAsBytes = blob.getBytes(1, blobLength);
+			    blob.free();
+		    }
+		    j.setImagen(blobAsBytes);
+
+		    juegs.add(j);
+		}
+	    }
+
+	}
+	catch (SQLException e)
+	{
+	    e.printStackTrace();
+	    throw e;
+
+	}
+	finally
+	{
+	    try
+	    {
+		if (rs != null)
+		{
+		    rs.close();
+		}
+		if (stmt != null)
+		{
+		    stmt.close();
+		}
+		DbConnector.getInstancia().releaseConn();
+	    }
+	    catch (SQLException e)
+	    {
+		e.printStackTrace();
+		throw e;
+	    }
+	}
+
+	return juegs;
+    }
+    
+    public LinkedList<Juego> getAllNotReleased() throws SQLException
     {
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
     LocalDate localDate = LocalDate.now();
@@ -276,6 +495,14 @@ public class DataJuego
 		    j.setUrl(rs.getString("url"));
 		    j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 		    j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
+		    Blob blob = rs.getBlob("imagen");
+		    byte[] blobAsBytes = null;
+		    if (blob!=null) {
+			    int blobLength = (int) blob.length();  
+			    blobAsBytes = blob.getBytes(1, blobLength);
+			    blob.free();
+		    }
+		    j.setImagen(blobAsBytes);
 
 		    juegs.add(j);
 		}
@@ -320,8 +547,8 @@ public class DataJuego
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "insert into juego(id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url ) "
-			    + " values(?,?,?,?,?,?,?,?,?,?)",
+		    "insert into juego(id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,imagen ) \n"
+			    + " values(?,?,?,?,?,?,?,?,?,?,?)",
 		    PreparedStatement.RETURN_GENERATED_KEYS);
 
 	    stmt.setInt(1, j.getIdPublicador());
@@ -334,8 +561,9 @@ public class DataJuego
 	    stmt.setObject(8, j.getFecha_publicacion());
 		stmt.setString(9, j.getReestriccionPorEdad());
 	    stmt.setString(10, j.getUrl());
+	    Blob blob = new javax.sql.rowset.serial.SerialBlob(j.getImagen());
+	    stmt.setBlob(11,blob);
 	    stmt.executeUpdate();
-
 	    keyResultSet = stmt.getGeneratedKeys();
 	    if (keyResultSet != null && keyResultSet.next())
 	    {
@@ -372,8 +600,8 @@ public class DataJuego
 	PreparedStatement stmt = null;
 	try
 	{
-	    stmt = DbConnector.getInstancia().getConn().prepareStatement("update juego set nombre=?,id_publicador=?,id_desarrollador=?,"
-		    + "descripcion=?,precio_base=?,descuento=?,genero=?,fecha_publicacion=?,restriccion_por_edad=?,url=? where id=?");
+	    stmt = DbConnector.getInstancia().getConn().prepareStatement("update juego set nombre=?,id_publicador=?,id_desarrollador=?, \n"
+		    + "descripcion=?,precio_base=?,descuento=?,genero=?,fecha_publicacion=?,restriccion_por_edad=?,url=?,imagen=? where id=?");
 
 	    stmt.setString(1, j.getNombre());
 	    stmt.setInt(2, j.getIdPublicador());
@@ -385,7 +613,9 @@ public class DataJuego
 	    stmt.setObject(8, j.getFecha_publicacion());
 		stmt.setString(9, j.getReestriccionPorEdad());
 	    stmt.setString(10, j.getUrl());
-	    stmt.setInt(11, j.getId());
+	    Blob blob = new javax.sql.rowset.serial.SerialBlob(j.getImagen());
+	    stmt.setBlob(11,blob);
+	    stmt.setInt(12, j.getId());
 
 	    stmt.executeUpdate();
 	}

@@ -60,11 +60,11 @@ public class ListadoUsuarios extends HttpServlet {
 				request.setAttribute("listaUsuarios", usrs);
 				request.getRequestDispatcher("/WEB-INF/UserManagement.jsp").forward(request, response);
 			} else {
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+				response.sendRedirect(request.getContextPath() + "/Homepage");
 
 			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+			response.sendRedirect(request.getContextPath() + "/Homepage?load");
 		}
 
 	}
@@ -107,11 +107,11 @@ public class ListadoUsuarios extends HttpServlet {
 					}
 					response.sendRedirect("ListadoUsuariosDisplay.do?s=" + success);
 				} else {
-					response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+					response.sendRedirect(request.getContextPath() + "/Homepage");
 
 				}
 			} else {
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+				response.sendRedirect(request.getContextPath() + "/Homepage?load");
 			}
 		} catch (SQLException e) {
 			request.getSession().invalidate();

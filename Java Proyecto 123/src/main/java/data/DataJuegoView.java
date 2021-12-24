@@ -1,6 +1,7 @@
 package data;
 import entities.*;
 
+import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,6 +40,14 @@ public class DataJuegoView {
 					j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 					j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
 					j.setUrl(rs.getString("url"));
+				    Blob blob = rs.getBlob("imagen");
+				    byte[] blobAsBytes = null;
+				    if (blob!=null) {
+					    int blobLength = (int) blob.length();  
+					    blobAsBytes = blob.getBytes(1, blobLength);
+					    blob.free();
+				    }
+				    j.setImagen(blobAsBytes);
 					juegoView.setJuego(j);
 					//Publicador
 					Publicador p = new Publicador();
@@ -102,6 +111,14 @@ public class DataJuegoView {
 					j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 					j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
 					j.setUrl(rs.getString("url"));
+				    Blob blob = rs.getBlob("imagen");
+				    byte[] blobAsBytes = null;
+				    if (blob!=null) {
+					    int blobLength = (int) blob.length();  
+					    blobAsBytes = blob.getBytes(1, blobLength);
+					    blob.free();
+				    }
+				    j.setImagen(blobAsBytes);
 					juegoView.setJuego(j);
 					//Publicador
 					Publicador p = new Publicador();
@@ -162,6 +179,14 @@ public class DataJuegoView {
 					j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 					j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
 					j.setUrl(rs.getString("url"));
+				    Blob blob = rs.getBlob("imagen");
+				    byte[] blobAsBytes = null;
+				    if (blob!=null) {
+					    int blobLength = (int) blob.length();  
+					    blobAsBytes = blob.getBytes(1, blobLength);
+					    blob.free();
+				    }
+				    j.setImagen(blobAsBytes);
 					juegoView.setJuego(j);
 					//Publicador
 					Publicador p = new Publicador();

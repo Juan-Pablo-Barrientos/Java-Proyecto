@@ -71,7 +71,7 @@ public class Signin extends HttpServlet
 	{
 		response.sendRedirect("Game?game="+request.getParameter("game"));
 	}else{
-	response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+	response.sendRedirect(request.getContextPath() + "/Homepage");
 	}
 				}
 	else {

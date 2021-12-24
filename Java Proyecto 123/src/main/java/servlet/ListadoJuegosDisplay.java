@@ -96,11 +96,11 @@ public class ListadoJuegosDisplay extends HttpServlet {
 				}
 				request.getRequestDispatcher("/WEB-INF/ListadoJuegos.jsp").forward(request, response);
 			} else {
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+				response.sendRedirect(request.getContextPath() + "/Homepage");
 
 			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+			response.sendRedirect(request.getContextPath() + "/Homepage?load");
 		}
 	}
 

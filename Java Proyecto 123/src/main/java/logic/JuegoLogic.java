@@ -19,10 +19,21 @@ public class JuegoLogic {
 			throw e;
 		}
 	}
+	
 
-	public LinkedList<Juego> getAllNotRelesed() throws SQLException {
+	public LinkedList<Juego> getAllConDescuento() throws SQLException {
 		try {
-			return db.getAllNotRelesed();
+			return db.getAllConDescuento();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	public LinkedList<Juego> getAllNotReleased() throws SQLException {
+		try {
+			return db.getAllNotReleased();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,6 +63,26 @@ public class JuegoLogic {
 	public Juego getOne(int i) throws SQLException {
 		try {
 			return db.getOne(i);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	public Juego getOneByGenero(int i,String gen) throws SQLException {
+		try {
+			return db.getOneByGenero(i, gen);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	public byte[] getOneImageById(int id) throws SQLException {
+		try {
+			return db.getOneImageById(id);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

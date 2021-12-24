@@ -111,7 +111,6 @@ public class Reseñas extends HttpServlet {
 					}
 					// Redirección a la página que muestra si la acción fue exitosa o fallida
 					response.sendRedirect("CompraGameDisplay.do?s=" + success + "&game=" + game);
-					// response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
 				} else {
 					request.setAttribute("error", "El usuario no posee una compra válida del juego");
 					success = 0;
@@ -127,7 +126,7 @@ public class Reseñas extends HttpServlet {
 
 		} else {
 			// Redireccion si el usuario no esta logueado
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+			response.sendRedirect(request.getContextPath() + "/Homepage?load");
 		}
 	}
 

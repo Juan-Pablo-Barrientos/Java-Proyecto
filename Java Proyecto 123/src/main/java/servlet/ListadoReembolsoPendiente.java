@@ -50,11 +50,11 @@ public class ListadoReembolsoPendiente extends HttpServlet {
 				request.setAttribute("listaCompraView", rems);
 				request.getRequestDispatcher("/WEB-INF/Reembolso.jsp").forward(request, response);
 			} else {
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+				response.sendRedirect(request.getContextPath() + "/Homepage");
 
 			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+			response.sendRedirect(request.getContextPath() + "/Homepage?load");
 		}
 	}
 
@@ -96,11 +96,11 @@ public class ListadoReembolsoPendiente extends HttpServlet {
 					}
 					response.sendRedirect("ListadoReembolsoPendienteDisplay.do?s=" + success);
 				} else {
-					response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+					response.sendRedirect(request.getContextPath() + "/Homepage");
 
 				}
 			} else {
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+				response.sendRedirect(request.getContextPath() + "/Homepage?load");
 			}
 
 		} catch (SQLException e) {

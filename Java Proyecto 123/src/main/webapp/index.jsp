@@ -61,7 +61,7 @@
 								type="password" class="form-control" id="exampleInputPassword1"
 								placeholder="Contraseña" name="InputPass" required>
 							<div style="margin-top: 5px;"></div>
-							<a href=# onclick=OlvideMiContraseña()>Olvidé mi contraseña</a>
+							<a href="OlvideMiContraseña.jsp">Olvidé mi contraseña</a>
 						</div>
 						<input type="hidden" name="game" value="${param.game}" />
 						<div class="col-12">
@@ -92,42 +92,6 @@
 		$(window).on('load', function() {
 			$('#modalLogin').modal('show');
 		});
-
-		function OlvideMiContraseña() {
-			var email = $("#exampleInputEmail1").val;
-			$.ajax({
-				url : 'OlvideMiContraseña',
-				data : {
-					"email" : email
-				},
-				type : 'post',
-				cache : false,
-				async : false,
-				success : function() {
-					alertaLoginPorReestriccion(email)
-				},
-				error : function() {
-					alert('Ajax a fallado');
-				}
-			});
-		};
-		function alertaLoginPorReestriccion(email) {
-			var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-			function alert(message, type) {
-
-				if (document.getElementById('error') != null) {
-					document.getElementById('error').remove()
-				}
-				var wrapper = document.createElement('div')
-				wrapper.innerHTML = '<div id="error" class="alert alert-' + type + ' alert-dismissible" role="alert">'
-						+ message
-						+ '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
-				alertPlaceholder.append(wrapper)
-			}
-				alert(
-						'Hemos enviado tu contraseña a:'+email,
-						'success')
-			}
 	</script>
 
 </body>

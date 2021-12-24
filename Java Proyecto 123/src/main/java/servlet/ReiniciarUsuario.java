@@ -45,9 +45,6 @@ public class ReiniciarUsuario extends HttpServlet {
 				request.getRequestDispatcher("/index.jsp").forward(request, response);
 			}
 		}
-		else{
-		    response.sendRedirect("Homepage.do");
-		}
 	}
 
 	/**

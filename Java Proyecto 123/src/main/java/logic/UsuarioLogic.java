@@ -58,6 +58,18 @@ public class UsuarioLogic
 	    throw e;
 	}
     }
+
+    public Usuario getOneByEmail(String email) throws SQLException
+    {
+	try
+	{
+	    return db.getOneByEmail(email);
+	}
+	catch (SQLException e)
+	{
+	    throw e;
+	}
+    }
 	
 	public void updatePassword(Usuario obj) throws SQLException
 	{

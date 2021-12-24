@@ -44,11 +44,11 @@ public class PanelAdministracion extends HttpServlet {
 				response.setHeader("Expires", "0"); // Proxies.
 				request.getRequestDispatcher("/WEB-INF/PanelAdministracion.jsp").forward(request, response);
 			} else {
-				response.sendRedirect(request.getContextPath() + "/Homepage.jsp");
+				response.sendRedirect(request.getContextPath() + "/Homepage");
 
 			}
 		} else {
-			response.sendRedirect(request.getContextPath() + "/Homepage.jsp?=load");
+			response.sendRedirect(request.getContextPath() + "/Homepage?load");
 		}
 	}
 
