@@ -113,6 +113,13 @@
 								</div>
 								<p></p>
 								<div class="form-group">
+									<label for="exampleInputSaldo">Saldo</label> <input
+										type="number" class="form-control"
+										id="InputSaldoId" placeholder="Ingrese Saldo"
+										name="InputSaldo" required>
+								</div>
+								<p></p>
+								<div class="form-group">
 									<label for="InputFechaNacimiento">Fecha de nacimiento</label> <input
 										type="date" id="InputFechaNacimientoId" class="form-control"
 										name="InputFechaNacimiento" required>
@@ -138,9 +145,10 @@
 								<th data-field="nombreUsuario">Nombre usuario</th>
 								<th data-field="email">Email</th>
 								<th data-field="nickname">Nickname</th>
-								<th data-field="fechaNacimiento">Fecha de nacimiento</th>
+								<th data-field="fechaNacimiento">Nacimiento</th>
 								<th data-field="telefono">Telefono</th>
-								<th data-field="tipo">Tipo Usuario</th>
+								<th data-field="tipo">Tipo</th>
+								<th data-field="saldo">Saldo</th>
 								<th data-field="operate" data-formatter="operateFormatter"
 									data-events="operateEvents"></th>
 							</tr>
@@ -155,6 +163,7 @@
 									<td><c:out value="${u.fechaNacimiento}"></c:out></td>
 									<td><c:out value="${u.telefono}"></c:out></td>
 									<td><c:out value="${u.tipo}"></c:out></td>
+									<td><c:out value="${u.saldo}"></c:out></td>
 									<td></td>
 								</tr>
 							</c:forEach>
@@ -222,6 +231,7 @@
 				$('#InputTelefonoId').val([ row.telefono ]);
 				$('#InputFechaNacimientoId').val([ row.fechaNacimiento ]);
 				$('#InputUsuarioTipoId').val([ row.tipo ]);
+				$('#InputSaldoId').val([ row.saldo ]);
 			},
 			'click .remove' : function(e, value, row, index) {
 				$("#modalBorrarlbl").text(

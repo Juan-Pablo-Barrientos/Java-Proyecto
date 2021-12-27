@@ -392,7 +392,73 @@ public class DataJuego
 	return juegs;
     }
     
+    public LinkedList<Juego> getAllMini() throws SQLException
+    {
+	Statement stmt = null;
+	ResultSet rs = null;
+	LinkedList<Juego> juegs = new LinkedList<>();
 
+	try
+	{
+	    stmt = DbConnector.getInstancia().getConn().createStatement();
+	    rs = stmt.executeQuery(
+		    "select id,descuento,genero,imagen \n"
+			    + "from juego where habilitado=1");
+	    if (rs != null)
+	    {
+		while (rs.next())
+		{
+		    Juego j = new Juego();
+		    j.setId(rs.getInt("id"));
+		    j.setNombre(rs.getString("nombre"));
+		    j.setDescuento(rs.getDouble("descuento"));
+		    j.setGenero(rs.getString("genero"));
+		    Blob blob = rs.getBlob("imagen");
+		    byte[] blobAsBytes = null;
+		    if (blob!=null) {
+			    int blobLength = (int) blob.length();  
+			    blobAsBytes = blob.getBytes(1, blobLength);
+			    blob.free();
+		    }
+		    j.setImagen(blobAsBytes);
+
+		    juegs.add(j);
+		}
+	    }
+
+	}
+	catch (SQLException e)
+	{
+	    e.printStackTrace();
+	    throw e;
+
+	}
+	finally
+	{
+	    try
+	    {
+		if (rs != null)
+		{
+		    rs.close();
+		}
+		if (stmt != null)
+		{
+		    stmt.close();
+		}
+		DbConnector.getInstancia().releaseConn();
+	    }
+	    catch (SQLException e)
+	    {
+		e.printStackTrace();
+		throw e;
+	    }
+	}
+
+	return juegs;
+    }
+    
+    
+    
     public LinkedList<Juego> getAll() throws SQLException
     {
 	Statement stmt = null;

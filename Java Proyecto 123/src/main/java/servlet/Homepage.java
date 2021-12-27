@@ -41,12 +41,12 @@ public class Homepage extends HttpServlet {
 		JuegoLogic jgoLogic = new JuegoLogic();
 		LinkedList<Juego> Juegos = null;
 		try {
-			Juegos = jgoLogic.getAll();
+			Juegos = jgoLogic.getAllMini();
 		} catch (SQLException e) {
-			request.getSession().invalidate();
-			e.printStackTrace();
-			request.setAttribute("result", "Los servidores estan caidos");
-			request.getRequestDispatcher("/index.jsp").forward(request, response);
+		//	request.getSession().invalidate();
+		//	e.printStackTrace();
+		//	request.setAttribute("result", "Los servidores estan caidos");
+		//	request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 		request.setAttribute("juegos",Juegos);
 		request.getRequestDispatcher("/Homepage.jsp").forward(request, response);

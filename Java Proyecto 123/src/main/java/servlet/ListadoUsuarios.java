@@ -99,6 +99,7 @@ public class ListadoUsuarios extends HttpServlet {
 						usrEdit.setTelefono(request.getParameter("InputTelefono"));
 						usrEdit.setNombreUsuario(request.getParameter("InputUsuario"));
 						usrEdit.setTipo(request.getParameter("InputUsuarioTipo"));
+						usrEdit.setSaldo(Double.parseDouble(request.getParameter("InputSaldo")));
 						LocalDate date = LocalDate.parse(request.getParameter("InputFechaNacimiento"));
 						usrEdit.setFechaNacimiento(date);
 

@@ -21,6 +21,17 @@ public class JuegoLogic {
 	}
 	
 
+	public LinkedList<Juego> getAllMini() throws SQLException {
+		try {
+			return db.getAllMini();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+
 	public LinkedList<Juego> getAllConDescuento() throws SQLException {
 		try {
 			return db.getAllConDescuento();

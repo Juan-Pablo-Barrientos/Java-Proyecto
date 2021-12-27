@@ -179,7 +179,7 @@
 									+ window.location.pathname.split("/").pop()
 									+ '"]').closest('a').addClass('active');
 				
-				   /* $.ajax(
+				    $.ajax(
 				        {
 				            url:'ReiniciarUsuario',
 				            data:{},
@@ -190,7 +190,7 @@
 				            },
 				            error:function(){alert("asd")}
 				        }
-				    );*/
+				    );
 				});
 		function showModalCargarSaldo()
 		{

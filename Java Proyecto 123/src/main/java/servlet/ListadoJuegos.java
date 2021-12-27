@@ -114,7 +114,12 @@ public class ListadoJuegos extends HttpServlet {
 						Part filePart = request.getPart("file");
 						InputStream fileContent = filePart.getInputStream();
 						byte[] image = IOUtils.toByteArray(fileContent); // Apache commons IO.
+						if (image.length!=0)
+						{
 						jgoEdit.setImagen(image);
+						}else {
+							jgoEdit.setImagen(jgoLogic.getOneImageById(Integer.parseInt(request.getParameter("juegoId"))));
+						}
 						if (request.getParameter("juegoNombreId").equals(
 								(jgoLogic.getOne(Integer.parseInt(request.getParameter("juegoId"))).getNombre()))) {
 							jgoLogic.update(jgoEdit);
