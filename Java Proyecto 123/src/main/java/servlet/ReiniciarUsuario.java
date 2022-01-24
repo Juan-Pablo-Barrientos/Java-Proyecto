@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,20 +27,20 @@ public class ReiniciarUsuario extends HttpServlet {
 	private static DbConnector instancia;
 
     private String driver = "com.mysql.cj.jdbc.Driver";
-    private String host = "localhost";
+    private String host = "us-cdbr-east-05.cleardb.net";
     private String port = "3306";
-    private String user = "java";
-    private String password = "himitsu";
-    private String db = "market_tp";
+    private String user = "bac6284df19812";
+    private String password = "494ded57";
+    private String db = "heroku_2ba32d1f2ee3d5b";
     private int conectados = 0;
-    private Connection conn = null;
+    private Connection conn5 = null;
 	
     public void releaseConn() throws SQLException
     {
 	
 	try
 	{
-		conn.close();
+		conn5.close();
 	}
 	catch (SQLException e)
 	{
@@ -53,8 +54,8 @@ public class ReiniciarUsuario extends HttpServlet {
 		PreparedStatement stmt4 = null;
 		ResultSet rs4 = null;
 		try {
-			stmt4 = DbConnector.getInstancia().getConn()
-					.prepareStatement("select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo,saldo"
+			conn5 = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + db, user, password);
+			stmt4 = conn5.prepareStatement("select id,nombre_usuario,email,nickname,fecha_nacimiento,telefono,tipo,saldo"
 							+ " from usuario where id=? and habilitado=1");
 
 			stmt4.setInt(1, us);
@@ -81,7 +82,7 @@ public class ReiniciarUsuario extends HttpServlet {
 				if (stmt4 != null) {
 					stmt4.close();
 				}
-				DbConnector.getInstancia().releaseConn();
+				releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
 				throw e;
@@ -106,8 +107,9 @@ public class ReiniciarUsuario extends HttpServlet {
 		Usuario usr;
 		if (request.getSession().getAttribute("usuario") != null) {
 			try {
+				UsuarioLogic usrLogic = new UsuarioLogic();
 				Usuario usrActual = (Usuario) request.getSession().getAttribute("usuario");
-				usr = this.getOne(usrActual.getId());
+				usr = usrLogic.getOne(usrActual.getId());
 				request.getSession().setAttribute("usuario", usr);
 			} catch (SQLException e) {
 				request.getSession().invalidate();

@@ -402,7 +402,7 @@ public class DataJuego
 	{
 	    stmt = DbConnector.getInstancia().getConn().createStatement();
 	    rs = stmt.executeQuery(
-		    "select id,descuento,genero,imagen \n"
+		    "select id,nombre,descuento,genero,imagen \n"
 			    + "from juego where habilitado=1");
 	    if (rs != null)
 	    {

@@ -1,6 +1,6 @@
 package entities;
 
-public class Reseña  implements java.io.Serializable{
+public class Resena  implements java.io.Serializable{
 	
 	private int id;
 	private String titulo;

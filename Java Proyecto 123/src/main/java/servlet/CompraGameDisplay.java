@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.JuegoView;
-import entities.ReseñaView;
+import entities.ResenaView;
 import entities.Usuario;
 import logic.CompraLogic;
 import logic.JuegoViewLogic;
-import logic.ReseñaViewLogic;
+import logic.ResenaViewLogic;
 
 /**
  * Servlet implementation class CompraGameDisplay
@@ -77,12 +77,12 @@ public class CompraGameDisplay extends HttpServlet {
 				}
 			}
 			// Busqueda de reseñas del juego
-			ReseñaViewLogic reseñaViewLogic = new ReseñaViewLogic();
-			LinkedList<ReseñaView> reseñasViewJuego;
+			ResenaViewLogic reseñaViewLogic = new ResenaViewLogic();
+			LinkedList<ResenaView> reseñasViewJuego;
 			    reseñasViewJuego = reseñaViewLogic.getAllByJuego(jgo.getJuego());
 
 			// Comprobaciñn - Si el usuario tiene el juego comprado e hizo reseña
-			ReseñaView reseñaViewUsuario = null;
+			ResenaView reseñaViewUsuario = null;
 			if (request.getSession().getAttribute("usuario") != null) {
 			    Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 			    if (compraLogic.NumeroDeComprasHabilitadas(usuario.getId(), jgo.getJuego().getId()) == 1) {

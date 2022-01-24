@@ -7,18 +7,18 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 
-import entities.ReseñaView;
+import entities.ResenaView;
 import entities.Compra;
 import entities.Juego;
-import entities.Reseña;
+import entities.Resena;
 import entities.Usuario;
 
-public class DataReseñaView {
+public class DataResenaView {
 
-    public LinkedList<ReseñaView> getAllByJuego(Juego juego) throws SQLException {
+    public LinkedList<ResenaView> getAllByJuego(Juego juego) throws SQLException {
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
-	LinkedList<ReseñaView> reseñaViewList = new LinkedList<>();
+	LinkedList<ResenaView> reseñaViewList = new LinkedList<>();
 
 	try {
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
@@ -28,7 +28,7 @@ public class DataReseñaView {
 
 	    if (rs != null) {
 		while (rs.next()) {
-		    ReseñaView reseñaView = new ReseñaView();
+		    ResenaView reseñaView = new ResenaView();
 		    // Compra
 		    Compra c = new Compra();
 		    c.setNroSerie(rs.getInt("nroSerie"));
@@ -52,7 +52,7 @@ public class DataReseñaView {
 		    reseñaView.setUsuario(u);
 
 		    // Reseña
-		    Reseña r = new Reseña();
+		    Resena r = new Resena();
 		    r.setId(rs.getInt("id_reseña"));
 		    r.setTitulo(rs.getString("titulo"));
 		    r.setDescripcion(rs.getString("descripcion"));
@@ -83,10 +83,10 @@ public class DataReseñaView {
 	return reseñaViewList;
     }
 
-    public ReseñaView getByJuegoYUsuario(Juego juego, Usuario usuario) throws SQLException {
+    public ResenaView getByJuegoYUsuario(Juego juego, Usuario usuario) throws SQLException {
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
-	ReseñaView reseñaView = new ReseñaView();
+	ResenaView reseñaView = new ResenaView();
 
 	try {
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
@@ -119,7 +119,7 @@ public class DataReseñaView {
 		    reseñaView.setUsuario(u);
 
 		    // Reseña
-		    Reseña r = new Reseña();
+		    Resena r = new Resena();
 		    r.setId(rs.getInt("id_reseña"));
 		    r.setTitulo(rs.getString("titulo"));
 		    r.setDescripcion(rs.getString("descripcion"));

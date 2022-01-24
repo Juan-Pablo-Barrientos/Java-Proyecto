@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import data.DbConnector;
+import logic.JuegoLogic;
 
 import java.sql.*;
 
@@ -17,23 +17,22 @@ import java.sql.*;
  */
 @WebServlet({ "/Images", "/Images/*" })
 public class Images extends HttpServlet {
-	private static DbConnector instancia;
 
     private String driver = "com.mysql.cj.jdbc.Driver";
-    private String host = "localhost";
+    private String host = "us-cdbr-east-05.cleardb.net";
     private String port = "3306";
-    private String user = "java";
-    private String password = "himitsu";
-    private String db = "market_tp";
+    private String user = "bac6284df19812";
+    private String password = "494ded57";
+    private String db = "heroku_2ba32d1f2ee3d5b";
     private int conectados = 0;
-    private Connection conn = null;
+    private Connection conn2 = null;
 	
     public void releaseConn() throws SQLException
     {
 	
 	try
 	{
-		conn.close();
+		conn2.close();
 	}
 	catch (SQLException e)
 	{
@@ -50,9 +49,9 @@ public class Images extends HttpServlet {
     byte[] blobAsBytes = null;
 	try
 	{
-		conn = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + db, user, password);
+		conn2 = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + db, user, password);
 	
-	    stmt3 = conn.prepareStatement(
+	    stmt3 = conn2.prepareStatement(
 		    "select imagen "
 			    + " from juego where id=? and habilitado=1");
 
@@ -86,13 +85,13 @@ public class Images extends HttpServlet {
 		{
 		    stmt3.close();
 		}
-		DbConnector.getInstancia().releaseConn();
 	    }
 	    catch (SQLException e)
 	    {
 		e.printStackTrace();
 		throw e;
 	    }
+		this.releaseConn();
 	}
 	return blobAsBytes;
     }
@@ -110,24 +109,12 @@ public class Images extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {
-			Class.forName(driver);
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			conn = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + db, user, password);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
 		String imageName = request.getPathInfo().substring(1); // Returns "foo.png".
-		
+		JuegoLogic jgoLogic = new JuegoLogic();
 		byte[] content=null;
 		try {
-		content = this.getOneImageById(Integer.parseInt(request.getParameter("game")));
+		content = jgoLogic.getOneImageById(Integer.parseInt(request.getParameter("game")));
 			
 		} catch (SQLException e) {
 			request.getSession().invalidate();

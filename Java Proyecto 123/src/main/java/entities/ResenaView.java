@@ -1,9 +1,9 @@
 package entities;
 
-public class ReseñaView {
+public class ResenaView {
     private Usuario usuario;
     private Compra compra;
-    private Reseña reseña;
+    private Resena reseña;
 
     public Compra getCompra() {
 	return compra;
@@ -13,11 +13,11 @@ public class ReseñaView {
 	this.compra = compra;
     }
 
-    public Reseña getReseña() {
+    public Resena getReseña() {
 	return reseña;
     }
 
-    public void setReseña(Reseña reseña) {
+    public void setReseña(Resena reseña) {
 	this.reseña = reseña;
     }
 

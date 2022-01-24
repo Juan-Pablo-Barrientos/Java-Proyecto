@@ -16,14 +16,14 @@ import logic.*;
 /**
  * Servlet implementation class Reseña
  */
-@WebServlet("/Reseñas")
-public class Reseñas extends HttpServlet {
+@WebServlet("/Resenas")
+public class Resenas extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Reseñas() {
+	public Resenas() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -47,7 +47,7 @@ public class Reseñas extends HttpServlet {
 		int success = 0;
 		Usuario usr;
 		CompraLogic clogic = new CompraLogic();
-		ReseñaViewLogic rvlogic = new ReseñaViewLogic();
+		ResenaViewLogic rvlogic = new ResenaViewLogic();
 
 		// Verifica que el usuario estñ logueado
 		if (request.getSession().getAttribute("usuario") != null) {
@@ -62,7 +62,7 @@ public class Reseñas extends HttpServlet {
 				// Si la compra sigue siendo valida
 				if ((clogic.NumeroDeComprasHabilitadas(usr.getId(), juego.getId()) == 1)) {
 					// Busqueda de una posible reseña del usuario
-					Reseña reseñaUsuario = null;
+					Resena reseñaUsuario = null;
 					
 						reseñaUsuario = rvlogic.getByJuegoYUsuario(juego, usr).getReseña();
 					
@@ -71,8 +71,8 @@ public class Reseñas extends HttpServlet {
 					if (("create".equals(request.getParameter("action"))) && (reseñaUsuario.getId() == 0)) {
 						
 							// Reseña
-							ReseñaLogic rLogic = new ReseñaLogic();
-							reseñaUsuario = new Reseña();
+							ResenaLogic rLogic = new ResenaLogic();
+							reseñaUsuario = new Resena();
 							reseñaUsuario.setTitulo(request.getParameter("inputTitulo"));
 							reseñaUsuario.setDescripcion(request.getParameter("inputDescripcion"));
 							reseñaUsuario.setPuntuacion(Integer.parseInt(request.getParameter("inputPuntuacion")));
@@ -89,7 +89,7 @@ public class Reseñas extends HttpServlet {
 					// Si la la accion es editar y hay reseña
 					if ((reseñaUsuario.getId() != 0) && ("edit".equals(request.getParameter("action")))) {
 						
-							ReseñaLogic rLogic = new ReseñaLogic();
+							ResenaLogic rLogic = new ResenaLogic();
 							reseñaUsuario.setTitulo(request.getParameter("inputTitulo"));
 							reseñaUsuario.setDescripcion(request.getParameter("inputDescripcion"));
 							reseñaUsuario.setPuntuacion(Integer.parseInt(request.getParameter("inputPuntuacion")));
@@ -101,7 +101,7 @@ public class Reseñas extends HttpServlet {
 					// Si la accion es borrar y hay reseña
 					if ((reseñaUsuario.getId() != 0) && ("delete".equals(request.getParameter("action")))) {
 						
-							ReseñaLogic rLogic = new ReseñaLogic();
+							ResenaLogic rLogic = new ResenaLogic();
 							// Seteo en null de id_reseña en la compra
 							compra = clogic.getOne(Integer.parseInt(request.getParameter("hiddenNroSerieCompra")));
 							compra.setId_reseña(0);

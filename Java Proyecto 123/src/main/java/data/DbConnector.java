@@ -8,11 +8,11 @@ public class DbConnector
     private static DbConnector instancia;
 
     private String driver = "com.mysql.cj.jdbc.Driver";
-    private String host = "localhost";
+    private String host = "us-cdbr-east-05.cleardb.net";
     private String port = "3306";
-    private String user = "java";
-    private String password = "himitsu";
-    private String db = "market_tp";
+    private String user = "bac6284df19812";
+    private String password = "494ded57";
+    private String db = "heroku_2ba32d1f2ee3d5b";
     private int conectados = 0;
     private Connection conn = null;
 
@@ -44,7 +44,7 @@ public class DbConnector
 	    if (conn == null || conn.isClosed())
 	    {
 		conn = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + db, user, password);
-		conectados = 50;
+		conectados = 0;
 	    }
 	}
 	catch (SQLException e)
@@ -58,13 +58,12 @@ public class DbConnector
 
     public void releaseConn() throws SQLException
     {
-	
+		conectados--;
 	try
 	{
-	    if (conectados > 0)
+	    if (conectados <=0 )
 	    {
 		conn.close();
-		conectados--;
 	    }
 	}
 	catch (SQLException e)

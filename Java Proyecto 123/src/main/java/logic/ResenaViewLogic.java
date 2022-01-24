@@ -3,15 +3,15 @@ package logic;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-import data.DataReseñaView;
+import data.DataResenaView;
 import entities.Juego;
-import entities.ReseñaView;
+import entities.ResenaView;
 import entities.Usuario;
 
-public class ReseñaViewLogic {
-    private DataReseñaView db = new DataReseñaView();
+public class ResenaViewLogic {
+    private DataResenaView db = new DataResenaView();
 
-    public LinkedList<ReseñaView> getAllByJuego(Juego juego) throws SQLException {
+    public LinkedList<ResenaView> getAllByJuego(Juego juego) throws SQLException {
 	try {
 	    return db.getAllByJuego(juego);
 	} catch (SQLException e) {
@@ -20,7 +20,7 @@ public class ReseñaViewLogic {
 
     }
 
-    public ReseñaView getByJuegoYUsuario(Juego juego, Usuario usuario) throws SQLException {
+    public ResenaView getByJuegoYUsuario(Juego juego, Usuario usuario) throws SQLException {
 	try {
 	    return db.getByJuegoYUsuario(juego, usuario);
 	} catch (SQLException e) {

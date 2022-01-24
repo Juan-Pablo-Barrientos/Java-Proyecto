@@ -5,11 +5,11 @@ import entities.*;
 import java.sql.*;
 import java.util.LinkedList;
 
-public class DataReseña {
+public class DataResena {
 
-	public Reseña getOne(int res) throws SQLException {
+	public Resena getOne(int res) throws SQLException {
 		
-		Reseña r=null;
+		Resena r=null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
@@ -21,7 +21,7 @@ public class DataReseña {
 			stmt.setInt(1, res);			
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
-				r=new Reseña();		
+				r=new Resena();		
 				r.setId(rs.getInt("id"));
 				r.setTitulo(rs.getString("titulo"));
 				r.setDescripcion(rs.getString("descripcion"));
@@ -45,17 +45,17 @@ public class DataReseña {
 		return r;
 	}
 	
-	public LinkedList<Reseña> getAll() throws SQLException{		
+	public LinkedList<Resena> getAll() throws SQLException{		
 		Statement stmt=null;
 		ResultSet rs=null;
-		LinkedList<Reseña> rems= new LinkedList<>();
+		LinkedList<Resena> rems= new LinkedList<>();
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
 			rs= stmt.executeQuery("select id,titulo,descripcion,puntuacion from reseña where habilitado=1");			
 			if(rs!=null) {
 				while(rs.next()) {
-					Reseña r=new Reseña();
+					Resena r=new Resena();
 					r.setId(rs.getInt("id"));
 					r.setTitulo(rs.getString("titulo"));
 					r.setDescripcion(rs.getString("descripcion"));
@@ -81,7 +81,7 @@ public class DataReseña {
 		return rems;
 	}
 
-	public Reseña add(Reseña r) throws SQLException {
+	public Resena add(Resena r) throws SQLException {
 
 
 		PreparedStatement stmt= null;
@@ -122,7 +122,7 @@ public class DataReseña {
 		  return r; 
     }
 
-	public void update(Reseña r) throws SQLException {
+	public void update(Resena r) throws SQLException {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -150,7 +150,7 @@ public class DataReseña {
 		}
 	}
 	
-	public void delete(Reseña r) throws SQLException {
+	public void delete(Resena r) throws SQLException {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().

@@ -104,8 +104,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal fade" id="modalJugando" tabindex="-1"
-		static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel"
+	<div class="modal fade" id="modalJugando" tabindex="-1"data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel"
 		aria-hidden="true">
 		<div class="modal-dialog modal-xl d-block">
 			<div class="modal-content">

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import logic.UsuarioLogic;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 import entities.Usuario;
 
 /**
@@ -67,6 +69,11 @@ public class Signin extends HttpServlet
 	
 	if (usr!=null) { 
 	request.getSession().setAttribute("usuario", usr);
+		//JedisPool pool = new JedisPool("redis://redistogo:57f5f0014b7dbf0eea1f663fb3fc57b3@hammerjaw.redistogo.com:11795/", 6379);
+		//  try (Jedis jedis = pool.getResource()) {
+		//	  jedis.set("clientId", Integer.toString(usr.getId()));
+		//}
+		//pool.close();
 	if (request.getParameter("game")!="")
 	{
 		response.sendRedirect("Game?game="+request.getParameter("game"));

@@ -21,7 +21,7 @@ public class Game extends HttpServlet {
 	private	JuegoViewLogic jgoLogic = new JuegoViewLogic();
 	private	JuegoView jgo = new JuegoView();
 	private	CompraLogic compraLogic = new CompraLogic();
-	private ReseñaViewLogic reseñaViewLogic = new ReseñaViewLogic();
+	private ResenaViewLogic reseñaViewLogic = new ResenaViewLogic();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -40,7 +40,7 @@ public class Game extends HttpServlet {
 		try {
 			Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 			jgo = jgoLogic.getOne(Integer.parseInt(request.getParameter("game")));
-			LinkedList<ReseñaView> reseñasViewJuego = reseñaViewLogic.getAllByJuego(jgo.getJuego());	
+			LinkedList<ResenaView> reseñasViewJuego = reseñaViewLogic.getAllByJuego(jgo.getJuego());	
 			request.setAttribute("game", jgo);
 			request.setAttribute("reseñasJuego", reseñasViewJuego);
 			request = setReseñaUsuario(request,usuario,jgo);		
