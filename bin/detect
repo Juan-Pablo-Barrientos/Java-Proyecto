@@ -3,5 +3,5 @@
 
 # used for inline heroku buildpack
 
-echo "My Subdir buildpack"
+echo "Java Proyecto 123"
 exit 0
