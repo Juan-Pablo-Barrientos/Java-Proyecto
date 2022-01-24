@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+
+   <servlet>
+    <servlet-name>ListadoUsuarios</servlet-name>
+    <servlet-class>
+        servlet.ListadoUsuarios
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoUsuarios</servlet-name>
+    <url-pattern>/ListadoUsuarios.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ListadoUsuariosDisplay</servlet-name>
+    <servlet-class>
+        servlet.ListadoUsuariosDisplay
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoUsuariosDisplay</servlet-name>
+    <url-pattern>/ListadoUsuariosDisplay.do</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+    <servlet-name>ListadoDesarrolladores</servlet-name>
+    <servlet-class>
+        servlet.ListadoDesarrrolladores
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoDesarrolladores</servlet-name>
+    <url-pattern>/ListadoDesarrolladores.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ListadoDesarrolladoresDisplay</servlet-name>
+    <servlet-class>
+        servlet.ListadoDesarrolladoresDisplay
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoDesarrolladoresDisplay</servlet-name>
+    <url-pattern>/ListadoDesarrolladoresDisplay.do</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+    <servlet-name>ListadoPublicadores</servlet-name>
+    <servlet-class>
+        servlet.ListadoPublicadores
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoPublicadores</servlet-name>
+    <url-pattern>/ListadoPublicadores.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ListadoPublicadoresDisplay</servlet-name>
+    <servlet-class>
+        servlet.ListadoPublicadoresDisplay
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoPublicadoresDisplay</servlet-name>
+    <url-pattern>/ListadoPublicadoresDisplay.do</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+    <servlet-name>ListadoReembolsoPendiente</servlet-name>
+    <servlet-class>
+        servlet.ListadoReembolsoPendiente
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoReembolsoPendiente</servlet-name>
+    <url-pattern>/ListadoReembolsoPendiente.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ListadoReembolsoPendienteDisplay</servlet-name>
+    <servlet-class>
+        servlet.ListadoReembolsoPendienteDisplay
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListadoReembolsoPendienteDisplay</servlet-name>
+    <url-pattern>/ListadoReembolsoPendienteDisplay.do</url-pattern>
+  </servlet-mapping>
+</web-app>
