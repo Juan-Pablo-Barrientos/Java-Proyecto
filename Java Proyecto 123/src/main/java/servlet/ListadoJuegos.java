@@ -1,8 +1,13 @@
 package servlet;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+
+import com.cloudinary.*;
+import com.cloudinary.utils.ObjectUtils;
 
 import org.apache.commons.fileupload.*;
 import org.apache.commons.io.*;
@@ -10,6 +15,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.time.LocalDate;
 
 import javax.servlet.ServletException;
@@ -87,9 +93,9 @@ public class ListadoJuegos extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// Verifica que el usuario sea admin
+		int success = 0;
 		try {
 			Usuario usr;
-			int success = 0;
 			if (request.getSession().getAttribute("usuario") != null) {
 				usr = (Usuario) request.getSession().getAttribute("usuario");
 				if (usr.getTipo().equals("admin")) {
@@ -111,14 +117,25 @@ public class ListadoJuegos extends HttpServlet {
 						jgoEdit.setGenero(request.getParameter("juegoGeneroId"));
 						jgoEdit.setReestriccionPorEdad(request.getParameter("juegoReestriccionId"));
 						jgoEdit.setUrl(request.getParameter("juegoUrlId"));
-						Part filePart = request.getPart("file");
-						InputStream fileContent = filePart.getInputStream();
-						byte[] image = IOUtils.toByteArray(fileContent); // Apache commons IO.
-						if (image.length!=0)
-						{
-						jgoEdit.setImagen(image);
-						}else {
-							jgoEdit.setImagen(jgoLogic.getOneImageById(Integer.parseInt(request.getParameter("juegoId"))));
+							Part filePart = request.getPart("file");
+							Cloudinary cdn = cdnLogic.getCdn();
+							InputStream fileContent = filePart.getInputStream();
+							byte[] image = IOUtils.toByteArray(fileContent);
+							File tempFile = File.createTempFile("temp", null, null);
+							FileOutputStream fos = new FileOutputStream(tempFile);
+							fos.write(image);
+							if (!(tempFile.length()==0)) {
+							String tiempo = "v"+Long.toString(Instant.now().getEpochSecond());
+							Map params = ObjectUtils.asMap("public_id", "myfolder/images/" + jgoEdit.getId() + "/1",
+									"overwrite", true, "notification_url", "http://claww.herokuapp.com/notify_endpoint",
+									"resource_type", "image",
+									"invalidate",true,
+									"timestamp",tiempo);
+							jgoEdit.setTimeImage(tiempo);
+							Map uploadResult = cdn.uploader().upload(tempFile, params);
+							fileContent.close();
+							fos.close();
+							tempFile.delete();
 						}
 						if (request.getParameter("juegoNombreId").equals(
 								(jgoLogic.getOne(Integer.parseInt(request.getParameter("juegoId"))).getNombre()))) {
@@ -135,6 +152,7 @@ public class ListadoJuegos extends HttpServlet {
 						}
 					}
 					if ("new".equals(request.getParameter("action"))) {
+
 						JuegoLogic jgoLogic = new JuegoLogic();
 						Juego jgoEdit = new Juego();
 						LocalDate date = LocalDate.parse(request.getParameter("juegoFechaId"));
@@ -149,12 +167,26 @@ public class ListadoJuegos extends HttpServlet {
 						jgoEdit.setUrl(request.getParameter("juegoUrlId"));
 						jgoEdit.setDescuento(Double.parseDouble(request.getParameter("juegoDescuentoId2")) / 100);
 
-						Part filePart = request.getPart("file"); //
-						// String fileName =
-						// Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+						if (!(request.getPart("file").toString().isBlank())) {
+						Part filePart = request.getPart("file");
+						Cloudinary cdn = cdnLogic.getCdn();
 						InputStream fileContent = filePart.getInputStream();
-						byte[] image = IOUtils.toByteArray(fileContent); // Apache commons IO.
-						jgoEdit.setImagen(image);
+						byte[] image = IOUtils.toByteArray(fileContent);
+						File tempFile = File.createTempFile("temp", null, null);
+						FileOutputStream fos = new FileOutputStream(tempFile);
+						fos.write(image);
+						String tiempo = "v"+Long.toString(Instant.now().getEpochSecond());
+						Map params = ObjectUtils.asMap("public_id", "myfolder/images/" + jgoEdit.getId() + "/1",
+								"overwrite", true, "notification_url", "http://claww.herokuapp.com/notify_endpoint",
+								"resource_type", "image",
+								"invalidate",true,
+								"timestamp",tiempo);
+						jgoEdit.setTimeImage(tiempo);
+						Map uploadResult = cdn.uploader().upload(tempFile, params);
+						fileContent.close();
+						fos.close();
+						tempFile.delete();
+					}
 						if (!jgoLogic.GameNameExist(jgoEdit.getNombre())) {
 							jgoLogic.add(jgoEdit);
 							success = 3;
@@ -177,14 +209,14 @@ public class ListadoJuegos extends HttpServlet {
 							properties.setProperty("mail.smtp.host", "smtp.gmail.com");
 							properties.put("mail.smtp.auth", "true");
 							properties.put("mail.smtp.user", "gamesclawgames@gmail.com");
-							properties.put("mail.smtp.password", "Momo0808");
+							properties.put("mail.smtp.password", "ProyectoJava2");
 							properties.put("mail.smtp.port", "587");
 							properties.put("mail.smtp.starttls.enable", "true");
 							// Get the default Session object.
 							Session session = Session.getDefaultInstance(properties, new Authenticator() {
 
 								protected PasswordAuthentication getPasswordAuthentication() {
-									return new PasswordAuthentication("gamesclawgames@gmail.com", "Momo0808");
+									return new PasswordAuthentication("gamesclawgames@gmail.com", "ProyectoJava2");
 								}
 							});
 							// Set response content type
@@ -241,6 +273,9 @@ public class ListadoJuegos extends HttpServlet {
 			e.printStackTrace();
 			request.setAttribute("result", "Los servidores estan caidos");
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
+		} catch (IOException e) {
+			success = 9;
+			response.sendRedirect("ListadoJuegosDisplay.do?s=" + success);
 		}
 	}
 }

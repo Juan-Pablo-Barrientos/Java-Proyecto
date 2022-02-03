@@ -1,1 +1,1 @@
-web: java -jar target/dependency/webapp-runner.jar --session-store redis target/claww-0.0.1-SNAPSHOT.war
+web: java -jar target/dependency/webapp-runner.jar --uri-encoding UTF-8 --session-store redis target/claww-0.0.1-SNAPSHOT.war --uri-encoding UTF-8

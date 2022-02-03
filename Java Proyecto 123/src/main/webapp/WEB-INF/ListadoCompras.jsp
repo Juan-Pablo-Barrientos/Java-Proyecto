@@ -19,11 +19,9 @@
 
 <link rel="icon" href="img/logo_modificado.ico">
 <title>Listado Compras</title>
-<link href="Styles/Style.css" rel="stylesheet" type="text/css" />
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
-<link href="bootstrap/css/bootstrap.css" rel="stylesheet"
-	type="text/css" />
+<link rel="stylesheet" type="text/css" href="css/Style.css" />
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"

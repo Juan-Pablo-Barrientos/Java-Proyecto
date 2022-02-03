@@ -18,10 +18,10 @@
 <meta name="author" content="">
 <title>Lista de Juegos</title>
 <link rel="icon" href="img/logo_modificado.ico">
-<link href="Styles/Style.css" rel="stylesheet" type="text/css" />
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="bootstrap/css/bootstrap.css" rel="stylesheet"
-	type="text/css" />
+
+
+<link rel="stylesheet" type="text/css" href="css/Style.css" />
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 <script src="https://kit.fontawesome.com/31c85e85ce.js"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"

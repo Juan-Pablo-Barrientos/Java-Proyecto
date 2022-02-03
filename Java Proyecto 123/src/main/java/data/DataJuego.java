@@ -118,7 +118,7 @@ public class DataJuego
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,imagen \n"
+		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,timeImage \n"
 			    + " from juego where id=? and habilitado=1");
 
 	    stmt.setInt(1, jue);
@@ -137,15 +137,7 @@ public class DataJuego
 		j.setUrl(rs.getString("url"));
 		j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 		j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
-	    Blob blob = rs.getBlob("imagen");
-	    byte[] blobAsBytes = null;
-	    if (blob!=null) {
-		    int blobLength = (int) blob.length();  
-		    blobAsBytes = blob.getBytes(1, blobLength);
-		    blob.free();
-	    }
-	    j.setImagen(blobAsBytes);
-
+		j.setTimeImage(rs.getString("timeImage"));
 	    }
 	}
 	catch (SQLException e)
@@ -186,7 +178,7 @@ public class DataJuego
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,imagen \n"
+		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,timeImage \n"
 			    + " from juego where id=? and habilitado=1 and genero=?");
 
 	    stmt.setInt(1, jue);
@@ -206,15 +198,7 @@ public class DataJuego
 		j.setUrl(rs.getString("url"));
 		j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 		j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
-	    Blob blob = rs.getBlob("imagen");
-	    byte[] blobAsBytes = null;
-	    if (blob!=null) {
-		    int blobLength = (int) blob.length();  
-		    blobAsBytes = blob.getBytes(1, blobLength);
-		    blob.free();
-	    }
-	    j.setImagen(blobAsBytes);
-
+		j.setTimeImage(rs.getString("timeImage"));
 	    }
 	}
 	catch (SQLException e)
@@ -255,7 +239,7 @@ public class DataJuego
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "SELECT id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,imagen \n"		
+		    "SELECT id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,timeImage \n"		
 		    + "	FROM juego WHERE nombre LIKE ? AND habilitado=1;");
 
 	    stmt.setString(1, "%" + name + "%");
@@ -277,15 +261,7 @@ public class DataJuego
 		    j.setUrl(rs.getString("url"));
 		    j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 		    j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
-		    Blob blob = rs.getBlob("imagen");
-		    byte[] blobAsBytes = null;
-		    if (blob!=null) {
-			    int blobLength = (int) blob.length();  
-			    blobAsBytes = blob.getBytes(1, blobLength);
-			    blob.free();
-		    }
-		    j.setImagen(blobAsBytes);
-
+		    j.setTimeImage(rs.getString("timeImage"));
 		    juegs.add(j);
 		}
 	    }
@@ -330,7 +306,7 @@ public class DataJuego
 	{
 	    stmt = DbConnector.getInstancia().getConn().createStatement();
 	    rs = stmt.executeQuery(
-		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,imagen \n"
+		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,timeImage \n"
 			    + "from juego where habilitado=1 and descuento!=0");
 	    if (rs != null)
 	    {
@@ -348,15 +324,7 @@ public class DataJuego
 		    j.setUrl(rs.getString("url"));
 		    j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 		    j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
-		    Blob blob = rs.getBlob("imagen");
-		    byte[] blobAsBytes = null;
-		    if (blob!=null) {
-			    int blobLength = (int) blob.length();  
-			    blobAsBytes = blob.getBytes(1, blobLength);
-			    blob.free();
-		    }
-		    j.setImagen(blobAsBytes);
-
+		    j.setTimeImage("timeImage");
 		    juegs.add(j);
 		}
 	    }
@@ -402,7 +370,7 @@ public class DataJuego
 	{
 	    stmt = DbConnector.getInstancia().getConn().createStatement();
 	    rs = stmt.executeQuery(
-		    "select id,nombre,descuento,genero,imagen \n"
+		    "select id,nombre,descuento,genero,timeImage \n"
 			    + "from juego where habilitado=1");
 	    if (rs != null)
 	    {
@@ -413,15 +381,7 @@ public class DataJuego
 		    j.setNombre(rs.getString("nombre"));
 		    j.setDescuento(rs.getDouble("descuento"));
 		    j.setGenero(rs.getString("genero"));
-		    Blob blob = rs.getBlob("imagen");
-		    byte[] blobAsBytes = null;
-		    if (blob!=null) {
-			    int blobLength = (int) blob.length();  
-			    blobAsBytes = blob.getBytes(1, blobLength);
-			    blob.free();
-		    }
-		    j.setImagen(blobAsBytes);
-
+		    j.setTimeImage(rs.getString("timeImage"));
 		    juegs.add(j);
 		}
 	    }
@@ -469,7 +429,7 @@ public class DataJuego
 	{
 	    stmt = DbConnector.getInstancia().getConn().createStatement();
 	    rs = stmt.executeQuery(
-		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,imagen \n"
+		    "select id,id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,timeImage \n"
 			    + "from juego where habilitado=1");
 	    if (rs != null)
 	    {
@@ -487,15 +447,7 @@ public class DataJuego
 		    j.setUrl(rs.getString("url"));
 		    j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 		    j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
-		    Blob blob = rs.getBlob("imagen");
-		    byte[] blobAsBytes = null;
-		    if (blob!=null) {
-			    int blobLength = (int) blob.length();  
-			    blobAsBytes = blob.getBytes(1, blobLength);
-			    blob.free();
-		    }
-		    j.setImagen(blobAsBytes);
-
+		    j.setTimeImage(rs.getString("timeImage"));
 		    juegs.add(j);
 		}
 	    }
@@ -561,15 +513,7 @@ public class DataJuego
 		    j.setUrl(rs.getString("url"));
 		    j.setFecha_publicacion(rs.getObject("fecha_publicacion",LocalDate.class));
 		    j.setReestriccionPorEdad(rs.getString("restriccion_por_edad"));
-		    Blob blob = rs.getBlob("imagen");
-		    byte[] blobAsBytes = null;
-		    if (blob!=null) {
-			    int blobLength = (int) blob.length();  
-			    blobAsBytes = blob.getBytes(1, blobLength);
-			    blob.free();
-		    }
-		    j.setImagen(blobAsBytes);
-
+		    j.setTimeImage(rs.getString("timeImage"));
 		    juegs.add(j);
 		}
 	    }
@@ -613,7 +557,7 @@ public class DataJuego
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement(
-		    "insert into juego(id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,imagen ) \n"
+		    "insert into juego(id_publicador,id_desarrollador,nombre,descripcion,precio_base,descuento,genero,fecha_publicacion,restriccion_por_edad,url,timeImage ) \n"
 			    + " values(?,?,?,?,?,?,?,?,?,?,?)",
 		    PreparedStatement.RETURN_GENERATED_KEYS);
 
@@ -627,8 +571,7 @@ public class DataJuego
 	    stmt.setObject(8, j.getFecha_publicacion());
 		stmt.setString(9, j.getReestriccionPorEdad());
 	    stmt.setString(10, j.getUrl());
-	    Blob blob = new javax.sql.rowset.serial.SerialBlob(j.getImagen());
-	    stmt.setBlob(11,blob);
+	    stmt.setString(11, j.getTimeImage());
 	    stmt.executeUpdate();
 	    keyResultSet = stmt.getGeneratedKeys();
 	    if (keyResultSet != null && keyResultSet.next())
@@ -667,7 +610,7 @@ public class DataJuego
 	try
 	{
 	    stmt = DbConnector.getInstancia().getConn().prepareStatement("update juego set nombre=?,id_publicador=?,id_desarrollador=?, \n"
-		    + "descripcion=?,precio_base=?,descuento=?,genero=?,fecha_publicacion=?,restriccion_por_edad=?,url=?,imagen=? where id=?");
+		    + "descripcion=?,precio_base=?,descuento=?,genero=?,fecha_publicacion=?,restriccion_por_edad=?,url=?,timeImage=? where id=?");
 
 	    stmt.setString(1, j.getNombre());
 	    stmt.setInt(2, j.getIdPublicador());
@@ -679,8 +622,7 @@ public class DataJuego
 	    stmt.setObject(8, j.getFecha_publicacion());
 		stmt.setString(9, j.getReestriccionPorEdad());
 	    stmt.setString(10, j.getUrl());
-	    Blob blob = new javax.sql.rowset.serial.SerialBlob(j.getImagen());
-	    stmt.setBlob(11,blob);
+	    stmt.setString(11, j.getTimeImage());
 	    stmt.setInt(12, j.getId());
 
 	    stmt.executeUpdate();

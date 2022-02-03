@@ -14,9 +14,10 @@
 <meta name="author" content="">
 
 <link rel="icon" href="img/logo_modificado.ico">
-<link href="Styles/Style.css" rel="stylesheet" type="text/css" />
-<link href="bootstrap/css/bootstrap.css" rel="stylesheet"
-	type="text/css" />
+
+<link rel="stylesheet" type="text/css" href="css/Style.css" />
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
 <title>Homepage</title>
 <style>
 </style>
@@ -43,7 +44,7 @@
 								<div class="carousel-item">
 									<a href="Game?game=${j.id}"> <img
 										style="height: 334px !important; width: 595px !important;"
-										src="${pageContext.request.contextPath}/Images/1.png?game=${j.id}"
+										src="https://res.cloudinary.com/clawgames/image/upload/${j.timeImage}/myfolder/images/${j.id}/1"
 										class="d-block w-100" alt="...">
 										<div class="carousel-caption d-none d-md-block"style="opacity:0.8;background-color:black;">
 											<h4 style="opacity:1">${j.nombre}</h4>
@@ -86,7 +87,7 @@
 
 									<a href="Game?game=${j.id}"> <img
 										style="height: 334px !important; width: 595px !important;"
-										src="${pageContext.request.contextPath}/Images/1.png?game=${j.id}"
+										src="https://res.cloudinary.com/clawgames/image/upload/${j.timeImage}/myfolder/images/${j.id}/1"
 										class="d-block w-100" alt="...">
 										<div class="carousel-caption d-none d-md-block"style="opacity:0.8;background-color:black;">
 											<h4 style="opacity:1">${j.nombre}</h4>
@@ -131,7 +132,7 @@
 								<div class="carousel-item">
 									<a href="Game?game=${j.id}"> <img
 										style="height: 334px !important; width: 595px !important;"
-										src="${pageContext.request.contextPath}/Images/1.png?game=${j.id}"
+										src="https://res.cloudinary.com/clawgames/image/upload/${j.timeImage}/myfolder/images/${j.id}/1"
 										class="d-block w-100" alt="...">
 										<div class="carousel-caption d-none d-md-block"style="opacity:0.8;background-color:black;">
 											<h4 style="opacity:1">${j.nombre}</h4>
@@ -174,7 +175,7 @@
 
 									<a href="Game?game=${j.id}"><img
 										style="height: 334px !important; width: 595px !important;"
-										src="${pageContext.request.contextPath}/Images/1.png?game=${j.id}"
+										src="https://res.cloudinary.com/clawgames/image/upload/${j.timeImage}/myfolder/images/${j.id}/1"
 										class="d-block w-100" alt="...">
 										<div class="carousel-caption d-none d-md-block"style="opacity:0.8;background-color:black;">
 											<h4 style="opacity:1">${j.nombre}</h4>
@@ -219,7 +220,7 @@
 
 									<a href="Game?game=${j.id}"> <img
 										style="height: 334px !important; width: 595px !important;"
-										src="${pageContext.request.contextPath}/Images/1.png?game=${j.id}"
+										src="https://res.cloudinary.com/clawgames/image/upload/${j.timeImage}/myfolder/images/${j.id}/1"
 										class="d-block w-100" alt="...">
 										<div class="carousel-caption d-none d-md-block"style="opacity:0.8;background-color:black;">
 											<h4 style="opacity:1">${j.nombre}</h4>
@@ -262,7 +263,7 @@
 
 									<a href="Game?game=${j.id}"> <img
 										style="height: 334px !important; width: 595px !important;"
-										src="${pageContext.request.contextPath}/Images/1.png?game=${j.id}"
+										src="https://res.cloudinary.com/clawgames/image/upload/${j.timeImage}/myfolder/images/${j.id}/1"
 										class="d-block w-100" alt="...">
 										<div class="carousel-caption d-none d-md-block"style="opacity:0.8;background-color:black;">
 											<h4 style="opacity:1">${j.nombre}</h4>
@@ -309,7 +310,7 @@
 
 									<a href="Game?game=${j.id}"> <img
 										style="height: 334px !important; width: 595px !important;"
-										src="${pageContext.request.contextPath}/Images/1.png?game=${j.id}"
+										src="https://res.cloudinary.com/clawgames/image/upload/${j.timeImage}/myfolder/images/${j.id}/1"
 										class="d-block w-100" alt="...">
 										<div class="carousel-caption d-none d-md-block"style="opacity:0.8;background-color:black;">
 											<h4 style="opacity:1">${j.nombre}</h4>
@@ -352,7 +353,7 @@
 
 									<a href="Game?game=${j.id}"> <img
 										style="height: 334px !important; width: 595px !important;"
-										src="${pageContext.request.contextPath}/Images/1.png?game=${j.id}"
+										src="https://res.cloudinary.com/clawgames/image/upload/${j.timeImage}/myfolder/images/${j.id}/1"
 										class="d-block w-100" alt="...">
 										<div class="carousel-caption d-none d-md-block"style="opacity:0.8;background-color:black;">
 											<h4 style="opacity:1">${j.nombre}</h4>

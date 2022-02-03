@@ -13,9 +13,10 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="img/logo_modificado.ico">
-<link href="Styles/Style.css" rel="stylesheet" type="text/css" />
-<link href="bootstrap/css/bootstrap.css" rel="stylesheet"
-	type="text/css" />
+
+
+<link rel="stylesheet" type="text/css" href="css/Style.css" />
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 <title>Footer</title>
 </head>
 <body>

@@ -76,6 +76,9 @@ public class ListadoJuegosDisplay extends HttpServlet {
 				case 8:
 					request.setAttribute("result", "Se ha actualizado el descuento pero ha fallado el envio de email");
 					break;
+				case 9:
+					request.setAttribute("result", "Problema con el ingreso de la imagen del juego");
+					break;
 				}
 				JuegoViewLogic juegoviewlogic = new JuegoViewLogic();
 				LinkedList<JuegoView> juegosview;

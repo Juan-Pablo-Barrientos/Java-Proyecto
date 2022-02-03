@@ -17,10 +17,10 @@
 <meta name="author" content="">
 <title>Lista de Juegos</title>
 <link rel="icon" href="img/logo_modificado.ico">
-<link href="Styles/Style.css" rel="stylesheet" type="text/css" />
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="bootstrap/css/bootstrap.css" rel="stylesheet"
-	type="text/css" />
+
+
+<link rel="stylesheet" type="text/css" href="css/Style.css" />
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
@@ -176,7 +176,7 @@
 							 <input
 								onchange="ValidarInput(this)" class="form-control"
 								id="juegoImagenId" type="file" name="file" size="100"
-								accept="image/*" />
+								 accept="image/*"  />
 						</div>
 						<div class="form-group">
 							<label for="juegoDescuentoId" id="lblDescripcion">Descripcion</label>
@@ -326,6 +326,7 @@
 							<th data-field="restriccion">Restriccion</th>
 							<th data-field="descripcion" class="hidecol">Descripcion</th>
 							<th data-field="url" class="hidecol">Url</th>
+							<th data-field="timeImage" class="hidecol">timeImage</th>
 							<th data-field="operate" data-formatter="operateFormatter"
 								data-events="operateEvents"><a class="nuevo"
 								id="nuevoButtonId" onclick="createJuego()"
@@ -349,6 +350,7 @@
 								<td><c:out value="${c.juego.reestriccionPorEdad}"></c:out></td>
 								<td><c:out value="${c.juego.descripcion}"></c:out></td>
 								<td><c:out value="${c.juego.url}"></c:out></td>
+								<td><c:out value="${c.juego.timeImage}"></c:out></td>
 								<td></td>
 							</tr>
 						</c:forEach>
@@ -404,7 +406,7 @@
 			    $("#lblDescuentoId").hide();
 			    $('#juegoDescripcionId').removeAttr('required');
 			    $('#juegoDescuentoId2').removeAttr('required');
-			    $("#juegoImagen").attr("src","${pageContext.request.contextPath}/Images/1.png?game="+[row.idjuego]);
+			    $("#juegoImagen").attr("src","https://res.cloudinary.com/clawgames/image/upload/"+[row.timeImage]+"/myfolder/images/"+[row.idjuego]+"/1");
 			    },
 			'click .remove' : function(e, value, row, index) {
 			$("#modalBorrarlbl").text(
@@ -455,7 +457,7 @@
 			$("#EditarJuegoNombrelbl").text("Crear nuevo juego");
 		    $('#juegoDescripcionId').attr('required');
 		    $('#juegoDescuentoId2').attr('required');
-		    $("#juegoImagen").attr("src","${pageContext.request.contextPath}/Images/1.png?game="+[0]);
+		    $("#juegoImagen").attr("src","https://res.cloudinary.com/clawgames/image/upload/myfolder/images/"+[0]+"/1");
 		}
 		
 		$(window).on('load', function() {

@@ -18,7 +18,7 @@ public class Juego implements java.io.Serializable
 	private LocalDate fecha_publicacion;
 	private String reestriccionPorEdad;
 	private String url;
-	private byte[] Imagen;
+	private String timeImage;
 	
 	public int getId() {
 		return id;
@@ -86,11 +86,11 @@ public class Juego implements java.io.Serializable
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public byte[] getImagen() {
-		return Imagen;
+	public String getTimeImage() {
+		return timeImage;
 	}
-	public void setImagen(byte[] imagen) {
-		Imagen = imagen;
+	public void setTimeImage(String timeImage) {
+		this.timeImage = timeImage;
 	}
 	
 }

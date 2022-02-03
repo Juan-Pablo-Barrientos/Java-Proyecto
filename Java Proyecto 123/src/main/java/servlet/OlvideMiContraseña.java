@@ -67,7 +67,7 @@ public class OlvideMiContraseña extends HttpServlet {
 		properties.setProperty("mail.smtp.host", "smtp.gmail.com");
 		properties.put("mail.smtp.auth", "true");
 		properties.put("mail.smtp.user", "gamesclawgames@gmail.com");
-		properties.put("mail.smtp.password", "TestTest");
+		properties.put("mail.smtp.password", "ProyectoJava2");
 		properties.put("mail.smtp.port", "587");
 		properties.put("mail.smtp.starttls.enable", "true");
 
@@ -75,7 +75,7 @@ public class OlvideMiContraseña extends HttpServlet {
 		Session session = Session.getDefaultInstance(properties, new Authenticator() {
 
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("gamesclawgames@gmail.com", "TestTest");
+				return new PasswordAuthentication("gamesclawgames@gmail.com", "ProyectoJava2");
 			}
 		});
 

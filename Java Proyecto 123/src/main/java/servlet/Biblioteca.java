@@ -39,10 +39,14 @@ public class Biblioteca extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
+		Usuario usr=null;
+		if ((Usuario) request.getSession().getAttribute("usuario")!=null)
+		{
+		usr =(Usuario) request.getSession().getAttribute("usuario");
 		CompraViewLogic compraViewLogic = new CompraViewLogic();
 		LinkedList<CompraView> rems = null;
 		try {
+			
 			rems = compraViewLogic.getAllByUserId(usr.getId());
 		} catch (SQLException e) {
 			request.getSession().invalidate();
@@ -52,6 +56,10 @@ public class Biblioteca extends HttpServlet {
 		}
 		request.setAttribute("listaCompraView", rems);
 		request.getRequestDispatcher("/WEB-INF/Biblioteca.jsp").forward(request, response);
+		}
+		else {request.setAttribute("result", "Los servidores estan caidos");
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

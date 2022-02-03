@@ -11,10 +11,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="img/logo_modificado.ico">
-<link href="Styles/Style.css" rel="stylesheet" type="text/css" />
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="bootstrap/css/bootstrap.css" rel="stylesheet"
-	type="text/css" />
+
+
+<link rel="stylesheet" type="text/css" href="css/Style.css" />
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
@@ -61,7 +61,7 @@ img {
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
-				<form action="Reseñas" method="post" onSubmit="">
+				<form action="Resenas" method="post" onSubmit="">
 					<input type="hidden" name="action" value="edit" /> <input
 						type="hidden" name="hiddenIdJuego" value="${game.juego.id}" />
 					<div class="modal-body">
@@ -114,7 +114,7 @@ img {
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">Regresar</button>
-					<form method="post" action="Reseñas">
+					<form method="post" action="Resenas">
 						<input type="hidden" name="action" value="delete" /> <input
 							type="hidden" name="hiddenIdJuego" value="${game.juego.id}" /> <input
 							type="hidden" name="hiddenNroSerieCompra"
@@ -169,7 +169,7 @@ img {
 			<div class="">
 				<img style="max-width: 100%; max-height: 100%;"
 					class="shadow-lg p-3 mb-5 bg-white rounded"
-					src="${pageContext.request.contextPath}/Images/1.png?game=${game.juego.id}" />
+					src="https://res.cloudinary.com/clawgames/image/upload/${game.juego.timeImage}/myfolder/images/${game.juego.id}/1"/>
 			</div>
 		</div>
 		<div class="col" style="">
@@ -246,7 +246,7 @@ img {
 			<c:if
 				test="${(reseñaViewUsuario.reseña.id == 0) && (tieneGame == true)}">
 				<div class="shadow-lg p-4 bg-white rounded">
-					<form action="Reseñas" method="post">
+					<form action="Resenas" method="post">
 						<input type="hidden" name="action" value="create" /> <input
 							type="hidden" name="hiddenIdJuego" value="${game.juego.id}" /> <input
 							type="hidden" name="hiddenNroSerieCompra"

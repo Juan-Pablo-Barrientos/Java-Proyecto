@@ -64,6 +64,9 @@ public class CompraGameDisplay extends HttpServlet {
 			case 7:
 				request.setAttribute("result", "");
 				break;
+			case 8:
+				request.setAttribute("result", "La compra fue realizada con exito pero hubo un problema con la mensajeria email");
+				break;
 			}
 			JuegoViewLogic jgoLogic = new JuegoViewLogic();
 			CompraLogic compraLogic = new CompraLogic();

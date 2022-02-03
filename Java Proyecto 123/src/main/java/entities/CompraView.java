@@ -1,5 +1,7 @@
 package entities;
 
+import java.math.BigInteger;
+
 public class CompraView {
 	
 	private Usuario usuario;
