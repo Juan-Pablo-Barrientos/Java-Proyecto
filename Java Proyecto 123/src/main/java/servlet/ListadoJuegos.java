@@ -166,29 +166,29 @@ public class ListadoJuegos extends HttpServlet {
 						jgoEdit.setDescripcion(request.getParameter("juegoDescripcionId"));
 						jgoEdit.setUrl(request.getParameter("juegoUrlId"));
 						jgoEdit.setDescuento(Double.parseDouble(request.getParameter("juegoDescuentoId2")) / 100);
-
-						if (!(request.getPart("file").toString().isBlank())) {
-						Part filePart = request.getPart("file");
-						Cloudinary cdn = cdnLogic.getCdn();
-						InputStream fileContent = filePart.getInputStream();
-						byte[] image = IOUtils.toByteArray(fileContent);
-						File tempFile = File.createTempFile("temp", null, null);
-						FileOutputStream fos = new FileOutputStream(tempFile);
-						fos.write(image);
 						String tiempo = "v"+Long.toString(Instant.now().getEpochSecond());
-						Map params = ObjectUtils.asMap("public_id", "myfolder/images/" + jgoEdit.getId() + "/1",
-								"overwrite", true, "notification_url", "http://claww.herokuapp.com/notify_endpoint",
-								"resource_type", "image",
-								"invalidate",true,
-								"timestamp",tiempo);
 						jgoEdit.setTimeImage(tiempo);
-						Map uploadResult = cdn.uploader().upload(tempFile, params);
-						fileContent.close();
-						fos.close();
-						tempFile.delete();
-					}
+						
 						if (!jgoLogic.GameNameExist(jgoEdit.getNombre())) {
-							jgoLogic.add(jgoEdit);
+							Juego jgoNuevo =jgoLogic.add(jgoEdit);
+							Part filePart = request.getPart("file");
+							Cloudinary cdn = cdnLogic.getCdn();
+							InputStream fileContent = filePart.getInputStream();
+							byte[] image = IOUtils.toByteArray(fileContent);
+							File tempFile = File.createTempFile("temp", null, null);
+							FileOutputStream fos = new FileOutputStream(tempFile);
+							fos.write(image);
+							if (!(tempFile.length()==0)) {
+							Map params = ObjectUtils.asMap("public_id", "myfolder/images/" + jgoNuevo.getId() + "/1",
+									"overwrite", true, "notification_url", "http://claww.herokuapp.com/notify_endpoint",
+									"resource_type", "image",
+									"invalidate",true,
+									"timestamp",tiempo);
+							Map uploadResult = cdn.uploader().upload(tempFile, params);
+							fileContent.close();
+							fos.close();
+							tempFile.delete();
+							}
 							success = 3;
 						} else
 							success = 7;

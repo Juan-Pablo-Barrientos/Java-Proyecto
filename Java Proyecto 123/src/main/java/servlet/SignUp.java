@@ -56,7 +56,8 @@ public class SignUp extends HttpServlet {
 			if (!(usrLogic.UserNameExist(usr.getNombreUsuario()) || usrLogic.UserEmailExist(usr.getEmail()))) {
 				usrLogic.add(usr);
 				request.getSession().setAttribute("usuario", usr);
-				request.getRequestDispatcher("Homepage").forward(request, response);
+				//request.getRequestDispatcher("/Homepage.jsp").forward(request, response);
+				response.sendRedirect("Homepage");
 								}
 				else {
 					request.setAttribute("User",usr);

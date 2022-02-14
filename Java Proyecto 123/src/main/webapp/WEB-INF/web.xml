@@ -4,6 +4,8 @@
 
 <welcome-file-list>
 <welcome-file>Homepage</welcome-file>
+<welcome-file>Homepage.jsp</welcome-file>
+<welcome-file>/Homepage.jsp</welcome-file>
 </welcome-file-list>
    <servlet>
     <servlet-name>ListadoUsuarios</servlet-name>

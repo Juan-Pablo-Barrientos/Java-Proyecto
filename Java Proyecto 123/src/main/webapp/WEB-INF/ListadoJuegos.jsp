@@ -176,7 +176,8 @@
 							 <input
 								onchange="ValidarInput(this)" class="form-control"
 								id="juegoImagenId" type="file" name="file" size="100"
-								 accept="image/*"  />
+								 accept="image/*"
+								 required  />
 						</div>
 						<div class="form-group">
 							<label for="juegoDescuentoId" id="lblDescripcion">Descripcion</label>
@@ -406,6 +407,7 @@
 			    $("#lblDescuentoId").hide();
 			    $('#juegoDescripcionId').removeAttr('required');
 			    $('#juegoDescuentoId2').removeAttr('required');
+			    $('#juegoImagenId').removeAttr('required');
 			    $("#juegoImagen").attr("src","https://res.cloudinary.com/clawgames/image/upload/"+[row.timeImage]+"/myfolder/images/"+[row.idjuego]+"/1");
 			    },
 			'click .remove' : function(e, value, row, index) {
@@ -457,7 +459,8 @@
 			$("#EditarJuegoNombrelbl").text("Crear nuevo juego");
 		    $('#juegoDescripcionId').attr('required');
 		    $('#juegoDescuentoId2').attr('required');
-		    $("#juegoImagen").attr("src","https://res.cloudinary.com/clawgames/image/upload/myfolder/images/"+[0]+"/1");
+		    $("#juegoImagen").attr("src","https://res.cloudinary.com/clawgames/image/upload/myfolder/images/asd/1");
+		    $('#juegoImagenId').attr('required');
 		}
 		
 		$(window).on('load', function() {
@@ -468,7 +471,7 @@
 	      window.history.replaceState(
 	        {},
 	        '',
-	        `${window.location.pathname}?${"s=8"}${window.location.hash}`,
+	        `${window.location.pathname}?${"s=15"}${window.location.hash}`,
 	      );
 		   
 		   
@@ -478,7 +481,7 @@
 				    var output = document.getElementById('juegoImagen');
 				    output.src = URL.createObjectURL(event.target.files[0]);
 				    output.onload = function() {
-				      URL.revokeObjectURL(output.src) // free memory
+				      URL.revokeObjectURL(output.src) // libera memoria
 				    }
 		       if (oInput.type == "file") {
 		           var sFileName = oInput.value;
